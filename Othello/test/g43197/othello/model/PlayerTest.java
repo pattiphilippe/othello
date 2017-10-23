@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package g43197.othello.model;
 
 import org.junit.Test;
@@ -21,7 +16,7 @@ public class PlayerTest {
     public void newPlayer() {
         Player p = new Player(Color.BLACK);
         assertEquals(p.getColor(), Color.BLACK);
-        assertEquals(p.getScore)
+        assertEquals(p.getScore(), 0);
     }
 
     /**
@@ -33,16 +28,49 @@ public class PlayerTest {
     }
 
     /**
-     * Test of modifyScore method, of class Player.
+     * Test when first incrementation of score.
      */
     @Test
-    public void testModifyScore() {
+    public void testModifyScoreFirst() {
         Player player = new Player(Color.WHITE);
         int delta = 2;
         player.modifyScore(delta);
-        assertEquals(delta, player.get);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(delta, player.getScore());
+    }
+
+    /**
+     * Test when two incrementations of score.
+     */
+    @Test
+    public void testModifyScoreSeveral() {
+        Player player = new Player(Color.WHITE);
+        int delta = 15;
+        player.modifyScore(delta);
+        delta = 10;
+        player.modifyScore(delta);
+        assertEquals(25, player.getScore());
+    }
+
+    /**
+     * Test incrementation of score with negatives.
+     */
+    @Test
+    public void testModifyScoreNegative() {
+        Player player = new Player(Color.WHITE);
+        int delta = 15;
+        player.modifyScore(delta);
+        delta = -5;
+        player.modifyScore(delta);
+        assertEquals(10, player.getScore());
+    }
+
+    /**
+     * Checks if throws an exception when the score is negative.
+     */
+    @Test(expected = GameException.class)
+    public void testModifyScoreIsNegative() {
+        Player player = new Player(Color.WHITE);
+        player.modifyScore(-5);
     }
 
 }

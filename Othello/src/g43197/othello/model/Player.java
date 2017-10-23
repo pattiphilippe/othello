@@ -1,7 +1,7 @@
 package g43197.othello.model;
 
 /**
- * This class represents a player. Player's are different by their color.
+ * This class represents a player. Players are different by their color.
  *
  * @author Philippe
  */
@@ -11,8 +11,7 @@ public class Player {
     private int score;
 
     /**
-     * Creates a player. The color is set to the given color. Each player starts with half the amount of pieces that you
-     * can place on the board.
+     * Creates a player. The color is set to the given color.
      *
      * @param color
      */
@@ -26,7 +25,7 @@ public class Player {
     }
 
     /**
-     * Returns the color
+     * Returns the color.
      *
      * @return
      */
@@ -35,11 +34,24 @@ public class Player {
     }
 
     /**
+     * Returns the score.
+     *
+     * @return
+     */
+    public int getScore() {
+        return score;
+    }
+
+    /**
      * This method adds the number in argument to the current score.
      *
      * @param delta
      */
     public void modifyScore(int delta) {
-        score += score;
+        score += delta;
+        if(score < 0){
+            throw new GameException("You're badly in the sh*t,"
+                    + " the score is negative!");
+        }
     }
 }
