@@ -19,6 +19,8 @@ public enum Direction {
     }
 
     /**
+     * Returns the row delta to apply to move of 1 tile in the selected
+     * direction.
      *
      * @return
      */
@@ -27,6 +29,8 @@ public enum Direction {
     }
 
     /**
+     * Returns the column delta to apply to move of 1 tile in the selected
+     * direction.
      *
      * @return
      */
