@@ -39,4 +39,26 @@ public class Coordinates {
     public int getCOL() {
         return COL;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Coordinates other = (Coordinates) obj;
+        if (this.ROW != other.ROW) {
+            return false;
+        }
+        if (this.COL != other.COL) {
+            return false;
+        }
+        return true;
+    }
+
 }
