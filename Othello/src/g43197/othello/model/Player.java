@@ -48,10 +48,10 @@ public class Player {
      * @param delta
      */
     public void modifyScore(int delta) {
-        score += delta;
-        if(score < 0){
+        if(score < delta){
             throw new GameException("You're badly in the sh*t,"
                     + " the score is negative!");
         }
+        score += delta;
     }
 }

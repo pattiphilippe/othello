@@ -1,6 +1,7 @@
 package g43197.othello.model;
 
 import static g43197.othello.model.Direction.increment;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,23 +12,22 @@ import java.util.List;
  */
 public class Board {
 
-    public static final int MAX_ROWS = 8;
-    public static final int MAX_COLS = MAX_ROWS;
+    public static final int MAX_ROWS_COLS = 8;
     private final Piece[][] BOARD;
 
     /**
-     * Creates a new board with Max_rows rows and Max_cols columns.
+     * Creates a new board with Max_rows_cols rows and Max_rows_cols columns.
      * Puts the first pieces of the game.
      */
     public Board() {
-        if (MAX_ROWS % 2 != 0 || MAX_COLS % 2 != 0) {
+        if (MAX_ROWS_COLS % 2 != 0) {
             throw new GameException("Amount of rows and columns has to be pair!");
         }
-        if (MAX_ROWS < 4 || MAX_COLS < 4) {
+        if (MAX_ROWS_COLS < 4) {
             throw new GameException("Amount of rows and columns has to be greater or equal to 4!");
         }
 
-        BOARD = new Piece[MAX_ROWS][MAX_COLS];
+        BOARD = new Piece[MAX_ROWS_COLS][MAX_ROWS_COLS];
         initBoardCenter();
     }
 
@@ -68,6 +68,7 @@ public class Board {
     }
 
     ///////////////////////////Private//Methods//////////////////////////////
+    //TODO look if has to be public
     private Piece getPiece(Coordinates pos) {
         if (!isInside(pos)) {
             throw new GameException("Pos is outside the board");
@@ -85,8 +86,8 @@ public class Board {
     }
 
     private boolean isInside(Coordinates pos) {
-        boolean goodLine = isBetween(pos.getROW(), 0, MAX_ROWS - 1);
-        boolean goodCol = isBetween(pos.getCOL(), 0, MAX_COLS - 1);
+        boolean goodLine = isBetween(pos.getROW(), 0, MAX_ROWS_COLS - 1);
+        boolean goodCol = isBetween(pos.getCOL(), 0, MAX_ROWS_COLS - 1);
         return goodLine && goodCol;
     }
 
@@ -95,8 +96,29 @@ public class Board {
     }
 
     private List<Direction> getDirToSwitch(Coordinates pos) {
-        //TODO implement method
-        return null;
+        List<Direction> dirs = new ArrayList<>();
+        Color saveColor = getPiece(pos).getColor();
+        Piece piece;
+        boolean hadOtherColors;
+        for (Direction dir : Direction.values()) {
+            hadOtherColors = false;
+            pos = increment(pos, dir);
+            while (isInside(pos)) {
+                piece = getPiece(pos);
+                if (piece != null) {
+                    if (piece.getColor() != saveColor) {
+                        hadOtherColors = true;
+                        pos = increment(pos, dir);
+                    } else if (hadOtherColors) {
+                        dirs.add(dir);
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+        return dirs;
     }
 
     /*Returns the number of pieces switched.*/

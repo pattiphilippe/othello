@@ -10,11 +10,11 @@ public enum Direction {
     UP(-1, 0), UP_RIGHT(-1, 1), RIGHT(0, 1), DOWN_RIGHT(1, 1), DOWN(1, 0),
     DOWN_LEFT(1, -1), LEFT(0, -1), UP_LEFT(-1, -1);
 
-    private final int DELTA_LINE;
+    private final int DELTA_ROW;
     private final int DELTA_COL;
 
-    private Direction(int deltaLine, int deltaCol) {
-        this.DELTA_LINE = deltaLine;
+    private Direction(int deltaRow, int deltaCol) {
+        this.DELTA_ROW = deltaRow;
         this.DELTA_COL = deltaCol;
     }
 
@@ -24,8 +24,8 @@ public enum Direction {
      *
      * @return
      */
-    public int getDeltaLine() {
-        return DELTA_LINE;
+    public int getDeltaRow() {
+        return DELTA_ROW;
     }
 
     /**
@@ -47,7 +47,7 @@ public enum Direction {
      * @return
      */
     public static Coordinates increment(Coordinates origin, Direction dir) {
-        int line = origin.getROW() + dir.getDeltaLine();
+        int line = origin.getROW() + dir.getDeltaRow();
         int col = origin.getCOL() + dir.getDeltaCol();
         return new Coordinates(line, col);
     }
