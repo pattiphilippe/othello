@@ -31,18 +31,31 @@ public class Board {
         initBoardCenter();
     }
 
-    public void put(Piece piece, Coordinates pos) {
-        if (piece == null || pos == null) {
-            throw new IllegalArgumentException("Piece and pos can't be null!");
-        }
+    /**
+     * Returns the piece in the given position.
+     *
+     * @param pos
+     * @return
+     */
+    public Piece getPiece(Coordinates pos) {
         if (!isInside(pos)) {
             throw new GameException("Pos is outside the board");
         }
-        int line = pos.getROW(), col = pos.getCOL();
-        if (BOARD[line][col] != null) {
-            throw new GameException("Pos already occupied!");
+        return BOARD[pos.getROW()][pos.getCOL()];
+    }
+
+    public void put(Piece piece, Coordinates pos) {
+        if (canPut(piece, pos)) {
+            int line = pos.getROW(), col = pos.getCOL();
+            BOARD[line][col] = piece;
         }
-        BOARD[line][col] = piece;
+        //TODO call consequencePut
+    }
+
+    private boolean canPut(Piece piece, Coordinates pos) {
+        for (Direction dir : Direction.values()) {
+
+        }
     }
 
     /**
@@ -68,21 +81,13 @@ public class Board {
     }
 
     ///////////////////////////Private//Methods//////////////////////////////
-    //TODO look if has to be public
-    private Piece getPiece(Coordinates pos) {
-        if (!isInside(pos)) {
-            throw new GameException("Pos is outside the board");
-        }
-        return BOARD[pos.getROW()][pos.getCOL()];
-    }
-
     /*Puts the first pieces in the center of the board.*/
     private void initBoardCenter() {
         //TODO dynamic method in the center
         this.put(new Piece(Color.WHITE), new Coordinates(3, 3));
         this.put(new Piece(Color.BLACK), new Coordinates(3, 4));
-        this.put(new Piece(Color.WHITE), new Coordinates(4, 3));
-        this.put(new Piece(Color.BLACK), new Coordinates(4, 4));
+        this.put(new Piece(Color.BLACK), new Coordinates(4, 3));
+        this.put(new Piece(Color.WHITE), new Coordinates(4, 4));
     }
 
     private boolean isInside(Coordinates pos) {

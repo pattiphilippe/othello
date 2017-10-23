@@ -14,4 +14,5 @@ public class Todo {
     //TODO accessible lists in Player
     //TODO observable / observer with pieces => update accessibles with every changed 
     //TODO check if can be rectangle board
+    //TODO Game: faire en sorte pas de null exception ds param méthode et pos inside
 }
