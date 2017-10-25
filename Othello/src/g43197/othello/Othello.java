@@ -1,7 +1,7 @@
 package g43197.othello;
 
 import g43197.othello.model.Board;
-import static g43197.othello.view.BoardView.*;
+import g43197.othello.view.BoardView;
 
 /**
  *
@@ -10,7 +10,8 @@ import static g43197.othello.view.BoardView.*;
 public class Othello {
 
     public static void main(String[] args) {
+        BoardView.init();
         Board board = new Board();
-        draw(board);
+        BoardView.draw(board);
     }
 }
