@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class represents the plate. It is by default a square. The game ONLY
- * works with a pair amount of rows and columns.
+ * This class represents the plate. It is by default a square. The game ONLY works with a pair amount of rows and
+ * columns.
  *
  * @author Philippe
  */
@@ -16,8 +16,7 @@ public class Board {
     private final Piece[][] BOARD;
 
     /**
-     * Creates a new board with Max_rows_cols rows and Max_rows_cols columns.
-     * Puts the first pieces of the game.
+     * Creates a new board with Max_rows_cols rows and Max_rows_cols columns. Puts the first pieces of the game.
      */
     public Board() {
         if (MAX_ROWS_COLS % 2 != 0) {
@@ -44,38 +43,16 @@ public class Board {
         return BOARD[pos.getROW()][pos.getCOL()];
     }
 
-    public void put(Piece piece, Coordinates pos) {
-        if (canPut(piece, pos)) {
-            int line = pos.getROW(), col = pos.getCOL();
-            BOARD[line][col] = piece;
-        }
-        //TODO call consequencePut
-    }
-
-    private boolean canPut(Piece piece, Coordinates pos) {
-        for (Direction dir : Direction.values()) {
-
-        }
-    }
-
-    /**
-     * Switches the pieces in consequence of a put piece.
-     *
-     * @param pos
-     * @return the number of pieces switched
-     */
-    public int consequencePut(Coordinates pos) {
-        if (getPiece(pos) == null) {
-            throw new GameException("Pos can't be null!");
-        }
-        List<Direction> dirs = getDirToSwitch(pos);
-        if (dirs.isEmpty()) {
-            throw new GameException("No directions from this position to "
-                    + "swap colors!");
-        }
+    public int put(Piece piece, Coordinates pos) {
         int nbSwitched = 0;
-        for (Direction dir : dirs) {
-            nbSwitched += switchColors(pos, dir);
+        if (getPiece(pos) == null) {
+            BOARD[pos.getROW()][pos.getCOL()] = piece;
+            List<Direction> dirs = getDirToSwitch(pos);
+            if (dirs.isEmpty()) {
+                BOARD[pos.getROW()][pos.getCOL()] = null;
+            } else {
+                nbSwitched = consequencePut(pos, dirs);
+            }
         }
         return nbSwitched;
     }
@@ -84,10 +61,10 @@ public class Board {
     /*Puts the first pieces in the center of the board.*/
     private void initBoardCenter() {
         //TODO dynamic method in the center
-        this.put(new Piece(Color.WHITE), new Coordinates(3, 3));
-        this.put(new Piece(Color.BLACK), new Coordinates(3, 4));
-        this.put(new Piece(Color.BLACK), new Coordinates(4, 3));
-        this.put(new Piece(Color.WHITE), new Coordinates(4, 4));
+        BOARD[3][3] = new Piece(Color.WHITE);
+        BOARD[3][4] = new Piece(Color.BLACK);
+        BOARD[4][3] = new Piece(Color.BLACK);
+        BOARD[4][4] = new Piece(Color.WHITE);
     }
 
     private boolean isInside(Coordinates pos) {
@@ -117,6 +94,8 @@ public class Board {
                     } else if (hadOtherColors) {
                         dirs.add(dir);
                         break;
+                    } else {
+                        break;
                     }
                 } else {
                     break;
@@ -124,6 +103,14 @@ public class Board {
             }
         }
         return dirs;
+    }
+
+    private int consequencePut(Coordinates pos, List<Direction> dirs) {
+        int nbSwitched = 0;
+        for (Direction dir : dirs) {
+            nbSwitched += switchColors(pos, dir);
+        }
+        return nbSwitched;
     }
 
     /*Returns the number of pieces switched.*/

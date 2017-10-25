@@ -30,28 +30,13 @@ public class BoardTest {
      */
     @Test
     public void testPut() {
-        System.out.println("put");
-        Piece piece = null;
-        Coordinates pos = null;
-        Board instance = new Board();
-        instance.put(piece, pos);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of consequencePut method, of class Board.
-     */
-    @Test
-    public void testConsequencePut() {
-        System.out.println("consequencePut");
-        Coordinates pos = null;
-        Board instance = new Board();
-        int expResult = 0;
-        int result = instance.consequencePut(pos);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Piece piece = new Piece(Color.BLACK);
+        Coordinates pos = new Coordinates(2, 3);
+        Board board = new Board();
+        board.put(piece, pos);
+        assertEquals(piece, board.getPiece(pos));
+        pos = new Coordinates(3, 3);
+        assertEquals(piece, board.getPiece(pos));
     }
 
 }

@@ -6,13 +6,16 @@ package g43197.othello.model;
  */
 public enum Color {
 
-    /**
-     *
-     */
-    BLACK,
-
-    /**
-     *
-     */
-    WHITE;
+    BLACK("X"), WHITE("O");
+    
+    private final String descr;
+    
+    private Color(String descr){
+        this.descr = descr;
+    }
+    
+    @Override
+    public String toString(){
+        return descr;
+    }
 }
