@@ -8,12 +8,13 @@ import static g43197.othello.model.Board.*;
  * @author Philippe
  */
 public class BoardView {
+
     private static final int ROWS_DISPLAY = 1 + 2 * MAX_ROWS_COLS;
     private static final int COLS_DISPLAY = 1 + 4 * MAX_ROWS_COLS;
 
     private static final String[][] CLEAR_SCREEN = new String[ROWS_DISPLAY][COLS_DISPLAY];
     private static String[][] screen;
-    
+
     public static void draw(Board board) {
         Piece piece;
         String str = "";
@@ -38,7 +39,7 @@ public class BoardView {
         }
 
         //showBoard
-        System.out.println("     A    B    C    D    E    F    G    H");
+        System.out.println("     A   B   C   D   E   F   G   H");
         for (int i = 0; i < screen.length; i++) { // print array
             numberLine(i);
             for (String item : screen[i]) {
@@ -47,9 +48,9 @@ public class BoardView {
             numberLine(i);
             System.out.println();
         }
-        System.out.println("     A    B    C    D    E    F    G    H");
+        System.out.println("     A   B   C   D   E   F   G   H");
     }
-    
+
     /**
      * fills the CLEAR_SCREEN array according to the size of the board
      */
@@ -87,7 +88,7 @@ public class BoardView {
         }
         CLEAR_SCREEN[i][j] = str;
     }
-    
+
     /**
      * prints the number of the line or just spaces
      *
