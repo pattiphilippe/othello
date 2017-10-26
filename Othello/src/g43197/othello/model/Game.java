@@ -48,10 +48,11 @@ public class Game {
         return currentPlayer; 
     }
 
-    public void put(Piece piece, Coordinates pos) {
-        if(piece == null || pos == null){
+    public void put(Coordinates pos) {
+        if(pos == null){
             throw new IllegalArgumentException("Piece and pos can't be null!");
         }
+        //TODO take an existing piece (otherwise, can create always new pieces
         board.put(piece, pos);
         nextPlayer();
     }
