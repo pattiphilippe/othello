@@ -14,7 +14,24 @@ public class Othello {
         BoardView.init();
         Board board = new Board();
         draw(board);
-        board.put(new Piece(Color.BLACK), new Coordinates(0, 0));
-        draw(board);
+        
+        Game game = new Game();
+    }
+    
+    /**
+     * Plays a turn for the player. 
+     * @param player
+     */
+    public static void play(Game game){
+        if(game.canPlay()){
+            boolean played = false;
+            while(!played){
+            try { 
+                readPos();
+                played = true;
+            } catch (GameException e) {
+                displayError("wrongPosition");
+            }
+        }
     }
 }

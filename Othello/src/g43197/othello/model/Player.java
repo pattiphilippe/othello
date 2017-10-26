@@ -1,5 +1,8 @@
 package g43197.othello.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class represents a player. Players are different by their color.
  *
@@ -9,6 +12,7 @@ public class Player {
 
     private final Color COLOR;
     private int score;
+    private List<Coordinates> accessibles;
 
     /**
      * Creates a player. The color is set to the given color.
@@ -22,6 +26,7 @@ public class Player {
 
         this.COLOR = color;
         this.score = 0;
+        this.accessibles = new ArrayList<>();
     }
 
     /**
@@ -53,5 +58,13 @@ public class Player {
                     + " the score is negative!");
         }
         score += delta;
+    }
+    
+    public List<Coordinates> getAccessibles(){
+        return accessibles;
+    }
+    
+    public boolean hasMovesLeft(){
+        return accessibles.isEmpty();
     }
 }

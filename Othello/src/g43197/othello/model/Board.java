@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class represents the plate. It is by default a square. The game ONLY works with a pair amount of rows and
- * columns.
+ * This class represents the plate. It is by default a square. The game ONLY
+ * works with a pair amount of rows and columns.
  *
  * @author Philippe
  */
@@ -16,7 +16,8 @@ public class Board {
     private final Piece[][] BOARD;
 
     /**
-     * Creates a new board with Max_rows_cols rows and Max_rows_cols columns. Puts the first pieces of the game.
+     * Creates a new board with Max_rows_cols rows and Max_rows_cols columns.
+     * Puts the first pieces of the game.
      */
     public Board() {
         if (MAX_ROWS_COLS % 2 != 0) {
@@ -50,6 +51,7 @@ public class Board {
             List<Direction> dirs = getDirToSwitch(pos);
             if (dirs.isEmpty()) {
                 BOARD[pos.getROW()][pos.getCOL()] = null;
+                throw new GameException("Wrong position, doesn't switch anything!");
             } else {
                 nbSwitched = consequencePut(pos, dirs);
             }
@@ -80,11 +82,12 @@ public class Board {
     private List<Direction> getDirToSwitch(Coordinates pos) {
         List<Direction> dirs = new ArrayList<>();
         Color saveColor = getPiece(pos).getColor();
+        Coordinates savePos = pos;
         Piece piece;
         boolean hadOtherColors;
         for (Direction dir : Direction.values()) {
             hadOtherColors = false;
-            pos = increment(pos, dir);
+            pos = increment(savePos, dir);
             while (isInside(pos)) {
                 piece = getPiece(pos);
                 if (piece != null) {
