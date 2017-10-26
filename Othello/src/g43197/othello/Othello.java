@@ -18,20 +18,20 @@ public class Othello {
         Game game = new Game();
     }
     
-    /**
-     * Plays a turn for the player. 
-     * @param player
-     */
-    public static void play(Game game){
-        if(game.canPlay()){
-            boolean played = false;
-            while(!played){
-            try { 
-                readPos();
-                played = true;
-            } catch (GameException e) {
-                displayError("wrongPosition");
-            }
-        }
-    }
+//    /**
+//     * Plays a turn for the player. 
+//     * @param player
+//     */
+//    public static void play(Game game){
+//        if(game.canPlay()){
+//            boolean played = false;
+//            while(!played){
+//            try { 
+//                readPos();
+//                played = true;
+//            } catch (GameException e) {
+//                displayError("wrongPosition");
+//            }
+//        }
+//    }
 }
