@@ -1,5 +1,7 @@
 package g43197.othello.model;
 
+import java.util.LinkedList;
+import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -26,10 +28,10 @@ public class BoardTest {
     }
 
     /**
-     * Test of put method, of class Board.
+     * Test of put method, of class Board and getPiece.
      */
     @Test
-    public void testPut() {
+    public void testPutGetPiece() {
         Piece piece = new Piece(Color.BLACK);
         Coordinates pos = new Coordinates(2, 3);
         Board board = new Board();
@@ -39,4 +41,33 @@ public class BoardTest {
         assertEquals(piece, board.getPiece(pos));
     }
 
+    /**
+     * Test of multiple puts and test of switch.
+     */
+    public void testPutMultiplesSwitchColors() {
+        Board board = new Board();
+        List<Coordinates> poss = new LinkedList<>();
+        poss.add(new Coordinates(2, 3));
+        poss.add(new Coordinates(2, 2));
+        poss.add(new Coordinates(2, 1));
+        poss.add(new Coordinates(5, 3));
+        int nbPut = 0;
+        Color color;
+        Piece piece;
+        for (Coordinates pos : poss) {
+            if (nbPut % 2 == 0) {
+                color = Color.BLACK;
+            } else {
+                color = Color.WHITE;
+            }
+            piece = new Piece(color);
+            board.put(piece, pos);
+            assertEquals(piece, board.getPiece(pos));
+            nbPut++;
+        }
+        Coordinates pos = new Coordinates(2, 2);
+        assertEquals(Color.BLACK, board.getPiece(pos).getColor());
+        pos = new Coordinates(4, 3);
+        assertEquals(Color.WHITE, board.getPiece(pos).getColor());
+    }
 }

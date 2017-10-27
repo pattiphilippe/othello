@@ -30,8 +30,8 @@ public class Board {
         }
 
         BOARD = new Piece[MAX_ROWS_COLS][MAX_ROWS_COLS];
-        initBoardCenter();
         toCheck = new LinkedList<>();
+        initBoardCenter();
     }
 
     /**
@@ -97,7 +97,7 @@ public class Board {
         Color color;
         for (Coordinates pos : list) {
             toCheck.add(pos);
-            color = nbPos % 2 == 1 ? Color.BLACK : Color.WHITE;
+            color = (pos.getROW() + pos.getCOL()) % 2 == 0 ? Color.WHITE : Color.BLACK;
             BOARD[pos.getROW()][pos.getCOL()] = new Piece(color);
             updateToCheck(pos);
             nbPos++;
@@ -109,8 +109,8 @@ public class Board {
         //TODO check colors in center
         int rowcol = MAX_ROWS_COLS / 2 - 1;
         list.add(new Coordinates(rowcol, rowcol));
-        list.add(new Coordinates(rowcol, rowcol + 1));
         list.add(new Coordinates(rowcol + 1, rowcol));
+        list.add(new Coordinates(rowcol, rowcol + 1));
         list.add(new Coordinates(rowcol + 1, rowcol + 1));
     }
 

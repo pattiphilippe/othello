@@ -17,5 +17,5 @@ public class Todo {
     //TODO create class Pieces, with list of all pieces at the start of the game
     //TODO score après Board put
     //TODO final attributes, possible singleton, start new game
-
+    //TODO visibilités, unique chose accessible => ce dont ils ont besoin.
 }
