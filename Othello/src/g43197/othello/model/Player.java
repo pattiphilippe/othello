@@ -48,7 +48,7 @@ public class Player {
      * @param delta
      */
     public void modifyScore(int delta) {
-        if (score < delta) {
+        if (score < -delta) {
             throw new GameException("You're badly in the sh*t,"
                     + " the score is negative!");
         }
