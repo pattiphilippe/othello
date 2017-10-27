@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package g43197.othello.model;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -17,39 +8,70 @@ import static org.junit.Assert.*;
  * @author Philippe
  */
 public class RackTest {
-    
-    public RackTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
+
+    /**
+     * Tries to get a White piece.
+     */
+    @Test
+    public void testGetPieceBlack() {
+        Color color = Color.BLACK;
+        Rack rack = new Rack();
+        Piece piece = rack.getPiece(color);
+        assertEquals(color, piece.getColor());
     }
 
     /**
-     * Test of getPiece method, of class Rack.
+     * Tries to get a White piece.
      */
     @Test
-    public void testGetPiece() {
-        System.out.println("getPiece");
-        Color color = null;
-        Rack instance = new Rack();
-        Piece expResult = null;
-        Piece result = instance.getPiece(color);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testGetPieceWhite() {
+        Color color = Color.WHITE;
+        Rack rack = new Rack();
+        Piece piece = rack.getPiece(color);
+        assertEquals(color, piece.getColor());
     }
-    
+
+    /**
+     * Tries to get multiple Black pieces.
+     */
+    @Test
+    public void testGetPieceMultipleB() {
+        Color color = Color.BLACK;
+        Rack rack = new Rack();
+        Piece piece;
+        for (int i = 0; i < 10; i++) {
+            piece = rack.getPiece(color);
+            assertEquals(color, piece.getColor());
+        }
+    }
+
+    /**
+     * Tries to get multiple White pieces.
+     */
+    @Test
+    public void testGetPieceMultipleW() {
+        Color color = Color.WHITE;
+        Rack rack = new Rack();
+        Piece piece;
+        for (int i = 0; i < 10; i++) {
+            piece = rack.getPiece(color);
+            assertEquals(color, piece.getColor());
+        }
+    }
+
+    /**
+     * Checks if gets the error when no pieces left.
+     */
+    @Test(expected = GameException.class)
+    public void testGetPieceErrorNoPieces() {
+        Color color = Color.BLACK;
+        Rack rack = new Rack();
+        Piece piece;
+        int maxPieces = (int) Math.pow(Board.MAX_ROWS_COLS, 2);
+        for (int i = 0; i < maxPieces + 2; i++) {
+            piece = rack.getPiece(color);
+            assertEquals(color, piece.getColor());
+        }
+    }
+
 }
