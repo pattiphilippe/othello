@@ -2,6 +2,7 @@ package g43197.othello.model;
 
 import static g43197.othello.model.Direction.increment;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ public class Board {
 
     public static final int MAX_ROWS_COLS = 8;
     private final Piece[][] BOARD;
+    private List<Coordinates> toCheck;
 
     /**
      * Creates a new board with Max_rows_cols rows and Max_rows_cols columns.
@@ -29,6 +31,8 @@ public class Board {
 
         BOARD = new Piece[MAX_ROWS_COLS][MAX_ROWS_COLS];
         initBoardCenter();
+        toCheck = new LinkedList<>();
+        initToCheck();
     }
 
     /**
@@ -47,16 +51,26 @@ public class Board {
     public int put(Piece piece, Coordinates pos) {
         int nbSwitched = 0;
         if (getPiece(pos) == null) {
-            BOARD[pos.getROW()][pos.getCOL()] = piece;
-            List<Direction> dirs = getDirToSwitch(pos);
+            List<Direction> dirs = getDirToSwitch(pos, piece.getColor());
             if (dirs.isEmpty()) {
-                BOARD[pos.getROW()][pos.getCOL()] = null;
                 throw new GameException("Wrong position, doesn't switch anything!");
             } else {
+                BOARD[pos.getROW()][pos.getCOL()] = piece;
                 nbSwitched = consequencePut(pos, dirs);
             }
         }
         return nbSwitched;
+    }
+
+    public void updateAccessibles(List<Coordinates> accessibles, Color color) {
+        accessibles.clear();
+        for (Coordinates pos : toCheck) {
+            if (!getDirToSwitch(pos, color).isEmpty()) {
+                //TODO optimiser condition : arrêter dès que c'est bon, pas tout vérifier
+                //TODO check if useful: doing this simplifies code, but more checks
+                accessibles.add(pos);
+            }
+        }
     }
 
     ///////////////////////////Private//Methods//////////////////////////////
@@ -79,9 +93,8 @@ public class Board {
         return min <= nb && nb <= max;
     }
 
-    private List<Direction> getDirToSwitch(Coordinates pos) {
+    private List<Direction> getDirToSwitch(Coordinates pos, Color saveColor) {
         List<Direction> dirs = new ArrayList<>();
-        Color saveColor = getPiece(pos).getColor();
         Coordinates savePos = pos;
         Piece piece;
         boolean hadOtherColors;
@@ -113,6 +126,7 @@ public class Board {
         for (Direction dir : dirs) {
             nbSwitched += switchColors(pos, dir);
         }
+        updateToCheck(pos);
         return nbSwitched;
     }
 
@@ -135,5 +149,15 @@ public class Board {
         }
         return nbSwitched;
     }
-
+    
+    private void updateToCheck(Coordinates pos){
+        toCheck.remove(pos);
+        Coordinates adj;
+        for(Direction dir : Direction.values()){
+            adj = increment(pos, dir);
+            if(adj == null){
+                toCheck.add(adj);
+            }
+        }
+    }
 }

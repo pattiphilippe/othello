@@ -18,6 +18,9 @@ public class Othello {
         draw(board);
 
         Game game = new Game();
+        while (!game.isFinished()) {
+            play(game);
+        }
     }
 
     /**
@@ -26,14 +29,15 @@ public class Othello {
      * @param player
      */
     public static void play(Game game) {
+        //TODO afficher qui joue, sait jouer ou pas, ...
         if (game.canPlay()) {
             boolean played = false;
             Coordinates pos;
-            while (!played) {
+            while (true) {
                 try {
                     pos = readPos();
                     game.put(pos);
-                    played = true;
+                    break;
                 } catch (GameException e) {
                     displayError(e.getMessage());
                 }
