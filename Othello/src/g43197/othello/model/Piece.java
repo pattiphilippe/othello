@@ -1,9 +1,8 @@
 package g43197.othello.model;
 
-import java.util.Objects;
-
 /**
- * This class represents a piece of the game. Each side has a different color based on the colors in Color Enum.
+ * This class represents a piece of the game. Each side has a different color
+ * based on the colors in Color Enum.
  *
  * @author Philippe
  */

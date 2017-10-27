@@ -26,18 +26,18 @@ public class Othello {
     /**
      * Plays a turn for the player.
      *
-     * @param player
+     * @param game
      */
     public static void play(Game game) {
         //TODO afficher qui joue, sait jouer ou pas, ...
         if (game.canPlay()) {
             boolean played = false;
             Coordinates pos;
-            while (true) {
+            while (!played) {
                 try {
                     pos = readPos();
                     game.put(pos);
-                    break;
+                    played = true;
                 } catch (GameException e) {
                     displayError(e.getMessage());
                 }

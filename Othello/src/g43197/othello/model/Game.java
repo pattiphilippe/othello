@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package g43197.othello.model;
 
 import java.util.ArrayList;
@@ -10,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Facade of Othello. The methods in this class are mainly around the current
+ * player, and adapts to the current player every turn.
  *
  * @author g43197
  */
@@ -31,30 +28,56 @@ public class Game {
         }
         currentPlayer = players.get(0);
         accessibles = new LinkedList<>();
-        initAccessibles();
+        updateAccessibles();
         didPlay = true;
     }
 
+    /**
+     * Checks if the game is over.
+     *
+     * @return
+     */
     public boolean isFinished() {
         return !didPlay && !hasMovesLeft();
     }
-    
-    public boolean canPlay(){
+
+    /**
+     * Checks if the current player can play. If he can't, it goes directly to
+     * the next player.
+     *
+     * @return
+     */
+    public boolean canPlay() {
         boolean canPlay = hasMovesLeft();
-        if(!canPlay){
+        if (!canPlay) {
             nextPlayer();
         }
         return canPlay;
     }
 
-    public int getScore(Player player) {
+    /**
+     * Gets the score of the current player.
+     *
+     * @return
+     */
+    public int getScore() {
         return currentPlayer.getScore();
     }
 
+    /**
+     * Gets the current player.
+     *
+     * @return
+     */
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     * Puts a piece on the board.
+     *
+     * @param pos the given position
+     */
     public void put(Coordinates pos) {
         if (pos == null) {
             throw new IllegalArgumentException("Piece and pos can't be null!");
@@ -64,6 +87,7 @@ public class Game {
         didPlay = true;
     }
 
+    ///////////////////////////Private//Methods//////////////////////////////
     private void nextPlayer() {
         int i = players.indexOf(currentPlayer) + 1;
         if (i < players.size()) {
@@ -75,12 +99,12 @@ public class Game {
         didPlay = false;
         updateAccessibles();
     }
-    
-    private void updateAccessibles(){
+
+    private void updateAccessibles() {
         board.updateAccessibles(accessibles, currentPlayer.getColor());
     }
-    
-    private boolean hasMovesLeft(){
+
+    private boolean hasMovesLeft() {
         return !accessibles.isEmpty();
     }
 }

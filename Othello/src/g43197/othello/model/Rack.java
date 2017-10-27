@@ -12,10 +12,10 @@ import java.util.List;
  */
 public class Rack {
 
-    private List<Piece> pieces;
+    private final List<Piece> pieces;
 
     /**
-     *
+     * Creates a new rack with as much pieces as tiles on the board
      */
     public Rack() {
         pieces = new ArrayList<>();
@@ -36,6 +36,9 @@ public class Rack {
         }
         Piece piece = pieces.get(0);
         pieces.remove(0);
+        if (color == Color.WHITE) {
+            piece.switchColor();
+        }
         return piece;
     }
 }

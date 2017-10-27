@@ -1,6 +1,8 @@
 package g43197.othello.model;
 
 /**
+ * Simple coordinate representation with a row and a column. Can take every
+ * integer value.
  *
  * @author G43197
  */
@@ -10,7 +12,7 @@ public class Coordinates {
     private final int COL;
 
     /**
-     *
+     * 
      * @param row
      * @param col
      */

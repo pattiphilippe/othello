@@ -12,10 +12,10 @@ public class Todo {
     //TODO nb pieces qu'on peut ajouter
     //TODO Game method isFinished
     //TODO accessible lists in Player
-    //TODO observable / observer with pieces => update accessibles with every changed 
     //TODO check if can be rectangle board
     //TODO Game: faire en sorte pas de null exception ds param méthode et pos inside
     //TODO create class Pieces, with list of all pieces at the start of the game
     //TODO score après Board put
+    //TODO final attributes, possible singleton, start new game
 
 }
