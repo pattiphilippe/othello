@@ -2,7 +2,6 @@ package g43197.othello.model;
 
 import static g43197.othello.model.Direction.increment;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -15,7 +14,6 @@ public class Board {
 
     public static final int MAX_ROWS_COLS = 8;
     private final Piece[][] BOARD;
-    private List<Coordinates> toCheck;
 
     /**
      * Creates a new board with Max_rows_cols rows and Max_rows_cols columns.
@@ -30,7 +28,6 @@ public class Board {
         }
 
         BOARD = new Piece[MAX_ROWS_COLS][MAX_ROWS_COLS];
-        toCheck = new LinkedList<>();
         initBoardCenter();
     }
 
@@ -41,6 +38,9 @@ public class Board {
      * @return
      */
     public Piece getPiece(Coordinates pos) {
+        if (pos == null) {
+            throw new IllegalArgumentException("Pos can't be null!");
+        }
         if (!isInside(pos)) {
             throw new GameException("Pos is outside the board");
         }
@@ -76,11 +76,15 @@ public class Board {
      */
     public void updateAccessibles(List<Coordinates> accessibles, Color color) {
         accessibles.clear();
-        for (Coordinates pos : toCheck) {
-            if (!getDirToSwitch(pos, color).isEmpty()) {
-                //TODO optimiser condition : arrêter dès que c'est bon, pas tout vérifier
-                //TODO check if useful: doing this simplifies code, but more checks
-                accessibles.add(pos);
+        Coordinates pos;
+        for (int row = 0; row < MAX_ROWS_COLS; row++) {
+            for (int col = 0; col < MAX_ROWS_COLS; col++) {
+                pos = new Coordinates(row, col);
+                if (!getDirToSwitch(pos, color).isEmpty()) {
+                    //TODO optimiser condition : arrêter dès que c'est bon, pas tout vérifier
+                    //TODO check if useful: doing this simplifies code, but more checks
+                    accessibles.add(pos);
+                }
             }
         }
     }
@@ -92,10 +96,8 @@ public class Board {
         getCenterPos(list);
         Color color;
         for (Coordinates pos : list) {
-            toCheck.add(pos);
             color = (pos.getROW() + pos.getCOL()) % 2 == 0 ? Color.WHITE : Color.BLACK;
             BOARD[pos.getROW()][pos.getCOL()] = new Piece(color);
-            updateToCheck(pos);
         }
     }
 
@@ -153,7 +155,6 @@ public class Board {
         for (Direction dir : dirs) {
             nbSwitched += switchColors(pos, dir);
         }
-        updateToCheck(pos);
         return nbSwitched;
     }
 
@@ -175,17 +176,5 @@ public class Board {
             pos = increment(pos, dir);
         }
         return nbSwitched;
-    }
-
-    /*Updates toCheck list*/
-    private void updateToCheck(Coordinates pos) {
-        toCheck.remove(pos);
-        Coordinates adj;
-        for (Direction dir : Direction.values()) {
-            adj = increment(pos, dir);
-            if (isInside(adj) && getPiece(adj) == null) {
-                toCheck.add(adj);
-            }
-        }
     }
 }

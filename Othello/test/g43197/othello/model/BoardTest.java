@@ -42,6 +42,14 @@ public class BoardTest {
     }
 
     /**
+     *
+     */
+    @Test
+    public void testPuts() {
+        fail("à coder");
+    }
+
+    /**
      * Test of multiple puts and test of switch.
      */
     @Test
@@ -104,5 +112,58 @@ public class BoardTest {
         assertEquals(Color.BLACK, board.getPiece(pos).getColor());
         pos = new Coordinates(4, 3);
         assertEquals(Color.BLACK, board.getPiece(pos).getColor());
+    }
+
+    /**
+     * Initial case.
+     */
+    @Test
+    public void testUpdateAccessibles() {
+        Board board = new Board();
+        List<Coordinates> accessibles = new LinkedList<>();
+        board.updateAccessibles(accessibles, Color.BLACK);
+        List<Coordinates> expResult = new LinkedList<>();
+        expResult.add(new Coordinates(2, 3));
+        expResult.add(new Coordinates(3, 2));
+        expResult.add(new Coordinates(4, 5));
+        expResult.add(new Coordinates(5, 4));
+        assertTrue(accessibles.containsAll(expResult));
+    }
+    
+    /**
+     * Test after a move.
+     */
+    @Test
+    public void testUpdateAccessiblesAfterMove() {
+        Board board = new Board();
+        board.put(new Piece(Color.BLACK), new Coordinates(2, 3));
+        List<Coordinates> accessibles = new LinkedList<>();
+        board.updateAccessibles(accessibles, Color.WHITE);
+        List<Coordinates> expResult = new LinkedList<>();
+        expResult.add(new Coordinates(2, 2));
+        expResult.add(new Coordinates(2, 4));
+        expResult.add(new Coordinates(4, 2));
+        assertTrue(accessibles.containsAll(expResult));
+    }
+    
+    /**
+     * Test after a few moves.
+     */
+    @Test
+    public void testUpdateAccessiblesAfterMoves() {
+        Board board = new Board();
+        board.put(new Piece(Color.BLACK), new Coordinates(2, 3));
+        board.put(new Piece(Color.WHITE), new Coordinates(2, 2));
+        board.put(new Piece(Color.BLACK), new Coordinates(2, 1));
+        board.put(new Piece(Color.WHITE), new Coordinates(5, 3));
+        board.put(new Piece(Color.BLACK), new Coordinates(6, 3));
+        List<Coordinates> accessibles = new LinkedList<>();
+        board.updateAccessibles(accessibles, Color.WHITE);
+        List<Coordinates> expResult = new LinkedList<>();
+        expResult.add(new Coordinates(1, 1));
+        expResult.add(new Coordinates(2, 4));
+        expResult.add(new Coordinates(4, 2));
+        expResult.add(new Coordinates(6, 2));
+        assertTrue(accessibles.containsAll(expResult));
     }
 }
