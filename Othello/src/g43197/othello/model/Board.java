@@ -56,17 +56,15 @@ public class Board {
      * @return number of pieces switched
      */
     public int put(Piece piece, Coordinates pos) {
-        int nbSwitched = 0;
-        if (getPiece(pos) == null) {
-            List<Direction> dirs = getDirToSwitch(pos, piece.getColor());
-            if (dirs.isEmpty()) {
-                throw new GameException("Wrong position, doesn't switch anything!");
-            } else {
-                BOARD[pos.getROW()][pos.getCOL()] = piece;
-                nbSwitched = consequencePut(pos, dirs);
-            }
+        if (getPiece(pos) != null) {
+            throw new GameException("Position occupied!");
         }
-        return nbSwitched;
+        List<Direction> dirs = getDirToSwitch(pos, piece.getColor());
+        if (dirs.isEmpty()) {
+            throw new GameException("Wrong position, doesn't switch anything!");
+        }
+        BOARD[pos.getROW()][pos.getCOL()] = piece;
+        return consequencePut(pos, dirs);
     }
 
     /**

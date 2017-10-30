@@ -34,8 +34,36 @@ public class Othello {
         poss.add(new Coordinates(1, 4));
         poss.add(new Coordinates(0, 4));
         poss.add(new Coordinates(1, 2));
+        poss.add(new Coordinates(0, 3));
+        poss.add(new Coordinates(0, 2));
+        poss.add(new Coordinates(6, 4));
+        poss.add(new Coordinates(5, 6));
+        poss.add(new Coordinates(7, 3));
+        poss.add(new Coordinates(3, 2));
+        poss.add(new Coordinates(5, 7));
+        poss.add(new Coordinates(7, 4));
+        poss.add(new Coordinates(6, 5));
+        poss.add(new Coordinates(4, 2));
+        poss.add(new Coordinates(7, 5));
+        poss.add(new Coordinates(0, 5));
+        poss.add(new Coordinates(5, 1));
+        poss.add(new Coordinates(5, 2));
+        poss.add(new Coordinates(3, 1));
+        poss.add(new Coordinates(1, 5));
+        poss.add(new Coordinates(4, 5));
+        poss.add(new Coordinates(6, 0));
+        poss.add(new Coordinates(3, 6));
+        poss.add(new Coordinates(4, 6));
+        poss.add(new Coordinates(2, 6));
+        poss.add(new Coordinates(4, 7));
+        poss.add(new Coordinates(3, 7));
+        poss.add(new Coordinates(2, 7));
+        poss.add(new Coordinates(1, 7));
+        poss.add(new Coordinates(1, 6));
+        poss.add(new Coordinates(4, 1));
+        poss.add(new Coordinates(6, 2));
         int nbPut = 0;
-        Color color;
+        Color color = null;
         draw(board);
         for (Coordinates pos : poss) {
             if (nbPut % 2 == 0) {
@@ -46,6 +74,7 @@ public class Othello {
             board.put(new Piece(color), pos);
             nbPut++;
         }
+        System.out.println("It's not " + color + " turn.");
         draw(board);
 
 //        Game game = new Game();

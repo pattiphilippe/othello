@@ -15,7 +15,7 @@ public class GameTest {
     @Test
     public void testCanPlay() {
         Game game = new Game();
-        assertEquals(true , game.canPlay());
+        assertEquals(true, game.canPlay());
     }
 
     /**
@@ -24,10 +24,11 @@ public class GameTest {
     @Test
     public void testCanPlayFullBoard() {
         Game game = new Game();
+        fail("not implemented");
     }
 
     /**
-     * Test of initial score
+     * Test of initial score.
      */
     @Test
     public void testGetScore() {
@@ -35,7 +36,25 @@ public class GameTest {
         assertEquals(game.getScore(), 2);
         game.put(new Coordinates(2, 3));
         assertEquals(game.getScore(), 1);
+    }
 
+    /**
+     * Test of score after a few moves.
+     */
+    @Test
+    public void testGetScoreAfterMoves() {
+        Game game = new Game();
+        assertEquals(game.getScore(), 2);
+        game.put(new Coordinates(2, 3));
+        assertEquals(game.getScore(), 1);
+        game.put(new Coordinates(2, 2));
+        assertEquals(game.getScore(), 3);
+        game.put(new Coordinates(2, 1));
+        assertEquals(game.getScore(), 2);
+        game.put(new Coordinates(5, 3));
+        assertEquals(game.getScore(), 4);
+        game.put(new Coordinates(6, 3));
+        assertEquals(game.getScore(), 1);
     }
 
     /**
@@ -43,13 +62,13 @@ public class GameTest {
      */
     @Test
     public void testGetCurrentPlayer() {
-        System.out.println("getCurrentPlayer");
-        Game instance = new Game();
-        Player expResult = null;
-        Player result = instance.getCurrentPlayer();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Game game = new Game();
+        try {
+            Player player = game.getCurrentPlayer();
+            assertEquals(player.getScore(), game.getScore());
+        } catch (CloneNotSupportedException e) {
+            fail(e.getMessage());
+        }
     }
 
     /**
