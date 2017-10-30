@@ -23,6 +23,7 @@ public class Othello {
         poss.add(new Coordinates(2, 2));
         poss.add(new Coordinates(2, 1));
         poss.add(new Coordinates(5, 3));
+        poss.add(new Coordinates(6, 3));
         int nbPut = 0;
         Color color;
         draw(board);

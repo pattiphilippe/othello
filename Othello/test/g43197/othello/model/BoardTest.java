@@ -44,6 +44,7 @@ public class BoardTest {
     /**
      * Test of multiple puts and test of switch.
      */
+    @Test
     public void testPutMultiplesSwitchColors() {
         Board board = new Board();
         List<Coordinates> poss = new LinkedList<>();
@@ -69,5 +70,39 @@ public class BoardTest {
         assertEquals(Color.BLACK, board.getPiece(pos).getColor());
         pos = new Coordinates(4, 3);
         assertEquals(Color.WHITE, board.getPiece(pos).getColor());
+    }
+
+    /**
+     * Checks if switches multiple pieces in a row.
+     */
+    @Test
+    public void testSwitchMultiples() {
+        Board board = new Board();
+        List<Coordinates> poss = new LinkedList<>();
+        poss.add(new Coordinates(2, 3));
+        poss.add(new Coordinates(2, 2));
+        poss.add(new Coordinates(2, 1));
+        poss.add(new Coordinates(5, 3));
+        poss.add(new Coordinates(6, 3));
+        int nbPut = 0;
+        Color color;
+        Piece piece;
+        for (Coordinates pos : poss) {
+            if (nbPut % 2 == 0) {
+                color = Color.BLACK;
+            } else {
+                color = Color.WHITE;
+            }
+            piece = new Piece(color);
+            board.put(piece, pos);
+            assertEquals(piece, board.getPiece(pos));
+            nbPut++;
+        }
+        Coordinates pos = new Coordinates(2, 3);
+        assertEquals(Color.BLACK, board.getPiece(pos).getColor());
+        pos = new Coordinates(3, 3);
+        assertEquals(Color.BLACK, board.getPiece(pos).getColor());
+        pos = new Coordinates(4, 3);
+        assertEquals(Color.BLACK, board.getPiece(pos).getColor());
     }
 }
