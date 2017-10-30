@@ -105,4 +105,8 @@ public class BoardTest {
         pos = new Coordinates(4, 3);
         assertEquals(Color.BLACK, board.getPiece(pos).getColor());
     }
+    
+    public void testUpdateToCheck(){
+        Board board = new Board();
+    }
 }

@@ -5,7 +5,7 @@ package g43197.othello.model;
  *
  * @author Philippe
  */
-public class Player {
+public class Player implements Cloneable {
 
     private final Color COLOR;
     private int score;
@@ -19,9 +19,9 @@ public class Player {
         if (color == null) {
             throw new IllegalArgumentException("Color can't be null!");
         }
-
+        
         this.COLOR = color;
-        this.score = 0;
+        this.score = 2;
     }
 
     /**
@@ -53,5 +53,10 @@ public class Player {
                     + " the score is negative!");
         }
         score += delta;
+    }
+    
+    @Override
+    public Player clone() throws CloneNotSupportedException{
+        return (Player) super.clone();
     }
 }

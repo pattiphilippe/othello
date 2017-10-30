@@ -24,6 +24,16 @@ public class Othello {
         poss.add(new Coordinates(2, 1));
         poss.add(new Coordinates(5, 3));
         poss.add(new Coordinates(6, 3));
+        poss.add(new Coordinates(2, 4));
+        poss.add(new Coordinates(3, 5));
+        poss.add(new Coordinates(2, 0));
+        poss.add(new Coordinates(1, 3));
+        poss.add(new Coordinates(5, 5));
+        poss.add(new Coordinates(5, 4));
+        poss.add(new Coordinates(2, 5));
+        poss.add(new Coordinates(1, 4));
+        poss.add(new Coordinates(0, 4));
+        poss.add(new Coordinates(1, 2));
         int nbPut = 0;
         Color color;
         draw(board);
@@ -34,13 +44,13 @@ public class Othello {
                 color = Color.WHITE;
             }
             board.put(new Piece(color), pos);
-            draw(board);
             nbPut++;
         }
-        board.put(new Piece(Color.BLACK), new Coordinates(2, 3));
+        draw(board);
 
 //        Game game = new Game();
 //        while (!game.isFinished()) {
+//            System.out.println("game is not finished");
 //            play(game);
 //        }
     }
@@ -53,6 +63,7 @@ public class Othello {
     public static void play(Game game) {
         //TODO afficher qui joue, sait jouer ou pas, ...
         if (game.canPlay()) {
+            System.out.println("can Play");
             boolean played = false;
             Coordinates pos;
             while (!played) {

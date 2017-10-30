@@ -10,46 +10,32 @@ import static org.junit.Assert.*;
 public class GameTest {
 
     /**
-     * Test of isFinished method, of class Game.
-     */
-    @Test
-    public void testIsFinished() {
-        System.out.println("isFinished");
-        Game instance = new Game();
-        boolean expResult = false;
-        boolean result = instance.isFinished();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of canPlay method, of class Game.
+     * Test of normal case
      */
     @Test
     public void testCanPlay() {
-        System.out.println("canPlay");
-        Game instance = new Game();
-        boolean expResult = false;
-        boolean result = instance.canPlay();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Game game = new Game();
+        assertEquals(true , game.canPlay());
     }
 
     /**
-     * Test of getScore method, of class Game.
+     * Test when can't play.
+     */
+    @Test
+    public void testCanPlayFullBoard() {
+        Game game = new Game();
+    }
+
+    /**
+     * Test of initial score
      */
     @Test
     public void testGetScore() {
-        System.out.println("getScore");
-        Player player = null;
-        Game instance = new Game();
-        int expResult = 0;
-        int result = instance.getScore();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Game game = new Game();
+        assertEquals(game.getScore(), 2);
+        game.put(new Coordinates(2, 3));
+        assertEquals(game.getScore(), 1);
+
     }
 
     /**
@@ -75,6 +61,20 @@ public class GameTest {
         Coordinates pos = null;
         Game instance = new Game();
         instance.put(pos);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of isFinished method, of class Game.
+     */
+    @Test
+    public void testIsFinished() {
+        System.out.println("isFinished");
+        Game instance = new Game();
+        boolean expResult = false;
+        boolean result = instance.isFinished();
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

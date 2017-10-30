@@ -90,23 +90,19 @@ public class Board {
     ///////////////////////////Private//Methods//////////////////////////////
     /*Puts the first pieces in the center of the board. Initializes toCheck list too.*/
     private void initBoardCenter() {
-        //TODO dynamic method in the center
         List<Coordinates> list = new ArrayList<>(4);
         getCenterPos(list);
-        int nbPos = 1;
         Color color;
         for (Coordinates pos : list) {
             toCheck.add(pos);
             color = (pos.getROW() + pos.getCOL()) % 2 == 0 ? Color.WHITE : Color.BLACK;
             BOARD[pos.getROW()][pos.getCOL()] = new Piece(color);
             updateToCheck(pos);
-            nbPos++;
         }
     }
 
     /*Gives in a dynamic way 4 central positions of the board.*/
     private void getCenterPos(List<Coordinates> list) {
-        //TODO check colors in center
         int rowcol = MAX_ROWS_COLS / 2 - 1;
         list.add(new Coordinates(rowcol, rowcol));
         list.add(new Coordinates(rowcol + 1, rowcol));
@@ -124,7 +120,7 @@ public class Board {
         return min <= nb && nb <= max;
     }
 
-    /*Gives all the directions where placing a piece of saveColor will switch colors.*/
+    /*Gives all the directions where placing a piece of saveColor would switch colors.*/
     private List<Direction> getDirToSwitch(Coordinates pos, Color saveColor) {
         List<Direction> dirs = new ArrayList<>();
         Coordinates savePos = pos;
@@ -189,7 +185,7 @@ public class Board {
         Coordinates adj;
         for (Direction dir : Direction.values()) {
             adj = increment(pos, dir);
-            if (adj == null) {
+            if (isInside(adj) && getPiece(adj) == null) {
                 toCheck.add(adj);
             }
         }

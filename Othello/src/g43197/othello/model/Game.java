@@ -68,9 +68,10 @@ public class Game {
      * Gets the current player.
      *
      * @return
+     * @throws java.lang.CloneNotSupportedException
      */
-    public Player getCurrentPlayer() {
-        return currentPlayer;
+    public Player getCurrentPlayer() throws CloneNotSupportedException{
+        return currentPlayer.clone();
     }
 
     /**
@@ -82,8 +83,10 @@ public class Game {
         if (pos == null) {
             throw new IllegalArgumentException("Piece and pos can't be null!");
         }
-        board.put(rack.getPiece(currentPlayer.getColor()), pos);
+        int score = board.put(rack.getPiece(currentPlayer.getColor()), pos);
+        currentPlayer.modifyScore(score + 1);
         nextPlayer();
+        currentPlayer.modifyScore(-score);
         didPlay = true;
     }
 
