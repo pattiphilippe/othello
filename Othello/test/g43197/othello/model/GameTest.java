@@ -12,6 +12,25 @@ import static org.junit.Assert.*;
 public class GameTest {
 
     /**
+     * Normal case of put(), Checks if no error. Score is tested with getScore()
+     * method, put is tested in Board.put().
+     */
+    @Test
+    public void testGamePut() {
+        Game game = new Game();
+        game.put(new Coordinates(2, 3));
+    }
+
+    /**
+     * Normal case of put().
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testGamePutNullPos() {
+        Game game = new Game();
+        game.put(null);
+    }
+
+    /**
      * Test of normal case
      */
     @Test
@@ -92,7 +111,7 @@ public class GameTest {
             System.out.println(e.getMessage());
         }
     }
-    
+
     /**
      * Test when game started.
      */
@@ -101,7 +120,7 @@ public class GameTest {
         Game game = new Game();
         assertEquals(false, game.isFinished());
     }
-    
+
     /**
      * Test when game is finished.
      */
@@ -113,8 +132,17 @@ public class GameTest {
         assertEquals(false, game.canPlay());
         assertEquals(true, game.isFinished());
     }
-    
-    private void completeBoard(Game game){
+
+    /**
+     * Normal case of put().
+     */
+    @Test
+    public void testPut() {
+        Game game = new Game();
+        game.put(new Coordinates(2, 3));
+    }
+
+    private void completeBoard(Game game) {
         List<Coordinates> poss = new LinkedList<>();
         poss.add(new Coordinates(2, 3));
         poss.add(new Coordinates(2, 2));
