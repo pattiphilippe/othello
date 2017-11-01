@@ -6,13 +6,13 @@ package g43197.othello.model;
  *
  * @author G43197
  */
-public class Coordinates {
+public class Coordinates implements Cloneable {
 
     private final int ROW;
     private final int COL;
 
     /**
-     * 
+     *
      * @param row
      * @param col
      */
@@ -36,9 +36,9 @@ public class Coordinates {
     public int getCOL() {
         return COL;
     }
-    
+
     @Override
-    public Coordinates clone() throws CloneNotSupportedException{
+    public Coordinates clone() throws CloneNotSupportedException {
         return (Coordinates) super.clone();
     }
 
