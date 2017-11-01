@@ -19,7 +19,7 @@ public class Player implements Cloneable {
         if (color == null) {
             throw new IllegalArgumentException("Color can't be null!");
         }
-        
+
         this.COLOR = color;
         this.score = 2;
     }
@@ -54,9 +54,27 @@ public class Player implements Cloneable {
         }
         score += delta;
     }
-    
+
     @Override
-    public Player clone() throws CloneNotSupportedException{
+    public Player clone() throws CloneNotSupportedException {
         return (Player) super.clone();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Player other = (Player) obj;
+        if (this.COLOR != other.COLOR) {
+            return false;
+        }
+        return true;
     }
 }

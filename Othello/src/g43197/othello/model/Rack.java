@@ -15,11 +15,12 @@ public class Rack {
     private final List<Piece> pieces;
 
     /**
-     * Creates a new rack with as much pieces as tiles on the board
+     * Creates a new rack with as much pieces as tiles on the board, but removes
+     * the 4 center pieces from the board.
      */
     public Rack() {
         pieces = new ArrayList<>();
-        for (int i = 0; i < MAX_ROWS_COLS * MAX_ROWS_COLS; i++) {
+        for (int i = 0; i < MAX_ROWS_COLS * MAX_ROWS_COLS - 4; i++) {
             pieces.add(new Piece(Color.BLACK));
         }
     }

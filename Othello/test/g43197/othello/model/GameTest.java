@@ -26,6 +26,95 @@ public class GameTest {
     @Test
     public void testCanPlayFullBoard() {
         Game game = new Game();
+        completeBoard(game);
+        assertEquals(false, game.canPlay());
+        assertEquals(true, game.isFinished());
+    }
+
+    /**
+     * Test of initial score.
+     */
+    @Test
+    public void testGetScore() {
+        Game game = new Game();
+        assertEquals(game.getScore(), 2);
+        game.put(new Coordinates(2, 3));
+        assertEquals(game.getScore(), 1);
+    }
+
+    /**
+     * Test of score after a few moves.
+     */
+    @Test
+    public void testGetScoreAfterMoves() {
+        Game game = new Game();
+        assertEquals(game.getScore(), 2);
+        game.put(new Coordinates(2, 3));
+        assertEquals(game.getScore(), 1);
+        game.put(new Coordinates(2, 2));
+        assertEquals(game.getScore(), 3);
+        game.put(new Coordinates(2, 1));
+        assertEquals(game.getScore(), 2);
+        game.put(new Coordinates(5, 3));
+        assertEquals(game.getScore(), 4);
+        game.put(new Coordinates(6, 3));
+        assertEquals(game.getScore(), 1);
+    }
+
+    /**
+     * Test of getCurrentPlayer method, of class Game.
+     */
+    @Test
+    public void testGetCurrentPlayer() {
+        Game game = new Game();
+        try {
+            Player player = game.getCurrentPlayer();
+            assertEquals(player.getScore(), game.getScore());
+        } catch (CloneNotSupportedException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    /**
+     * Test of put method, of class Game.
+     */
+    @Test
+    public void testNextPlayer() {
+        Game game = new Game();
+        Player player;
+        try {
+            player = game.getCurrentPlayer();
+            game.put(new Coordinates(2, 3));
+            assertNotEquals(player, game.getCurrentPlayer());
+            game.put(new Coordinates(2, 2));
+            assertEquals(player, game.getCurrentPlayer());
+        } catch (CloneNotSupportedException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    /**
+     * Test when game started.
+     */
+    @Test
+    public void testIsFinishedStarted() {
+        Game game = new Game();
+        assertEquals(false, game.isFinished());
+    }
+    
+    /**
+     * Test when game is finished.
+     */
+    @Test
+    public void testIsFinishedFinished() {
+        Game game = new Game();
+        completeBoard(game);
+        assertEquals(false, game.isFinished());
+        assertEquals(false, game.canPlay());
+        assertEquals(true, game.isFinished());
+    }
+    
+    private void completeBoard(Game game){
         List<Coordinates> poss = new LinkedList<>();
         poss.add(new Coordinates(2, 3));
         poss.add(new Coordinates(2, 2));
@@ -90,69 +179,5 @@ public class GameTest {
             game.put(pos);
         }
         game.put(new Coordinates(6, 1));
-        assertEquals(false, game.canPlay());
-        assertEquals(true, game.isFinished());
-    }
-
-    /**
-     * Test of initial score.
-     */
-    @Test
-    public void testGetScore() {
-        Game game = new Game();
-        assertEquals(game.getScore(), 2);
-        game.put(new Coordinates(2, 3));
-        assertEquals(game.getScore(), 1);
-    }
-
-    /**
-     * Test of score after a few moves.
-     */
-    @Test
-    public void testGetScoreAfterMoves() {
-        Game game = new Game();
-        assertEquals(game.getScore(), 2);
-        game.put(new Coordinates(2, 3));
-        assertEquals(game.getScore(), 1);
-        game.put(new Coordinates(2, 2));
-        assertEquals(game.getScore(), 3);
-        game.put(new Coordinates(2, 1));
-        assertEquals(game.getScore(), 2);
-        game.put(new Coordinates(5, 3));
-        assertEquals(game.getScore(), 4);
-        game.put(new Coordinates(6, 3));
-        assertEquals(game.getScore(), 1);
-    }
-
-    /**
-     * Test of getCurrentPlayer method, of class Game.
-     */
-    @Test
-    public void testGetCurrentPlayer() {
-        Game game = new Game();
-        try {
-            Player player = game.getCurrentPlayer();
-            assertEquals(player.getScore(), game.getScore());
-        } catch (CloneNotSupportedException e) {
-            fail(e.getMessage());
-        }
-    }
-
-    /**
-     * Test of put method, of class Game.
-     */
-    @Test
-    public void testNextPlayer() {
-        Game game = new Game();
-        Player player = null;
-        try {
-            player = game.getCurrentPlayer();
-            game.put(new Coordinates(2, 3));
-            assertNotEquals(player, game.getCurrentPlayer());
-            game.put(new Coordinates(2, 2));
-            assertEquals(player, game.getCurrentPlayer());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
     }
 }
