@@ -16,7 +16,7 @@ public class GameTest {
      * method, put is tested in Board.put().
      */
     @Test
-    public void testGamePut() {
+    public void testPut() {
         Game game = new Game();
         game.put(new Coordinates(2, 3));
     }
@@ -25,7 +25,7 @@ public class GameTest {
      * Normal case of put().
      */
     @Test(expected = IllegalArgumentException.class)
-    public void testGamePutNullPos() {
+    public void testPutNullPos() {
         Game game = new Game();
         game.put(null);
     }
@@ -81,35 +81,26 @@ public class GameTest {
     }
 
     /**
-     * Test of getCurrentPlayer method, of class Game.
+     * Test of getCurrentPlayer method, of class Game, checks if no error.
      */
     @Test
     public void testGetCurrentPlayer() {
         Game game = new Game();
-        try {
-            Player player = game.getCurrentPlayer();
-            assertEquals(player.getScore(), game.getScore());
-        } catch (CloneNotSupportedException e) {
-            fail(e.getMessage());
-        }
+        game.getCurrentPlayer();
     }
 
     /**
-     * Test of put method, of class Game.
+     * Test of nextPlayer method, of class Game.
      */
     @Test
     public void testNextPlayer() {
         Game game = new Game();
-        Player player;
-        try {
-            player = game.getCurrentPlayer();
-            game.put(new Coordinates(2, 3));
-            assertNotEquals(player, game.getCurrentPlayer());
-            game.put(new Coordinates(2, 2));
-            assertEquals(player, game.getCurrentPlayer());
-        } catch (CloneNotSupportedException e) {
-            System.out.println(e.getMessage());
-        }
+        Color color;
+        color = game.getCurrentPlayer();
+        game.put(new Coordinates(2, 3));
+        assertNotEquals(color, game.getCurrentPlayer());
+        game.put(new Coordinates(2, 2));
+        assertEquals(color, game.getCurrentPlayer());
     }
 
     /**
@@ -131,15 +122,6 @@ public class GameTest {
         assertEquals(false, game.isFinished());
         assertEquals(false, game.canPlay());
         assertEquals(true, game.isFinished());
-    }
-
-    /**
-     * Normal case of put().
-     */
-    @Test
-    public void testPut() {
-        Game game = new Game();
-        game.put(new Coordinates(2, 3));
     }
 
     private void completeBoard(Game game) {

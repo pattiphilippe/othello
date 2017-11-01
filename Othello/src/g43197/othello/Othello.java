@@ -10,12 +10,14 @@ import java.util.List;
 
 /**
  * Main class of project Othello.
+ *
  * @author G43197
  */
 public class Othello {
 
     /**
      * Main method of Othello.
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -98,11 +100,12 @@ public class Othello {
         System.out.println("It's not " + color + " turn.");
         draw(board);
 
-//        Game game = new Game();
-//        while (!game.isFinished()) {
-//            System.out.println("game is not finished");
-//            play(game);
-//        }
+        Game game = new Game();
+        while (!game.isFinished()) {
+            play(game);
+        }
+        //TODO afficher fin du jeu
+        scores();
     }
 
     /**
@@ -111,15 +114,12 @@ public class Othello {
      * @param game
      */
     public static void play(Game game) {
-        //TODO afficher qui joue, sait jouer ou pas, ...
+        //TODO afficher qui joue et son score, sait jouer ou pas,
         if (game.canPlay()) {
-            System.out.println("can Play");
             boolean played = false;
-            Coordinates pos;
             while (!played) {
                 try {
-                    pos = readPos();
-                    game.put(pos);
+                    game.put(readPos());
                     played = true;
                 } catch (GameException e) {
                     displayError(e.getMessage());

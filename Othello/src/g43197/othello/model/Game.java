@@ -68,10 +68,9 @@ public class Game {
      * Gets the current player.
      *
      * @return
-     * @throws java.lang.CloneNotSupportedException
      */
-    public Player getCurrentPlayer() throws CloneNotSupportedException {
-        return currentPlayer.clone();
+    public Color getCurrentPlayer() {
+        return currentPlayer.getColor();
     }
 
     /**

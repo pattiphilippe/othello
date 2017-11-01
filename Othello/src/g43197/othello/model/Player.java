@@ -56,11 +56,6 @@ public class Player implements Cloneable {
     }
 
     @Override
-    public Player clone() throws CloneNotSupportedException {
-        return (Player) super.clone();
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

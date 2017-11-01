@@ -10,7 +10,12 @@ package g43197.othello.view;
  * @author Philippe
  */
 public class Display {
-    public static void displayError(String errorMsg){
+
+    public static void displayError(String errorMsg) {
         System.out.println(errorMsg);
+    }
+
+    public static void scores() {
+        //TODO implement scores
     }
 }
