@@ -3,9 +3,9 @@ package g43197.othello;
 import g43197.othello.model.Color;
 import g43197.othello.model.Game;
 import g43197.othello.model.GameException;
-import static g43197.othello.view.BoardView.*;
-import g43197.othello.view.Display;
-import g43197.othello.view.Read;
+import static g43197.othello.view.console.BoardView.*;
+import g43197.othello.view.console.Display;
+import g43197.othello.view.console.Read;
 
 /**
  * Main class of project Othello.
