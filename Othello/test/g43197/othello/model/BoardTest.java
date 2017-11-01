@@ -186,4 +186,22 @@ public class BoardTest {
         expResult.add(new Coordinates(6, 2));
         assertTrue(accessibles.containsAll(expResult));
     }
+
+    /**
+     *
+     */
+    @Test
+    public void testClone() {
+        try {
+            Board board = new Board();
+            Board boardClone = board.clone();
+            assertEquals(new Piece(Color.WHITE), boardClone.getPiece(new Coordinates(3, 3)));
+            assertEquals(new Piece(Color.BLACK), boardClone.getPiece(new Coordinates(3, 4)));
+            assertEquals(new Piece(Color.BLACK), boardClone.getPiece(new Coordinates(4, 3)));
+            assertEquals(new Piece(Color.WHITE), boardClone.getPiece(new Coordinates(4, 4)));
+            assertNotEquals(board, boardClone);
+        } catch (CloneNotSupportedException e) {
+            fail("Clone failed!");
+        }
+    }
 }

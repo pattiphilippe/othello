@@ -11,11 +11,15 @@ package g43197.othello.view;
  */
 public class Display {
 
-    public static void displayError(String errorMsg) {
+    public static void error(String errorMsg) {
         System.out.println(errorMsg);
     }
 
-    public static void scores() {
+    public static void endGame() {
         //TODO implement scores
+    }
+
+    public static void cantPlay() {
+
     }
 }

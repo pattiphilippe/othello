@@ -1,6 +1,7 @@
 package g43197.othello.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,11 +13,11 @@ import java.util.List;
  */
 public class Game {
 
-    private Board board;
-    private Rack rack;
-    private List<Player> players;
+    private final Board board;
+    private final Rack rack;
+    private final List<Player> players;
     private Player currentPlayer;
-    private List<Coordinates> accessibles;
+    private final List<Coordinates> accessibles;
     private boolean didPlay;
 
     public Game() {
@@ -71,6 +72,31 @@ public class Game {
      */
     public Color getCurrentPlayer() {
         return currentPlayer.getColor();
+    }
+
+    /**
+     * Returns a clone of the board.
+     *
+     * @return
+     */
+    public Board getBoard() {
+        try {
+            return board.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
+
+    public List<Coordinates> getAccessibles() {
+        List<Coordinates> clone = new LinkedList<>();
+        for (Coordinates pos : accessibles) {
+            try {
+                clone.add(pos.clone());
+            } catch (CloneNotSupportedException e) {
+                
+            }
+        }
+        return clone;
     }
 
     /**

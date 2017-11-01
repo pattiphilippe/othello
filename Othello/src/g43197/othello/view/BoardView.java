@@ -16,11 +16,25 @@ public class BoardView {
     private static final String[][] CLEAR_SCREEN = new String[ROWS_DISPLAY][COLS_DISPLAY];
     private static String[][] screen;
 
-    public static void draw(Board board) {
-        Piece piece;
-        String str = "";
+    private static boolean init = false;
+
+    public static void draw(Board board, List<Coordinates> accessibles) {
+        if (!init) {
+            init();
+            init = true;
+        }
 
         screen = CLEAR_SCREEN.clone();
+
+        fillPieces(board);
+        fillAccessibles(accessibles);
+        showBoard();
+    }
+
+    /*Fills the screen with the pieces on the board.*/
+    private static void fillPieces(Board board) {
+        Piece piece;
+        String str;
 
         for (int i = 0; i < MAX_ROWS_COLS; i++) {
             for (int j = 0; j < MAX_ROWS_COLS; j++) {
@@ -30,16 +44,22 @@ public class BoardView {
                 str = " ";
                 screen[1 + i * 2][1 + j * 4] = str;
                 screen[1 + i * 2][3 + j * 4] = str;
-                if (piece == null) {
-                    screen[1 + i * 2][2 + j * 4] = str;
-                } else {
+                if (piece != null) {
                     str = piece.getColor().toString();
-                    screen[1 + i * 2][2 + j * 4] = str;
                 }
+                screen[1 + i * 2][2 + j * 4] = str;
             }
         }
+    }
 
-        //showBoard
+    private static void fillAccessibles(List<Coordinates> accessibles) {
+        for (Coordinates pos : accessibles) {
+            screen[1 + pos.getROW() * 2][2 + pos.getCOL() * 4] = "?";
+        }
+    }
+
+    /*Prints the board on standard output.*/
+    private static void showBoard() {
         System.out.println("     A   B   C   D   E   F   G   H");
         for (int i = 0; i < screen.length; i++) { // print array
             numberLine(i);
@@ -55,7 +75,7 @@ public class BoardView {
     /**
      * fills the CLEAR_SCREEN array according to the size of the board
      */
-    public static void init() {
+    private static void init() {
         screen = new String[ROWS_DISPLAY][COLS_DISPLAY];
         for (int i = 0; i < COLS_DISPLAY; i++) {
             fillLine(0, i, "╔", "═", "╦", "╗");

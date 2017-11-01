@@ -36,6 +36,11 @@ public class Coordinates {
     public int getCOL() {
         return COL;
     }
+    
+    @Override
+    public Coordinates clone() throws CloneNotSupportedException{
+        return (Coordinates) super.clone();
+    }
 
     @Override
     public boolean equals(Object obj) {

@@ -44,7 +44,7 @@ public class DisplayTest {
     public void testDisplayError() {
         System.out.println("displayError");
         String errorMsg = "";
-        Display.displayError(errorMsg);
+        Display.error(errorMsg);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

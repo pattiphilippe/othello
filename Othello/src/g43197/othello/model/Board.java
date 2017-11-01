@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Philippe
  */
-public class Board {
+public class Board implements Cloneable {
 
     public static final int MAX_ROWS_COLS = 8;
     private final Piece[][] BOARD;
@@ -87,6 +87,11 @@ public class Board {
                 }
             }
         }
+    }
+
+    @Override
+    public Board clone() throws CloneNotSupportedException {
+        return (Board) super.clone();
     }
 
     ///////////////////////////Private//Methods//////////////////////////////
