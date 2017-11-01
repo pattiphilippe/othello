@@ -12,6 +12,10 @@ public class Read {
 
     private static final Scanner CLAVIER = new Scanner(System.in);
 
+    /**
+     *
+     * @return
+     */
     public static Coordinates readPos() {
         System.out.println("Enter the position where you wanna put a piece.");
         int row = read(false), col = read(true);

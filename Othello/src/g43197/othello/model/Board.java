@@ -12,6 +12,9 @@ import java.util.List;
  */
 public class Board implements Cloneable {
 
+    /**
+     *
+     */
     public static final int MAX_ROWS_COLS = 8;
     private final Piece[][] BOARD;
 

@@ -18,6 +18,13 @@ public class BoardView {
 
     private static boolean init = false;
 
+    /**
+     * Draws the board with the pieces on it and the accessible positions given
+     * in param.
+     *
+     * @param board
+     * @param accessibles
+     */
     public static void draw(Board board, List<Coordinates> accessibles) {
         if (!init) {
             init();

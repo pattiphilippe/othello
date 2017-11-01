@@ -20,6 +20,9 @@ public class Game {
     private final List<Coordinates> accessibles;
     private boolean didPlay;
 
+    /**
+     * Creates a new game.
+     */
     public Game() {
         board = new Board();
         rack = new Rack();
@@ -87,6 +90,11 @@ public class Game {
         }
     }
 
+    /**
+     * Returns a copy of the accessible positions for the current player.
+     *
+     * @return
+     */
     public List<Coordinates> getAccessibles() {
         List<Coordinates> accClone = new LinkedList<>();
         for (Coordinates pos : accessibles) {

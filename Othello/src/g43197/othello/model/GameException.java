@@ -8,6 +8,10 @@ package g43197.othello.model;
  */
 public class GameException extends RuntimeException {
 
+    /**
+     *
+     * @param msg
+     */
     public GameException(String msg) {
         super(msg);
     }

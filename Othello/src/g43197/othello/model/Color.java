@@ -6,7 +6,15 @@ package g43197.othello.model;
  */
 public enum Color {
 
-    BLACK("X"), WHITE("O");
+    /**
+     *
+     */
+    BLACK("X"),
+
+    /**
+     *
+     */
+    WHITE("O");
     
     private final String descr;
     
