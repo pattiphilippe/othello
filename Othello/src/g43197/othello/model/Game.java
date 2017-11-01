@@ -70,7 +70,7 @@ public class Game {
      * @return
      * @throws java.lang.CloneNotSupportedException
      */
-    public Player getCurrentPlayer() throws CloneNotSupportedException{
+    public Player getCurrentPlayer() throws CloneNotSupportedException {
         return currentPlayer.clone();
     }
 

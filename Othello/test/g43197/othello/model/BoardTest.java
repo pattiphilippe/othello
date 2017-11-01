@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class BoardTest {
 
     /**
-     * Tests the construction of a normal board.
+     * Tests the construction of a normal board. InitBoard(), getCenterPos()
      */
     @Test
     public void testNewBoard() {
@@ -28,7 +28,8 @@ public class BoardTest {
     }
 
     /**
-     * Test of put method, of class Board and getPiece.
+     * Test of put method, of class Board and getPiece. With consequencePut()
+     * and getDirToSwitch()
      */
     @Test
     public void testPutGetPiece() {
@@ -42,11 +43,30 @@ public class BoardTest {
     }
 
     /**
-     *
+     * Test if gets exception when piece is null.
      */
-    @Test
-    public void testPuts() {
-        fail("à coder");
+    @Test(expected = IllegalArgumentException.class)
+    public void testPutNullPiece() {
+        Board board = new Board();
+        board.put(null, null);
+    }
+
+    /**
+     * Test if gets exception when pos is null.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testPutNullPos() {
+        Board board = new Board();
+        board.put(new Piece(Color.BLACK), null);
+    }
+
+    /**
+     * Test if gets exception when pos is outside.
+     */
+    @Test(expected = GameException.class)
+    public void testPutPosOutside() {
+        Board board = new Board();
+        board.put(new Piece(Color.BLACK), new Coordinates(-1, 0));
     }
 
     /**
@@ -129,7 +149,7 @@ public class BoardTest {
         expResult.add(new Coordinates(5, 4));
         assertTrue(accessibles.containsAll(expResult));
     }
-    
+
     /**
      * Test after a move.
      */
@@ -145,7 +165,7 @@ public class BoardTest {
         expResult.add(new Coordinates(4, 2));
         assertTrue(accessibles.containsAll(expResult));
     }
-    
+
     /**
      * Test after a few moves.
      */

@@ -80,7 +80,7 @@ public class Board {
         for (int row = 0; row < MAX_ROWS_COLS; row++) {
             for (int col = 0; col < MAX_ROWS_COLS; col++) {
                 pos = new Coordinates(row, col);
-                if (!getDirToSwitch(pos, color).isEmpty()) {
+                if (getPiece(pos) == null && !getDirToSwitch(pos, color).isEmpty()) {
                     //TODO optimiser condition : arrêter dès que c'est bon, pas tout vérifier
                     //TODO check if useful: doing this simplifies code, but more checks
                     accessibles.add(pos);

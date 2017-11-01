@@ -142,12 +142,17 @@ public class GameTest {
      * Test of put method, of class Game.
      */
     @Test
-    public void testPut() {
-        System.out.println("put");
-        Coordinates pos = null;
-        Game instance = new Game();
-        instance.put(pos);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testNextPlayer() {
+        Game game = new Game();
+        Player player = null;
+        try {
+            player = game.getCurrentPlayer();
+            game.put(new Coordinates(2, 3));
+            assertNotEquals(player, game.getCurrentPlayer());
+            game.put(new Coordinates(2, 2));
+            assertEquals(player, game.getCurrentPlayer());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
