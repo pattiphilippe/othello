@@ -5,6 +5,8 @@
  */
 package g43197.othello.view;
 
+import g43197.othello.model.Color;
+
 /**
  *
  * @author Philippe
@@ -20,6 +22,22 @@ public class Display {
     }
 
     public static void cantPlay() {
+        System.out.println("Current player can't play.");
+    }
 
+    public static void player(Color currentPlayer) {
+    }
+
+    public static void score(int score) {
+    }
+
+    public static void turn(Color currentPlayer, int score) {
+        System.out.println("Player: " + currentPlayer);
+        System.out.println("Score: " + score);
+    }
+
+    public static void endTurn(Color currentPlayer, int newScore) {
+        turn(currentPlayer, newScore);
+        System.out.println("\n\n");
     }
 }

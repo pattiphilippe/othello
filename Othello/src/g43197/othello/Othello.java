@@ -1,5 +1,6 @@
 package g43197.othello;
 
+import g43197.othello.model.Color;
 import g43197.othello.model.Game;
 import g43197.othello.model.GameException;
 import static g43197.othello.view.BoardView.*;
@@ -33,18 +34,21 @@ public class Othello {
      * @param game
      */
     public static void play(Game game) {
+        Color currentPlayer = game.getCurrentPlayer();
+        Display.turn(currentPlayer, game.getScore());
         draw(game.getBoard(), game.getAccessibles());
-        //TODO afficher qui joue et son score, sait jouer ou pas,
         if (game.canPlay()) {
             boolean played = false;
+            int newScore = 0;
             while (!played) {
                 try {
-                    game.put(readPos());
+                    newScore = game.put(readPos());
                     played = true;
                 } catch (GameException e) {
                     Display.error(e.getMessage());
                 }
             }
+            Display.endTurn(currentPlayer, newScore);
         } else {
             Display.cantPlay();
         }

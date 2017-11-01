@@ -88,31 +88,34 @@ public class Game {
     }
 
     public List<Coordinates> getAccessibles() {
-        List<Coordinates> clone = new LinkedList<>();
+        List<Coordinates> accClone = new LinkedList<>();
         for (Coordinates pos : accessibles) {
             try {
-                clone.add(pos.clone());
+                accClone.add(pos.clone());
             } catch (CloneNotSupportedException e) {
-                
+
             }
         }
-        return clone;
+        return accClone;
     }
 
     /**
      * Puts a piece on the board.
      *
      * @param pos the given position
+     * @return the score of the player that puts a piece
      */
-    public void put(Coordinates pos) {
+    public int put(Coordinates pos) {
         if (pos == null) {
             throw new IllegalArgumentException("Piece and pos can't be null!");
         }
-        int score = board.put(rack.getPiece(currentPlayer.getColor()), pos);
-        currentPlayer.modifyScore(score + 1);
+        int points = board.put(rack.getPiece(currentPlayer.getColor()), pos);
+        currentPlayer.modifyScore(points + 1);
+        int score = getScore();
         nextPlayer();
-        currentPlayer.modifyScore(-score);
+        currentPlayer.modifyScore(-points);
         didPlay = true;
+        return score;
     }
 
     ///////////////////////////Private//Methods//////////////////////////////

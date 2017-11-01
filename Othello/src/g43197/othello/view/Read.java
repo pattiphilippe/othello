@@ -1,6 +1,7 @@
 package g43197.othello.view;
 
 import g43197.othello.model.Coordinates;
+import static g43197.othello.model.Board.*;
 import java.util.Scanner;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Scanner;
  */
 public class Read {
 
-    private static Scanner clavier = new Scanner(System.in);
+    private static final Scanner CLAVIER = new Scanner(System.in);
 
     public static Coordinates readPos() {
         System.out.println("Enter the position where you wanna put a piece.");
@@ -22,14 +23,14 @@ public class Read {
         String read;
         int nb = 0;
         while (!validInput) {
-            read = clavier.next().charAt(0) + "";
+            read = CLAVIER.next().charAt(0) + "";
             nb = readingCol ? convertToCol(read) : convertToRow(read);
             if (nb == -1) {
                 System.out.print("Wrong input.");
                 if (readingCol) {
-                    System.out.println(" Enter a letter from A to H.");
+                    System.out.println("Enter a letter from A to H for the column.");
                 } else {
-                    System.out.println("Enter a number from 1 to 8");
+                    System.out.println("Enter a number from 1 to 8 for the row.");
                 }
             } else {
                 validInput = true;
@@ -63,6 +64,15 @@ public class Read {
     }
 
     private static int convertToRow(String row) {
-        return Integer.parseInt(row) - 1;
+        int rowNb = 0;
+        try {
+            rowNb = Integer.parseInt(row);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+        if (rowNb < 1 || 8 < rowNb) {
+            return -1;
+        }
+        return MAX_ROWS_COLS - rowNb;
     }
 }
