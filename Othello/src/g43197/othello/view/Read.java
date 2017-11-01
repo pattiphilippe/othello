@@ -12,17 +12,23 @@ public class Read {
 
     private static final Scanner CLAVIER = new Scanner(System.in);
 
+    public static boolean startAgain() {
+        System.out.println("Do you want to start a new game?");
+        return readBoolean();
+    }
+
     /**
+     * Reads a position that is on the board.
      *
      * @return
      */
     public static Coordinates readPos() {
         System.out.println("Enter the position where you wanna put a piece.");
-        int row = read(false), col = read(true);
+        int row = readRowCol(false), col = readRowCol(true);
         return new Coordinates(row, col);
     }
 
-    private static int read(boolean readingCol) {
+    private static int readRowCol(boolean readingCol) {
         boolean validInput = false;
         String read;
         int nb = 0;
@@ -78,5 +84,24 @@ public class Read {
             return -1;
         }
         return MAX_ROWS_COLS - rowNb;
+    }
+
+    private static boolean readBoolean() {
+        boolean didAnswer = true, answer = false;
+        String msg;
+        while (!didAnswer) {
+            msg = CLAVIER.next().toUpperCase();
+            switch (msg) {
+                case "YES":
+                    answer = true;
+                    didAnswer = true;
+                    break;
+                case "NO":
+                    answer = false;
+                    didAnswer = true;
+                    break;
+            }
+        }
+        return answer;
     }
 }

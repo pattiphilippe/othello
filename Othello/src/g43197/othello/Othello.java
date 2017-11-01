@@ -4,8 +4,8 @@ import g43197.othello.model.Color;
 import g43197.othello.model.Game;
 import g43197.othello.model.GameException;
 import static g43197.othello.view.BoardView.*;
-import static g43197.othello.view.Read.*;
 import g43197.othello.view.Display;
+import g43197.othello.view.Read;
 
 /**
  * Main class of project Othello.
@@ -21,19 +21,23 @@ public class Othello {
      */
     public static void main(String[] args) {
         Game game = new Game();
-        while (!game.isFinished()) {
+        play(game);
+        while (Read.startAgain()) {
+            game.startAgain();
             play(game);
         }
-        //TODO afficher fin du jeu
+    }
+
+    /*Plays the game once.*/
+    private static void play(Game game) {
+        while (!game.isFinished()) {
+            playTurn(game);
+        }
         Display.endGame();
     }
 
-    /**
-     * Plays a turn for the player.
-     *
-     * @param game
-     */
-    public static void play(Game game) {
+    /*Plays a turn for the player.*/
+    private static void playTurn(Game game) {
         Color currentPlayer = game.getCurrentPlayer();
         Display.turn(currentPlayer, game.getScore());
         draw(game.getBoard(), game.getAccessibles());
@@ -42,7 +46,7 @@ public class Othello {
             int newScore = 0;
             while (!played) {
                 try {
-                    newScore = game.put(readPos());
+                    newScore = game.put(Read.readPos());
                     played = true;
                 } catch (GameException e) {
                     Display.error(e.getMessage());

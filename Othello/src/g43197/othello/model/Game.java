@@ -13,25 +13,32 @@ import java.util.List;
  */
 public class Game {
 
-    private final Board board;
-    private final Rack rack;
     private final List<Player> players;
-    private Player currentPlayer;
     private final List<Coordinates> accessibles;
+    private Board board;
+    private Rack rack;
+    private Player currentPlayer;
     private boolean didPlay;
 
     /**
      * Creates a new game.
      */
     public Game() {
-        board = new Board();
-        rack = new Rack();
         players = new ArrayList<>();
         for (Color color : Color.values()) {
             players.add(new Player(color));
         }
-        currentPlayer = players.get(0);
         accessibles = new LinkedList<>();
+        startAgain();
+    }
+
+    /**
+     * Starts a new game.
+     */
+    public final void startAgain() {
+        board = new Board();
+        rack = new Rack();
+        currentPlayer = players.get(0);
         updateAccessibles();
         didPlay = true;
     }

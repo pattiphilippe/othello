@@ -9,6 +9,14 @@ import static org.junit.Assert.*;
  */
 public class RackTest {
 
+    @Test
+    public void testRack() {
+        Rack rack = new Rack();
+        for (int i = 0; i < 60; i++) {
+            rack.getPiece(Color.BLACK);
+        }
+    }
+
     /**
      * Tries to get a White piece.
      */

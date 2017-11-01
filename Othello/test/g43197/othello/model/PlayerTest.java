@@ -16,7 +16,7 @@ public class PlayerTest {
     public void newPlayer() {
         Player p = new Player(Color.BLACK);
         assertEquals(p.getColor(), Color.BLACK);
-        assertEquals(p.getScore(), 0);
+        assertEquals(p.getScore(), 2);
     }
 
     /**
@@ -35,7 +35,7 @@ public class PlayerTest {
         Player player = new Player(Color.WHITE);
         int delta = 2;
         player.modifyScore(delta);
-        assertEquals(delta, player.getScore());
+        assertEquals(4, player.getScore());
     }
 
     /**
@@ -48,7 +48,7 @@ public class PlayerTest {
         player.modifyScore(delta);
         delta = 10;
         player.modifyScore(delta);
-        assertEquals(25, player.getScore());
+        assertEquals(27, player.getScore());
     }
 
     /**
@@ -61,7 +61,7 @@ public class PlayerTest {
         player.modifyScore(delta);
         delta = -5;
         player.modifyScore(delta);
-        assertEquals(10, player.getScore());
+        assertEquals(12, player.getScore());
     }
 
     /**
