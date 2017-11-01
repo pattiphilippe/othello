@@ -52,4 +52,11 @@ public class Display {
         turn(currentPlayer, newScore);
         System.out.println("\n\n");
     }
+
+    public static void startGame() {
+        System.out.println("");
+        System.out.println("");
+        System.out.println("----------New Game of Othello----------");
+        System.out.println("");
+    }
 }

@@ -21,8 +21,10 @@ public class Othello {
      */
     public static void main(String[] args) {
         Game game = new Game();
+        Display.startGame();
         play(game);
         while (Read.startAgain()) {
+            Display.startGame();
             game.startAgain();
             play(game);
         }

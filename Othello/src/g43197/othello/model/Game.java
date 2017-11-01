@@ -1,7 +1,6 @@
 package g43197.othello.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,6 +40,9 @@ public class Game {
         currentPlayer = players.get(0);
         updateAccessibles();
         didPlay = true;
+        for (Player player : players) {
+            player.initScore();
+        }
     }
 
     /**

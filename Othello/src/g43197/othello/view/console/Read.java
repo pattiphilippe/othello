@@ -87,7 +87,7 @@ public class Read {
     }
 
     private static boolean readBoolean() {
-        boolean didAnswer = true, answer = false;
+        boolean didAnswer = false, answer = false;
         String msg;
         while (!didAnswer) {
             msg = CLAVIER.next().toUpperCase();
@@ -100,6 +100,8 @@ public class Read {
                     answer = false;
                     didAnswer = true;
                     break;
+                default:
+                    System.out.println("Enter yes or no.");
             }
         }
         return answer;
