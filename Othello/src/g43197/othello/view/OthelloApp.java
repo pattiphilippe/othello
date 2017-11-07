@@ -11,7 +11,8 @@ import javafx.stage.Stage;
  */
 public class OthelloApp extends Application {
 
-    public static final int MIN_WIDTH_HEIGHT = 500;
+    public static final int HEIGHT = 750;
+    public static final int WIDTH = 1000;
 
     public static void main(String[] args) {
         launch(args);
@@ -25,10 +26,10 @@ public class OthelloApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Othello");
-        primaryStage.setMinWidth(MIN_WIDTH_HEIGHT);
-        primaryStage.setMinHeight(MIN_WIDTH_HEIGHT * 1.1);
-//        primaryStage.setMaxHeight(750);
-//        primaryStage.setMaxWidth(1000);
+        primaryStage.setMinWidth(WIDTH);
+        primaryStage.setMinHeight(HEIGHT);
+        primaryStage.setMaxWidth(WIDTH);
+        primaryStage.setMaxHeight(HEIGHT);
 
         Window root = new Window();
 
