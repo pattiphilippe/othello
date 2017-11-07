@@ -21,7 +21,6 @@ public class Window extends BorderPane {
     public Window() {
         super();
 
-        //TODO find better way to make it big
         title = new Label("----------OTHELLO----------\n");
         title.setFont(Font.font(60));
         this.setAlignment(title, Pos.TOP_CENTER);

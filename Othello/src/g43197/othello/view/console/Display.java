@@ -21,7 +21,7 @@ public class Display {
      * Displays the end of the game.
      */
     public static void endGame() {
-        //TODO implement scores
+        //TODO implement Display scores
     }
 
     /**

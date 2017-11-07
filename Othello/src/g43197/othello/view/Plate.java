@@ -18,21 +18,24 @@ public class Plate extends GridPane {
     public Plate() {
         super();
 
-        //TODO use pref size
-        //TODO taille plate dynamique
-        double size = 1 * 500;
-        this.setMinSize(size, size);
-        this.setMaxSize(size, size);
+        double height = 2 / 3. * OthelloApp.HEIGHT;
+        double width = 1 / 2. * OthelloApp.WIDTH;
+        this.setMinSize(width, height);
+        this.setMaxSize(width, height);
 
         Rectangle rectangle;
-        size /= MAX_ROWS_COLS;
+        height /= MAX_ROWS_COLS;
+        width /= MAX_ROWS_COLS;
+
         for (int row = 0; row < MAX_ROWS_COLS; row++) {
             for (int col = 0; col < MAX_ROWS_COLS; col++) {
                 rectangle = new Rectangle();
-                rectangle.minHeight(size);
-                rectangle.minWidth(size);
-                rectangle.setHeight(size);
-                rectangle.setWidth(size);
+                rectangle.minHeight(height);
+                rectangle.minWidth(width);
+                rectangle.setHeight(height);
+                rectangle.setWidth(width);
+//                rectangle.prefHeight(height);
+//                rectangle.prefWidth(width);
 
 //                initImage(row, col);
                 rectangle.setStroke(javafx.scene.paint.Color.GREEN);
@@ -47,10 +50,10 @@ public class Plate extends GridPane {
     }
 
     private void firstPieces() {
-        addPiece2(3, 3, Color.WHITE);
-        addPiece2(3, 4, Color.BLACK);
-        addPiece2(4, 3, Color.BLACK);
-        addPiece2(4, 4, Color.WHITE);
+        addPiece(3, 3, Color.WHITE);
+        addPiece(3, 4, Color.BLACK);
+        addPiece(4, 3, Color.BLACK);
+        addPiece(4, 4, Color.WHITE);
     }
 
     public void addPiece(int row, int col, Color color) {
@@ -86,10 +89,6 @@ public class Plate extends GridPane {
     private void initImage(int row, int col) {
         String url = "file:NoPiece.png";
         setImage(getShapeByRowCol(row, col), url);
-    }
-
-    private void addPiece2(int i, int i0, Color color) {
-        Rectangle rect = getShapeByRowCol(i, i0);
     }
 }
 
