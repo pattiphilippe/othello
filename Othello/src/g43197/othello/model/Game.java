@@ -12,21 +12,17 @@ import java.util.List;
  */
 public class Game {
 
-    private final List<Player> players;
+    private final Players players;
     private final List<Coordinates> accessibles;
     private Board board;
     private Rack rack;
-    private Player currentPlayer;
     private boolean didPlay;
 
     /**
      * Creates a new game.
      */
     public Game() {
-        players = new ArrayList<>();
-        for (Color color : Color.values()) {
-            players.add(new Player(color));
-        }
+        players = new Players();
         accessibles = new LinkedList<>();
         startAgain();
     }
@@ -37,12 +33,8 @@ public class Game {
     public final void startAgain() {
         board = new Board();
         rack = new Rack();
-        currentPlayer = players.get(0);
         updateAccessibles();
         didPlay = true;
-        for (Player player : players) {
-            player.initScore();
-        }
     }
 
     /**
@@ -74,7 +66,7 @@ public class Game {
      * @return
      */
     public int getScore() {
-        return currentPlayer.getScore();
+        return players.getScore();
     }
 
     /**
@@ -83,7 +75,7 @@ public class Game {
      * @return
      */
     public Color getCurrentPlayer() {
-        return currentPlayer.getColor();
+        return players.getCurrentPlayer();
     }
 
     /**
@@ -126,30 +118,25 @@ public class Game {
         if (pos == null) {
             throw new IllegalArgumentException("Piece and pos can't be null!");
         }
-        int points = board.put(rack.getPiece(currentPlayer.getColor()), pos);
-        currentPlayer.modifyScore(points + 1);
+        int points = board.put(rack.getPiece(players.getCurrentPlayer()), pos);
+        players.modifyScore(points + 1);
         int score = getScore();
         nextPlayer();
-        currentPlayer.modifyScore(-points);
+        players.modifyScore(-points);
         didPlay = true;
         return score;
     }
 
     ///////////////////////////Private//Methods//////////////////////////////
     private void nextPlayer() {
-        int i = players.indexOf(currentPlayer) + 1;
-        if (i < players.size()) {
-            currentPlayer = players.get(i);
-        } else {
-            currentPlayer = players.get(0);
-        }
+        players.nextPlayer();
         // has to go through put() so that didPlay is true;
         didPlay = false;
         updateAccessibles();
     }
 
     private void updateAccessibles() {
-        board.updateAccessibles(accessibles, currentPlayer.getColor());
+        board.updateAccessibles(accessibles, players.getCurrentPlayer());
     }
 
     private boolean hasMovesLeft() {
