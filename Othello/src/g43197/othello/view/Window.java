@@ -13,29 +13,29 @@ import javafx.scene.text.Font;
  */
 public class Window extends BorderPane {
 
-    private Label title;
-    private Player player1;
-    private Player player2;
-    private Plate plate;
+    private final Label title;
+    private final Player player1;
+    private final Player player2;
+    private final Plate plate;
 
     public Window() {
         super();
 
         title = new Label("----------OTHELLO----------\n");
         title.setFont(Font.font(60));
-        this.setAlignment(title, Pos.TOP_CENTER);
+        Window.setAlignment(title, Pos.TOP_CENTER);
         this.setTop(title);
 
-        player1 = new Player();
+        player1 = new Player("White");
         this.setLeft(player1);
         this.setPadding(new Insets(20));
-        this.setAlignment(player1, Pos.CENTER_LEFT);
-        player2 = new Player();
+        Window.setAlignment(player1, Pos.CENTER_LEFT);
+        player2 = new Player("Black");
         this.setRight(player2);
-        this.setAlignment(player2, Pos.CENTER_RIGHT);
+        Window.setAlignment(player2, Pos.CENTER_RIGHT);
 
         plate = new Plate();
         this.setBottom(plate);
-        this.setAlignment(plate, Pos.BASELINE_CENTER);
+        Window.setAlignment(plate, Pos.BASELINE_CENTER);
     }
 }

@@ -22,8 +22,7 @@ public class Plate extends GridPane {
         double width = 1 / 2. * OthelloApp.WIDTH;
         this.setMinSize(width, height);
         this.setMaxSize(width, height);
-
-//        Rectangle rectangle;
+        
         Tile tile;
         height /= MAX_ROWS_COLS;
         width /= MAX_ROWS_COLS;
@@ -33,22 +32,10 @@ public class Plate extends GridPane {
                 tile = new Tile(width, height);
                 tile.setMinSize(width, height);
                 tile.setMaxSize(width, height);
-//                rectangle = new Rectangle();
-//                rectangle.minHeight(height);
-//                rectangle.minWidth(width);
-//                rectangle.setHeight(height);
-//                rectangle.setWidth(width);
-
-////                initImage(row, col);
-//                rectangle.setStroke(javafx.scene.paint.Color.GREEN);
-//                rectangle.setFill(javafx.scene.paint.Color.PINK);
                 this.add(tile, col, row);
             }
         }
         firstPieces();
-        //setHgap(5);
-        //setVgap(5);
-        //TODO setStyle("--fx-border");
     }
 
     private void firstPieces() {

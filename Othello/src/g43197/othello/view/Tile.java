@@ -1,7 +1,11 @@
 package g43197.othello.view;
 
-import g43197.othello.model.Color;
+
 import javafx.scene.layout.Pane;
+import static javafx.scene.paint.Color.BLACK;
+import static javafx.scene.paint.Color.WHITE;
+import static javafx.scene.paint.Color.GREEN;
+import static javafx.scene.paint.Color.PINK;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
@@ -13,44 +17,46 @@ import javafx.scene.shape.Shape;
  */
 public class Tile extends Pane {
 
-    private Rectangle rectangle;
-    private Shape shape;
+    private final Rectangle rectangle;
+    private final Shape shape;
 
     public Tile(double width, double height) {
         double shapeSizeFact = 2 / 5.;
         shape = new Ellipse(width * shapeSizeFact, height * shapeSizeFact);
-        shape.setFill(javafx.scene.paint.Color.PINK);
+        shape.setFill(PINK);
         
         shape.setTranslateX(width / 2);
         shape.setTranslateY(height / 2);
 
         rectangle = new Rectangle(width, height);
         
-        rectangle.setStroke(javafx.scene.paint.Color.GREEN);
-        rectangle.setFill(javafx.scene.paint.Color.PINK);
+        rectangle.setStroke(GREEN);
+        rectangle.setFill(PINK);
 
         this.getChildren().addAll(rectangle, shape);
     }
 
-    public void addPiece(Color color) {
+    public void addPiece(g43197.othello.model.Color color) {
         shape.setFill(getFxColor(color));
     }
 
-    public void switchColor() {
-        //TODO voir si peut switch quand pas encore couleur
-        if(shape.getFill() == javafx.scene.paint.Color.BLACK){
-            shape.setFill(javafx.scene.paint.Color.WHITE);
+    public void switchColor() throws Exception {
+        if(shape.getFill() == PINK){
+            throw new Exception("No piece added there yet!");
+        }
+        if(shape.getFill() == BLACK){
+            shape.setFill(WHITE);
         } else {
-            shape.setFill(javafx.scene.paint.Color.BLACK);
+            shape.setFill(BLACK);
         }
     }
 
-    private Paint getFxColor(Color color) {
+    private Paint getFxColor(g43197.othello.model.Color color) {
         switch (color) {
             case BLACK:
-                return javafx.scene.paint.Color.BLACK;
+                return BLACK;
             case WHITE:
-                return javafx.scene.paint.Color.WHITE;
+                return WHITE;
             default:
                 throw new RuntimeException("wrong color!");
         }
