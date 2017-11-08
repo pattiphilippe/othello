@@ -11,9 +11,21 @@ import javafx.stage.Stage;
  */
 public class OthelloApp extends Application {
 
+    /**
+     * The height of the window.
+     */
     public static final int HEIGHT = 750;
+
+    /**
+     * The width of the window.
+     */
     public static final int WIDTH = 1000;
 
+    /**
+     * Main method that launches the application with the window display.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }

@@ -25,7 +25,7 @@ public class Player implements Cloneable {
     }
 
     /**
-     * Initialises the score of the player to 2. Can be called when new game.
+     * Initializes the score of the player to 2. Can be called when new game.
      */
     public final void initScore() {
         this.score = 2;

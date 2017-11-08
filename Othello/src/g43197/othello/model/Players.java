@@ -25,7 +25,7 @@ public class Players {
     }
 
     /**
-     * Initialises the score of every player.
+     * initializes the score of every player.
      */
     public void initScores() {
         players.forEach((player) -> {
@@ -61,10 +61,6 @@ public class Players {
      */
     public int getScore() {
         return currentPlayer.getScore();
-    }
-
-    public void getScores() {
-        //TODO implement method to have all the score at the end.
     }
 
     /**

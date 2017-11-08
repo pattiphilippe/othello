@@ -12,6 +12,11 @@ public class Read {
 
     private static final Scanner CLAVIER = new Scanner(System.in);
 
+    /**
+     * Checks if the user wants to start a new game.
+     *
+     * @return yes if he wants
+     */
     public static boolean startAgain() {
         System.out.println("Do you want to start a new game?");
         return readBoolean();

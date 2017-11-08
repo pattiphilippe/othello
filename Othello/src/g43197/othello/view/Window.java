@@ -16,8 +16,11 @@ public class Window extends BorderPane {
     private final Label title;
     private final Player player1;
     private final Player player2;
-    private final Plate plate;
+    private final Board plate;
 
+    /**
+     * Creates a new Window for the Othello game.
+     */
     public Window() {
         super();
 
@@ -34,7 +37,7 @@ public class Window extends BorderPane {
         this.setRight(player2);
         Window.setAlignment(player2, Pos.CENTER_RIGHT);
 
-        plate = new Plate();
+        plate = new Board();
         this.setBottom(plate);
         Window.setAlignment(plate, Pos.BASELINE_CENTER);
     }

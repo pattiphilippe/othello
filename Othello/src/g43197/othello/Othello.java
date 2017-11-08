@@ -35,7 +35,6 @@ public class Othello {
         while (!game.isFinished()) {
             playTurn(game);
         }
-        Display.endGame();
     }
 
     /*Plays a turn for the player.*/

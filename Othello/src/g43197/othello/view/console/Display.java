@@ -18,13 +18,6 @@ public class Display {
     }
 
     /**
-     * Displays the end of the game.
-     */
-    public static void endGame() {
-        //TODO implement Display scores
-    }
-
-    /**
      * Display that the current player can't play.
      */
     public static void cantPlay() {
@@ -53,6 +46,9 @@ public class Display {
         System.out.println("\n\n");
     }
 
+    /**
+     * Basic display at the start of a new game.
+     */
     public static void startGame() {
         System.out.println("");
         System.out.println("");

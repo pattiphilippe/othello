@@ -11,20 +11,25 @@ import javafx.scene.text.Font;
  * @author Philippe
  */
 public class Player extends VBox {
-    
+
     private final Label name;
     private final Label score;
-    
+
+    /**
+     * Creates a new player with the given name.
+     *
+     * @param name
+     */
     public Player(String name) {
         super();
-        
+
         this.setAlignment(Pos.TOP_LEFT);
-        
+
         this.name = new Label(name);
         this.name.setFont(Font.font(25));
         score = new Label("Score : " + 0);
         score.setFont(Font.font(25));
-        
+
         this.getChildren().addAll(this.name, score);
     }
 }
