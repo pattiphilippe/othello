@@ -1,13 +1,13 @@
 package g43197.othello.view;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import static javafx.scene.paint.Color.BLACK;
 import static javafx.scene.paint.Color.WHITE;
 import static javafx.scene.paint.Color.GREEN;
 import static javafx.scene.paint.Color.PINK;
 import static javafx.scene.paint.Color.BROWN;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -20,7 +20,8 @@ import javafx.scene.shape.Shape;
 public class Tile extends Pane {
 
     private final Rectangle rectangle;
-    private final Shape shape;
+    private final Shape piece;
+    private final Shape wall;
     private static final double shapeSizeFact = 2 / 5.;
 
     /**
@@ -30,18 +31,26 @@ public class Tile extends Pane {
      * @param height
      */
     public Tile(double width, double height) {
-        shape = new Ellipse(width * shapeSizeFact, height * shapeSizeFact);
-        shape.setFill(PINK);
+        piece = new Ellipse(width * shapeSizeFact, height * shapeSizeFact);
+        piece.setFill(BLACK);
+        piece.setVisible(false);
 
-        shape.setTranslateX(width / 2);
-        shape.setTranslateY(height / 2);
+        piece.setTranslateX(width / 2);
+        piece.setTranslateY(height / 2);
+        
+        wall = new Rectangle(width * shapeSizeFact, height * shapeSizeFact);
+        wall.setFill(BROWN);
+        wall.setVisible(false);
+        
+        //TODO make rectangle wall, but unvisible and change visibilities
+        // si attribut reçoit nouvelle adresse, pas changement dans children()
 
         rectangle = new Rectangle(width, height);
 
         rectangle.setStroke(GREEN);
         rectangle.setFill(PINK);
 
-        this.getChildren().addAll(rectangle, shape);
+        this.getChildren().addAll(rectangle, piece, wall);
     }
 
     /**
@@ -53,14 +62,14 @@ public class Tile extends Pane {
         if (color == g43197.othello.model.Color.WALL) {
             addWall();
         } else {
-            shape.setFill(getFxColor(color));
+            piece.setVisible(true);
+            piece.setFill(getFxColor(color));
         }
     }
 
-
     private void addWall() {
-        shape.setFill(BROWN);
-        shape.setStroke(BROWN);
+        piece.setVisible(false);
+        wall.setVisible(true);
     }
 
     /**
@@ -69,16 +78,16 @@ public class Tile extends Pane {
      * @throws Exception if no piece added yet.
      */
     public void switchColor() throws Exception {
-        if (shape.getFill() == PINK) {
-            throw new Exception("No piece added there yet!");
-        }
-        if(shape.getFill() == BROWN){
+        if(wall.isVisible() == true){
             throw new Exception("Can't switch walls color!");
         }
-        if (shape.getFill() == BLACK) {
-            shape.setFill(WHITE);
+        if(piece.isVisible() == false){
+            throw new Exception("No piece added there yet!");
+        }
+        if (piece.getFill() == BLACK) {
+            piece.setFill(WHITE);
         } else {
-            shape.setFill(BLACK);
+            piece.setFill(BLACK);
         }
     }
 

@@ -32,13 +32,13 @@ public class Window extends BorderPane {
         player1 = new Player("White");
         this.setLeft(player1);
         this.setPadding(new Insets(20));
-        Window.setAlignment(player1, Pos.CENTER_LEFT);
+        Window.setAlignment(player1, Pos.TOP_LEFT);
         player2 = new Player("Black");
         this.setRight(player2);
-        Window.setAlignment(player2, Pos.CENTER_RIGHT);
+        Window.setAlignment(player2, Pos.TOP_RIGHT);
 
         plate = new Board();
         this.setBottom(plate);
-        Window.setAlignment(plate, Pos.CENTER);
+        Window.setAlignment(plate, Pos.TOP_CENTER);
     }
 }
