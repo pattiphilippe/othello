@@ -190,4 +190,15 @@ public class GameTest {
         }
         game.put(new Coordinates(6, 1));
     }
+
+    /**
+     * Test of putWall method, of class Game.
+     */
+    @Test
+    public void testPutWall() {
+        Game game = new Game();
+        Coordinates pos = new Coordinates(5, 5);
+        game.putWall(pos);
+        assertEquals(game.getBoard().getPiece(pos).getColor(), Color.WALL);
+    }
 }

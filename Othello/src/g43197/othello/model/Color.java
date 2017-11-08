@@ -14,7 +14,13 @@ public enum Color {
     /**
      *
      */
-    WHITE("O");
+    WHITE("O"),
+
+    //TODO did add color wall
+    /**
+     * Specific color for a wall.
+     */
+    WALL("W");
 
     private final String descr;
 

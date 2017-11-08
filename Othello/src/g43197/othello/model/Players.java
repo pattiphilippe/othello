@@ -18,8 +18,8 @@ public class Players {
      */
     public Players() {
         players = new ArrayList<>(2);
-        for (Color color : Color.values()) {
-            players.add(new Player(color));
+        for(int i = 0; i < 2; i++){
+            players.add(new Player(Color.values()[i]));
         }
         currentPlayer = players.get(0);
     }

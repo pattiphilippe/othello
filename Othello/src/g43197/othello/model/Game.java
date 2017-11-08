@@ -115,7 +115,7 @@ public class Game {
      */
     public int put(Coordinates pos) {
         if (pos == null) {
-            throw new IllegalArgumentException("Piece and pos can't be null!");
+            throw new IllegalArgumentException("Pos can't be null!");
         }
         int points = board.put(rack.getPiece(players.getCurrentPlayer()), pos);
         players.modifyScore(points + 1);
@@ -124,6 +124,20 @@ public class Game {
         players.modifyScore(-points);
         didPlay = true;
         return score;
+    }
+
+    /**
+     * Puts a wall on the board.
+     *
+     * @param pos the given position
+     */
+    public void putWall(Coordinates pos) {
+        if (pos == null) {
+            throw new IllegalArgumentException("Pos can't be null!");
+        }
+        board.putWall(pos);
+        nextPlayer();
+        didPlay = true;
     }
 
     ///////////////////////////Private//Methods//////////////////////////////

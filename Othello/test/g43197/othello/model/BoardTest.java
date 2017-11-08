@@ -43,6 +43,36 @@ public class BoardTest {
     }
 
     /**
+     * Test of normal case.
+     */
+    @Test
+    public void testPutWall() {
+        Board board = new Board();
+
+        Coordinates pos = new Coordinates(2, 3);
+        board.putWall(pos);
+        assertEquals(Color.WALL, board.getPiece(pos).getColor());
+
+        pos = new Coordinates(0, 0);
+        board.putWall(pos);
+        assertEquals(Color.WALL, board.getPiece(pos).getColor());
+
+        pos = new Coordinates(7, 7);
+        board.putWall(pos);
+        assertEquals(Color.WALL, board.getPiece(pos).getColor());
+    }
+
+    /**
+     * Test putting wall on piece.
+     */
+    @Test(expected = GameException.class)
+    public void testPutWallNotNull() {
+        Board board = new Board();
+        Coordinates pos = new Coordinates(3, 3);
+        board.putWall(pos);
+    }
+
+    /**
      * Test if gets exception when piece is null.
      */
     @Test(expected = IllegalArgumentException.class)
@@ -67,6 +97,15 @@ public class BoardTest {
     public void testPutPosOutside() {
         Board board = new Board();
         board.put(new Piece(Color.BLACK), new Coordinates(-1, 0));
+    }
+
+    /**
+     * Test if gets exception when pos is outside.
+     */
+    @Test(expected = GameException.class)
+    public void testPutWallPosOutside() {
+        Board board = new Board();
+        board.putWall(new Coordinates(-1, 0));
     }
 
     /**
@@ -144,6 +183,22 @@ public class BoardTest {
         board.updateAccessibles(accessibles, Color.BLACK);
         List<Coordinates> expResult = new LinkedList<>();
         expResult.add(new Coordinates(2, 3));
+        expResult.add(new Coordinates(3, 2));
+        expResult.add(new Coordinates(4, 5));
+        expResult.add(new Coordinates(5, 4));
+        assertTrue(accessibles.containsAll(expResult));
+    }
+    
+    /**
+     * Initial case.
+     */
+    @Test
+    public void testUpdateAccessiblesWall() {
+        Board board = new Board();
+        board.putWall(new Coordinates(2, 3));
+        List<Coordinates> accessibles = new LinkedList<>();
+        board.updateAccessibles(accessibles, Color.BLACK);
+        List<Coordinates> expResult = new LinkedList<>();
         expResult.add(new Coordinates(3, 2));
         expResult.add(new Coordinates(4, 5));
         expResult.add(new Coordinates(5, 4));
