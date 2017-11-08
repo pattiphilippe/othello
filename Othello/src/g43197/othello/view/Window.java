@@ -28,7 +28,7 @@ public class Window extends BorderPane {
         title.setFont(Font.font(60));
         Window.setAlignment(title, Pos.TOP_CENTER);
         this.setTop(title);
-
+        
         player1 = new Player("White");
         this.setLeft(player1);
         this.setPadding(new Insets(20));
@@ -39,6 +39,6 @@ public class Window extends BorderPane {
 
         plate = new Board();
         this.setBottom(plate);
-        Window.setAlignment(plate, Pos.BASELINE_CENTER);
+        Window.setAlignment(plate, Pos.CENTER);
     }
 }

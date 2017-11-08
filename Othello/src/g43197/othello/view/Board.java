@@ -12,6 +12,8 @@ import javafx.scene.layout.GridPane;
  */
 public class Board extends GridPane {
 
+    private final WallsCpt wallsCpt;
+
     /**
      * Creates a new Board.
      */
@@ -35,6 +37,7 @@ public class Board extends GridPane {
                 this.add(tile, col, row);
             }
         }
+        wallsCpt = new WallsCpt(0);
         firstPieces();
     }
 
@@ -43,6 +46,7 @@ public class Board extends GridPane {
         addPiece(3, 4, Color.BLACK);
         addPiece(4, 3, Color.BLACK);
         addPiece(4, 4, Color.WHITE);
+        addPiece(0, 0, Color.WALL);
     }
 
     /**
@@ -65,6 +69,13 @@ public class Board extends GridPane {
     }
 
     private void addPiece(int row, int col, Color color) {
+        if(color == Color.WALL){
+            wallsCpt.addWall();
+        }
         getTileByRowCol(row, col).addPiece(color);
+    }
+    
+    public WallsCpt getWallsCpt(){
+        return wallsCpt;
     }
 }

@@ -1,4 +1,4 @@
-package g43197.othello.view;
+ package g43197.othello.view;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
