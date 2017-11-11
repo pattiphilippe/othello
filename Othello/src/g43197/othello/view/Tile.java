@@ -37,14 +37,13 @@ public class Tile extends Pane {
 
         piece.setTranslateX(width / 2);
         piece.setTranslateY(height / 2);
-        
+
         wall = new Rectangle(width * shapeSizeFact, height * shapeSizeFact);
         wall.setFill(BROWN);
         wall.setVisible(false);
-        
+
         //TODO make rectangle wall, but unvisible and change visibilities
         // si attribut reçoit nouvelle adresse, pas changement dans children()
-
         rectangle = new Rectangle(width, height);
 
         rectangle.setStroke(GREEN);
@@ -78,10 +77,10 @@ public class Tile extends Pane {
      * @throws Exception if no piece added yet.
      */
     public void switchColor() throws Exception {
-        if(wall.isVisible() == true){
+        if (wall.isVisible() == true) {
             throw new Exception("Can't switch walls color!");
         }
-        if(piece.isVisible() == false){
+        if (piece.isVisible() == false) {
             throw new Exception("No piece added there yet!");
         }
         if (piece.getFill() == BLACK) {

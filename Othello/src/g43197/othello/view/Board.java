@@ -20,10 +20,11 @@ public class Board extends GridPane {
     public Board() {
         super();
 
+        //TODO make board a bit smaller
         double height = 2 / 3. * OthelloApp.HEIGHT;
         double width = 1 / 2. * OthelloApp.WIDTH;
-        this.setMinSize(width, height);
-        this.setMaxSize(width, height);
+//        this.setMinSize(width, height);
+//        this.setMaxSize(width, height);
 
         Tile tile;
         height /= MAX_ROWS_COLS;
@@ -32,8 +33,8 @@ public class Board extends GridPane {
         for (int row = 0; row < MAX_ROWS_COLS; row++) {
             for (int col = 0; col < MAX_ROWS_COLS; col++) {
                 tile = new Tile(width, height);
-                tile.setMinSize(width, height);
-                tile.setMaxSize(width, height);
+//                tile.setMinSize(width, height);
+//                tile.setMaxSize(width, height);
                 this.add(tile, col, row);
             }
         }
@@ -69,13 +70,13 @@ public class Board extends GridPane {
     }
 
     private void addPiece(int row, int col, Color color) {
-        if(color == Color.WALL){
+        if (color == Color.WALL) {
             wallsCpt.addWall();
         }
         getTileByRowCol(row, col).addPiece(color);
     }
-    
-    public WallsCpt getWallsCpt(){
+
+    public WallsCpt getWallsCpt() {
         return wallsCpt;
     }
 }

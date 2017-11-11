@@ -1,6 +1,5 @@
 package g43197.othello.view;
 
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -23,12 +22,10 @@ public class Player extends VBox {
     public Player(String name) {
         super();
 
-        this.setAlignment(Pos.TOP_LEFT);
-
         this.name = new Label(name);
-        this.name.setFont(Font.font(25));
+        this.name.setFont(Font.font(20));
         score = new Label("Score : " + 0);
-        score.setFont(Font.font(25));
+        score.setFont(Font.font(20));
 
         this.getChildren().addAll(this.name, score);
     }

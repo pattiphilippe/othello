@@ -17,7 +17,7 @@ public class WallsCpt extends Pane {
 
         this.nbWalls = nbWalls;
 
-        this.walls = new Label("They are " +this.nbWalls + " walls");
+        this.walls = new Label("They are " + this.nbWalls + " walls");
         walls.setFont(new Font(25));
         this.getChildren().add(this.walls);
     }

@@ -1,4 +1,4 @@
- package g43197.othello.view;
+package g43197.othello.view;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -38,12 +38,12 @@ public class OthelloApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Othello");
-        primaryStage.setMinWidth(WIDTH);
-        primaryStage.setMinHeight(HEIGHT);
+//        primaryStage.setMinWidth(WIDTH);
+//        primaryStage.setMinHeight(HEIGHT);
         primaryStage.setMaxWidth(WIDTH);
         primaryStage.setMaxHeight(HEIGHT);
 
-        Window root = new Window();
+        VBoxOthello root = new VBoxOthello(10);
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
