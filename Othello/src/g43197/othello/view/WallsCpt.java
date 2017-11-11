@@ -11,20 +11,20 @@ import javafx.scene.text.Font;
 public class WallsCpt extends Pane {
 
     private int nbWalls;
-    private final Label walls;
+    private final Label lblWallsCpt;
 
-    public WallsCpt(int nbWalls) {
+    public WallsCpt() {
 
-        this.nbWalls = nbWalls;
+        this.nbWalls = 0;
 
-        this.walls = new Label("They are " + this.nbWalls + " walls");
-        walls.setFont(new Font(25));
-        this.getChildren().add(this.walls);
+        this.lblWallsCpt = new Label("Walls: " + this.nbWalls);
+        lblWallsCpt.setFont(new Font(20));
+        this.getChildren().add(this.lblWallsCpt);
     }
 
     public void addWall() {
         nbWalls++;
-        walls.setText(this.nbWalls + " walls");
+        lblWallsCpt.setText("Walls: " + this.nbWalls);
     }
 
 }

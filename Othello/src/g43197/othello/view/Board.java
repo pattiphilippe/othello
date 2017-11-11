@@ -16,15 +16,13 @@ public class Board extends GridPane {
 
     /**
      * Creates a new Board.
+     *
+     * @param width width of the new board
+     * @param height height of the new board
+     * @param wallsCpt the walls counter of the board
      */
-    public Board() {
+    public Board(double width, double height, WallsCpt wallsCpt) {
         super();
-
-        //TODO make board a bit smaller
-        double height = 2 / 3. * OthelloApp.HEIGHT;
-        double width = 1 / 2. * OthelloApp.WIDTH;
-//        this.setMinSize(width, height);
-//        this.setMaxSize(width, height);
 
         Tile tile;
         height /= MAX_ROWS_COLS;
@@ -33,12 +31,11 @@ public class Board extends GridPane {
         for (int row = 0; row < MAX_ROWS_COLS; row++) {
             for (int col = 0; col < MAX_ROWS_COLS; col++) {
                 tile = new Tile(width, height);
-//                tile.setMinSize(width, height);
-//                tile.setMaxSize(width, height);
+                tile.setMinSize(width, height);
                 this.add(tile, col, row);
             }
         }
-        wallsCpt = new WallsCpt(0);
+        this.wallsCpt = wallsCpt;
         firstPieces();
     }
 
@@ -58,7 +55,6 @@ public class Board extends GridPane {
      * @return
      */
     public Tile getTileByRowCol(int row, int col) {
-        //TODO check cette méthode, tte les pièces ont une couleur
         Tile tile = null;
         for (Node node : getChildren()) {
             if (getRowIndex(node) == row && getColumnIndex(node) == col) {
@@ -74,9 +70,5 @@ public class Board extends GridPane {
             wallsCpt.addWall();
         }
         getTileByRowCol(row, col).addPiece(color);
-    }
-
-    public WallsCpt getWallsCpt() {
-        return wallsCpt;
     }
 }

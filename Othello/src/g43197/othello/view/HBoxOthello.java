@@ -10,6 +10,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 
 /**
+ * HBox of Othello, with players, board and walls counter.
  *
  * @author Philippe
  */
@@ -17,26 +18,42 @@ public class HBoxOthello extends HBox {
 
     private final Players players;
     private final Board board;
-    private final Region region;
+    private final WallsCpt wallsCpt;
+    private final Region region1;
+    private final Region region2;
 
-    public HBoxOthello(double d) {
+    /**
+     * Creates a new othello hbox.
+     *
+     * @param boardSize size of the board
+     */
+    public HBoxOthello(double boardSize) {
         super();
 
         players = new Players(10);
-        players.setMaxWidth(OthelloApp.WIDTH * 1 / 5);
-        HBox.setHgrow(players, Priority.ALWAYS);
-        players.setBackground(new Background(new BackgroundFill(Color.BROWN, CornerRadii.EMPTY, Insets.EMPTY)));
+        players.setMinWidth(boardSize * 2 / 8);
 
-        board = new Board();
+        players.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        region1 = new Region();
+        region1.setMinWidth(boardSize * 1 / 20);
+        HBox.setHgrow(region1, Priority.ALWAYS);
+
+        wallsCpt = new WallsCpt();
+
+        board = new Board(boardSize, boardSize, wallsCpt);
         board.setCenterShape(true);
-        board.setMaxWidth(OthelloApp.WIDTH * 3 / 5);
-        HBox.setHgrow(board, Priority.ALWAYS);
+        board.setMaxWidth(boardSize);
+        board.setMaxHeight(boardSize);
 
-        region = new Region();
-        region.setMaxWidth(OthelloApp.WIDTH * 1 / 5);
-        region.setBackground(new Background(new BackgroundFill(Color.BROWN, CornerRadii.EMPTY, Insets.EMPTY)));
-        HBox.setHgrow(region, Priority.ALWAYS);
+        region2 = new Region();
+        region2.setMinWidth(boardSize * 1 / 20);
+        HBox.setHgrow(region2, Priority.ALWAYS);
 
-        this.getChildren().addAll(players, board, region);
+        wallsCpt.setMinWidth(boardSize * 2 / 8);
+
+        wallsCpt.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        this.getChildren().addAll(players, region1, board, region2, wallsCpt);
     }
 }

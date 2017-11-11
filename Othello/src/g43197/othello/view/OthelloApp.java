@@ -38,12 +38,12 @@ public class OthelloApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Othello");
-//        primaryStage.setMinWidth(WIDTH);
-//        primaryStage.setMinHeight(HEIGHT);
+        primaryStage.setMinWidth(WIDTH * 4 / 5);
+        primaryStage.setMinHeight(HEIGHT * 4 / 5);
         primaryStage.setMaxWidth(WIDTH);
         primaryStage.setMaxHeight(HEIGHT);
 
-        VBoxOthello root = new VBoxOthello(10);
+        VBoxOthello root = new VBoxOthello();
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

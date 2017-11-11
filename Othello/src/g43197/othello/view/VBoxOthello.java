@@ -2,6 +2,8 @@ package g43197.othello.view;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -13,22 +15,29 @@ import javafx.scene.text.Font;
 public class VBoxOthello extends VBox {
 
     private final Label title;
+    private final Region region1;
     private final HBoxOthello hbox;
+    private final Region region2;
 
     /**
      * Creates a new Window for the Othello game.
-     *
-     * @param d
      */
-    public VBoxOthello(double d) {
-        super(d);
+    public VBoxOthello() {
+        super();
 
-        title = new Label("----------OTHELLO----------\n");
-        title.setFont(Font.font(60));
+        title = new Label("----------OTHELLO----------");
+        title.setFont(Font.font(55));
+        title.setMinHeight(OthelloApp.HEIGHT * 1 / 8);
         this.setAlignment(Pos.CENTER);
 
-        hbox = new HBoxOthello(d);
+        region1 = new Region();
+        VBox.setVgrow(region1, Priority.ALWAYS);
 
-        this.getChildren().addAll(title, hbox);
+        hbox = new HBoxOthello(OthelloApp.HEIGHT * 3 / 5);
+
+        region2 = new Region();
+        VBox.setVgrow(region2, Priority.ALWAYS);
+
+        this.getChildren().addAll(title, region1, hbox, region2);
     }
 }
