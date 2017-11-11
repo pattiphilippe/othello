@@ -79,4 +79,10 @@ public class Player implements Cloneable {
         }
         return true;
     }
+
+    @Override
+    public Player clone() throws CloneNotSupportedException {
+        return (Player) super.clone();
+    }
+
 }

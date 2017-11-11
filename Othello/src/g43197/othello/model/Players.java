@@ -18,7 +18,7 @@ public class Players {
      */
     public Players() {
         players = new ArrayList<>(2);
-        for(int i = 0; i < 2; i++){
+        for (int i = 0; i < 2; i++) {
             players.add(new Player(Color.values()[i]));
         }
         currentPlayer = players.get(0);
@@ -70,6 +70,18 @@ public class Players {
      */
     public void modifyScore(int delta) {
         currentPlayer.modifyScore(delta);
+    }
+
+    public List<Player> getScores() {
+        List<Player> result = new ArrayList<>(2);
+        for (Player p : players) {
+            try {
+                result.add(p.clone());
+            } catch (CloneNotSupportedException e) {
+
+            }
+        }
+        return result;
     }
 
 }

@@ -1,6 +1,8 @@
 package g43197.othello.view.console;
 
 import g43197.othello.model.Color;
+import g43197.othello.model.Player;
+import java.util.List;
 
 /**
  * Class for all the displays in the game.
@@ -57,7 +59,10 @@ public class Display {
         System.out.println("");
     }
 
-    public static void scores() {
-        System.out.println("SCORRESESESEE FS\n\n\n");
+    public static void scores(List<Player> players) {
+        System.out.println("Scores:");
+        players.forEach((p) -> {
+            System.out.println(p.getColor() + ": " + p.getScore());
+        });
     }
 }

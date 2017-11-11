@@ -44,8 +44,10 @@ public class Othello {
                     playTurn(game, command);
                     break;
                 case SCORE:
-                    Display.scores();
+                    Display.scores(game.getScores());
                     break;
+                case EXIT:
+                    System.exit(0);
             }
         }
     }
@@ -57,7 +59,7 @@ public class Othello {
             while (!played) {
                 try {
                     //TODO vérifier utilité retour de game.putPiece()
-                    switch(command){
+                    switch (command) {
                         case PLAY:
                             game.putPiece(Read.readPos());
                             break;
