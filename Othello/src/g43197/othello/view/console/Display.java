@@ -10,11 +10,12 @@ import g43197.othello.model.Color;
 public class Display {
 
     /**
+     * Displays the message of the error.
      *
-     * @param errorMsg
+     * @param e
      */
-    public static void error(String errorMsg) {
-        System.out.println(errorMsg);
+    public static void error(Exception e) {
+        System.out.println(e.getMessage());
     }
 
     /**
@@ -32,7 +33,7 @@ public class Display {
      */
     public static void turn(Color currentPlayer, int score) {
         System.out.println("Player: " + currentPlayer);
-        System.out.println("Score: " + score);
+//        System.out.println("Score: " + score);
     }
 
     /**
@@ -54,5 +55,9 @@ public class Display {
         System.out.println("");
         System.out.println("----------New Game of Othello----------");
         System.out.println("");
+    }
+
+    public static void scores() {
+        System.out.println("SCORRESESESEE FS\n\n\n");
     }
 }

@@ -1,7 +1,9 @@
 package g43197.othello.view.console;
 
+import g43197.othello.Command;
 import g43197.othello.model.Coordinates;
 import static g43197.othello.model.Board.*;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -110,5 +112,24 @@ public class Read {
             }
         }
         return answer;
+    }
+
+    /**
+     * Reads a valid command.
+     *
+     * @return the read command
+     */
+    public static Command readCommand() {
+        String msg;
+        while (true) {
+            System.out.print("Command : ");
+            msg = CLAVIER.next().toUpperCase();
+            try {
+                return Command.valueOf(msg);
+            } catch (IllegalArgumentException e) {
+                System.out.print("Wrond command! Enter one of following:");
+                System.out.println(Arrays.toString(Command.values()));
+            }
+        }
     }
 }

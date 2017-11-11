@@ -111,19 +111,16 @@ public class Game {
      * Puts a piece on the board.
      *
      * @param pos the given position
-     * @return the score of the player that puts a piece
      */
-    public int put(Coordinates pos) {
+    public void putPiece(Coordinates pos) {
         if (pos == null) {
             throw new IllegalArgumentException("Pos can't be null!");
         }
         int points = board.put(rack.getPiece(players.getCurrentPlayer()), pos);
         players.modifyScore(points + 1);
-        int score = getScore();
         nextPlayer();
         players.modifyScore(-points);
         didPlay = true;
-        return score;
     }
 
     /**
@@ -143,7 +140,7 @@ public class Game {
     ///////////////////////////Private//Methods//////////////////////////////
     private void nextPlayer() {
         players.nextPlayer();
-        // has to go through put() so that didPlay is true;
+        // has to go through putPiece() so that didPlay is true;
         didPlay = false;
         updateAccessibles();
     }

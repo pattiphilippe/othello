@@ -12,22 +12,22 @@ import static org.junit.Assert.*;
 public class GameTest {
 
     /**
-     * Normal case of put(), Checks if no error. Score is tested with getScore()
-     * method, put is tested in Board.put().
+     * Normal case of putPiece(), Checks if no error. Score is tested with getScore()
+ method, putPiece is tested in Board.putPiece().
      */
     @Test
     public void testPut() {
         Game game = new Game();
-        game.put(new Coordinates(2, 3));
+        game.putPiece(new Coordinates(2, 3));
     }
 
     /**
-     * Normal case of put().
+     * Normal case of putPiece().
      */
     @Test(expected = IllegalArgumentException.class)
     public void testPutNullPos() {
         Game game = new Game();
-        game.put(null);
+        game.putPiece(null);
     }
 
     /**
@@ -57,7 +57,7 @@ public class GameTest {
     public void testGetScore() {
         Game game = new Game();
         assertEquals(game.getScore(), 2);
-        game.put(new Coordinates(2, 3));
+        game.putPiece(new Coordinates(2, 3));
         assertEquals(game.getScore(), 1);
     }
 
@@ -68,15 +68,15 @@ public class GameTest {
     public void testGetScoreAfterMoves() {
         Game game = new Game();
         assertEquals(game.getScore(), 2);
-        game.put(new Coordinates(2, 3));
+        game.putPiece(new Coordinates(2, 3));
         assertEquals(game.getScore(), 1);
-        game.put(new Coordinates(2, 2));
+        game.putPiece(new Coordinates(2, 2));
         assertEquals(game.getScore(), 3);
-        game.put(new Coordinates(2, 1));
+        game.putPiece(new Coordinates(2, 1));
         assertEquals(game.getScore(), 2);
-        game.put(new Coordinates(5, 3));
+        game.putPiece(new Coordinates(5, 3));
         assertEquals(game.getScore(), 4);
-        game.put(new Coordinates(6, 3));
+        game.putPiece(new Coordinates(6, 3));
         assertEquals(game.getScore(), 1);
     }
 
@@ -97,9 +97,9 @@ public class GameTest {
         Game game = new Game();
         Color color;
         color = game.getCurrentPlayer();
-        game.put(new Coordinates(2, 3));
+        game.putPiece(new Coordinates(2, 3));
         assertNotEquals(color, game.getCurrentPlayer());
-        game.put(new Coordinates(2, 2));
+        game.putPiece(new Coordinates(2, 2));
         assertEquals(color, game.getCurrentPlayer());
     }
 
@@ -186,9 +186,9 @@ public class GameTest {
         poss.add(new Coordinates(7, 1));
         poss.add(new Coordinates(1, 1));
         for (Coordinates pos : poss) {
-            game.put(pos);
+            game.putPiece(pos);
         }
-        game.put(new Coordinates(6, 1));
+        game.putPiece(new Coordinates(6, 1));
     }
 
     /**

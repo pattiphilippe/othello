@@ -1,6 +1,5 @@
 package g43197.othello;
 
-import g43197.othello.model.Color;
 import g43197.othello.model.Game;
 import g43197.othello.model.GameException;
 import static g43197.othello.view.console.BoardView.*;
@@ -14,6 +13,7 @@ import g43197.othello.view.console.Read;
  */
 public class Othello {
 
+    //TODO gérer les exceptions avec Exception et pas runtime Exception
     /**
      * Main method of Othello.
      *
@@ -32,28 +32,44 @@ public class Othello {
 
     /*Plays the game once.*/
     private static void play(Game game) {
+        Command command;
         while (!game.isFinished()) {
-            playTurn(game);
+            command = Read.readCommand();
+            switch (command) {
+                case SHOW:
+                    draw(game.getBoard(), game.getAccessibles());
+                    break;
+                case PLAY:
+                case WALL:
+                    playTurn(game, command);
+                    break;
+                case SCORE:
+                    Display.scores();
+                    break;
+            }
         }
     }
 
     /*Plays a turn for the player.*/
-    private static void playTurn(Game game) {
-        Color currentPlayer = game.getCurrentPlayer();
-        Display.turn(currentPlayer, game.getScore());
-        draw(game.getBoard(), game.getAccessibles());
+    private static void playTurn(Game game, Command command) {
         if (game.canPlay()) {
             boolean played = false;
-            int newScore = 0;
             while (!played) {
                 try {
-                    newScore = game.put(Read.readPos());
+                    //TODO vérifier utilité retour de game.putPiece()
+                    switch(command){
+                        case PLAY:
+                            game.putPiece(Read.readPos());
+                            break;
+                        case WALL:
+                            game.putWall(Read.readPos());
+                            break;
+                    }
                     played = true;
                 } catch (GameException e) {
-                    Display.error(e.getMessage());
+                    Display.error(e);
                 }
             }
-            Display.endTurn(currentPlayer, newScore);
         } else {
             Display.cantPlay();
         }
