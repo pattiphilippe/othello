@@ -109,7 +109,7 @@ public class GameTest {
     public void testIsFinishedFinished() {
         Game game = new Game();
         completeBoard(game);
-        assertEquals(false, game.isFinished());
+        assertEquals(true, game.isFinished());
     }
 
     private void completeBoard(Game game) {

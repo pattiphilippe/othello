@@ -65,27 +65,12 @@ public class Read {
         return nb;
     }
 
-    private static int convertToCol(String col) {
-        char colChar = col.toUpperCase().charAt(0);
-        switch (colChar) {
-            case 'A':
-                return 0;
-            case 'B':
-                return 1;
-            case 'C':
-                return 2;
-            case 'D':
-                return 3;
-            case 'E':
-                return 4;
-            case 'F':
-                return 5;
-            case 'G':
-                return 6;
-            case 'H':
-                return 7;
-            default:
-                return -1;
+    private static int convertToCol(String colChar) {
+        int col = colChar.toUpperCase().charAt(0) - 64;
+        if(col < 0 || col >= MAX_ROWS_COLS){
+            return -1;
+        } else {
+            return col;
         }
     }
 
