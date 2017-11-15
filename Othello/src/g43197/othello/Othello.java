@@ -14,9 +14,9 @@ import g43197.othello.view.console.Read;
 public class Othello {
 
     //TODO ? gérer les exceptions avec Exception et pas runtime Exception
-    //TODO ? demander ce qu'est le menu dans la vue javafx
-    //TODO ? interface pour Game
-    //TODO ? peut rajouter commande replay
+    //TODO * demander ce qu'est le menu dans la vue javafx
+    //TODO * interface pour Game
+    //TODO * peut rajouter commande replay
     //TODO ? bon avec clone?
     /**
      * Main method of Othello.
@@ -72,10 +72,5 @@ public class Othello {
                 Display.error(e);
             }
         }
-    }
-
-    //TODO coder méthode autoPlay
-    public static void autoPlay(Game game) {
-
     }
 }
