@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author g43197
  */
-public class Game {
+public class Game implements Facade{
 
     private final Players players;
     private final List<Coordinates> accessibles;
@@ -25,9 +25,7 @@ public class Game {
         startAgain();
     }
 
-    /**
-     * Starts a new game.
-     */
+    @Override
     public final void startAgain() {
         board = new Board();
         rack = new Rack();
@@ -35,11 +33,7 @@ public class Game {
         updateAccessibles();
     }
 
-    /**
-     * Checks if the game is over.
-     *
-     * @return
-     */
+    @Override
     public boolean isFinished() {
         if (hasMovesLeft()) {
             return false;
@@ -55,27 +49,21 @@ public class Game {
      * @return
      */
     public int getScore() {
+        //TODO retirer méthode getScore
         return players.getScore();
     }
 
+    @Override
     public List<Player> getScores() {
         return players.getScores();
     }
 
-    /**
-     * Gets the current player.
-     *
-     * @return
-     */
+    @Override
     public Color getCurrentPlayer() {
         return players.getCurrentPlayer();
     }
 
-    /**
-     * Returns a clone of the board.
-     *
-     * @return
-     */
+    @Override
     public Board getBoard() {
         try {
             return board.clone();
@@ -84,11 +72,7 @@ public class Game {
         }
     }
 
-    /**
-     * Returns a copy of the accessible positions for the current player.
-     *
-     * @return
-     */
+    @Override
     public List<Coordinates> getAccessibles() {
         List<Coordinates> accClone = new LinkedList<>();
         for (Coordinates pos : accessibles) {
@@ -101,11 +85,7 @@ public class Game {
         return accClone;
     }
 
-    /**
-     * Puts a piece on the board.
-     *
-     * @param pos the given position
-     */
+    @Override
     public void putPiece(Coordinates pos) {
         if (pos == null) {
             throw new IllegalArgumentException("Pos can't be null!");
@@ -116,11 +96,7 @@ public class Game {
         players.modifyScore(-points);
     }
 
-    /**
-     * Puts a wall on the board.
-     *
-     * @param pos the given position
-     */
+    @Override
     public void putWall(Coordinates pos) {
         if (pos == null) {
             throw new IllegalArgumentException("Pos can't be null!");
