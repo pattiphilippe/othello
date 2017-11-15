@@ -13,7 +13,7 @@ public class Display {
     /**
      * Displays the message of the error.
      *
-     * @param e
+     * @param e the exception
      */
     public static void error(Exception e) {
         System.out.println(e.getMessage());

@@ -15,7 +15,6 @@ public class Game {
     private final List<Coordinates> accessibles;
     private Board board;
     private Rack rack;
-    private boolean couldHavePutPiece;
 
     /**
      * Creates a new game.
@@ -34,7 +33,6 @@ public class Game {
         rack = new Rack();
         players.initScores();
         updateAccessibles();
-//        didPlay = true;
     }
 
     /**
@@ -43,7 +41,6 @@ public class Game {
      * @return
      */
     public boolean isFinished() {
-        //TODO à redéfinir, méthode ne fonctionne pas directement
         if (hasMovesLeft()) {
             return false;
         } else {
@@ -98,7 +95,7 @@ public class Game {
             try {
                 accClone.add(pos.clone());
             } catch (CloneNotSupportedException e) {
-
+                //TODO ? que faire avec catch vide
             }
         }
         return accClone;
@@ -117,7 +114,6 @@ public class Game {
         players.modifyScore(points + 1);
         nextPlayer();
         players.modifyScore(-points);
-//        didPlay = true;
     }
 
     /**
@@ -131,19 +127,15 @@ public class Game {
         }
         board.putWall(pos);
         nextPlayer();
-//        didPlay = true;
     }
 
     ///////////////////////////Private//Methods//////////////////////////////
     private void nextPlayer() {
         players.nextPlayer();
-        // has to go through putPiece() so that didPlay is true;
-//        didPlay = false;
         updateAccessibles();
     }
 
     private void updateAccessibles() {
-        couldHavePutPiece = !accessibles.isEmpty();
         board.updateAccessibles(accessibles, players.getCurrentPlayer());
     }
 

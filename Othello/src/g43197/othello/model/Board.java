@@ -65,8 +65,6 @@ public class Board implements Cloneable {
         if (piece.getColor() == Color.WALL) {
             throw new IllegalArgumentException("This method is not for walls.");
         }
-        //TODO test with wall
-        //TODO did exception put(Piece,...) with Wall
         List<Direction> dirs = getDirToSwitch(pos, piece.getColor());
         if (dirs.isEmpty()) {
             throw new GameException("Wrong position, doesn't switch anything!");
@@ -75,7 +73,6 @@ public class Board implements Cloneable {
         return consequencePut(pos, dirs);
     }
 
-    //TODO did put(Wall, Coordinates)
     /**
      * Puts a wall on the board.
      *
@@ -158,8 +155,6 @@ public class Board implements Cloneable {
             pos = increment(savePos, dir);
             while (isInside(pos)) {
                 piece = getPiece(pos);
-                //TODO test with walls
-                //TODO did check if was wall in getDirToSwitch()
                 if (piece != null && piece.getColor() != Color.WALL) {
                     if (piece.getColor() != saveColor) {
                         hadOtherColors = true;

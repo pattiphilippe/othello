@@ -16,7 +16,6 @@ public enum Color {
      */
     WHITE("O"),
 
-    //TODO did add color wall
     /**
      * Specific color for a wall.
      */

@@ -11,6 +11,7 @@ import javafx.stage.Stage;
  */
 public class OthelloApp extends Application {
 
+    //TODO ? comment gérer les tailles: définie min max, ou pref? (peut faire fenêtre plus petite)
     /**
      * The height of the window.
      */
