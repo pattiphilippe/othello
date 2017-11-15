@@ -6,5 +6,5 @@ package g43197.othello;
  * @author Philippe
  */
 public enum Command {
-    SHOW, SCORE, PLAY, WALL, EXIT;
+    SHOW, SCORE, PLAY, WALL, REPLAY, EXIT;
 }

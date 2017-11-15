@@ -1,6 +1,5 @@
 package g43197.othello.view.console;
 
-import g43197.othello.model.Color;
 import g43197.othello.model.Player;
 import java.util.List;
 
@@ -21,35 +20,6 @@ public class Display {
     }
 
     /**
-     * Display that the current player can't play.
-     */
-    public static void cantPlay() {
-        System.out.println("Current player can't play.");
-    }
-
-    /**
-     * Displays the start of a turn for the current player and his score.
-     *
-     * @param currentPlayer
-     * @param score
-     */
-    public static void turn(Color currentPlayer, int score) {
-        System.out.println("Player: " + currentPlayer);
-//        System.out.println("Score: " + score);
-    }
-
-    /**
-     * Displays the end of a turn for the current player and his new score
-     *
-     * @param currentPlayer
-     * @param newScore
-     */
-    public static void endTurn(Color currentPlayer, int newScore) {
-        turn(currentPlayer, newScore);
-        System.out.println("\n\n");
-    }
-
-    /**
      * Basic display at the start of a new game.
      */
     public static void startGame() {
@@ -59,10 +29,22 @@ public class Display {
         System.out.println("");
     }
 
+    /**
+     * Displays the score of every player.
+     *
+     * @param players the list of player with their name and score
+     */
     public static void scores(List<Player> players) {
         System.out.println("Scores:");
         players.forEach((p) -> {
             System.out.println(p.getColor() + ": " + p.getScore());
         });
+    }
+
+    /**
+     * Displays that can't play because game is finished.
+     */
+    public static void gameIsFinished() {
+        System.out.println("Can't play a turn, game is finished");
     }
 }

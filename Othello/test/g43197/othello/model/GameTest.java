@@ -12,8 +12,8 @@ import static org.junit.Assert.*;
 public class GameTest {
 
     /**
-     * Normal case of putPiece(), Checks if no error. Score is tested with getScore()
- method, putPiece is tested in Board.putPiece().
+     * Normal case of putPiece(), Checks if no error. Score is tested with
+     * getScore() method, putPiece is tested in Board.putPiece().
      */
     @Test
     public void testPut() {
@@ -31,22 +31,12 @@ public class GameTest {
     }
 
     /**
-     * Test of normal case
-     */
-    @Test
-    public void testCanPlay() {
-        Game game = new Game();
-        assertEquals(true, game.canPlay());
-    }
-
-    /**
      * Test when can't play. Also tests method isFinished().
      */
     @Test
     public void testCanPlayFullBoard() {
         Game game = new Game();
         completeBoard(game);
-        assertEquals(false, game.canPlay());
         assertEquals(true, game.isFinished());
     }
 
@@ -120,8 +110,6 @@ public class GameTest {
         Game game = new Game();
         completeBoard(game);
         assertEquals(false, game.isFinished());
-        assertEquals(false, game.canPlay());
-        assertEquals(true, game.isFinished());
     }
 
     private void completeBoard(Game game) {

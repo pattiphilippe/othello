@@ -15,7 +15,7 @@ public class Game {
     private final List<Coordinates> accessibles;
     private Board board;
     private Rack rack;
-    private boolean didPlay;
+    private boolean couldHavePutPiece;
 
     /**
      * Creates a new game.
@@ -32,8 +32,9 @@ public class Game {
     public final void startAgain() {
         board = new Board();
         rack = new Rack();
+        players.initScores();
         updateAccessibles();
-        didPlay = true;
+//        didPlay = true;
     }
 
     /**
@@ -42,21 +43,13 @@ public class Game {
      * @return
      */
     public boolean isFinished() {
-        return !didPlay && !hasMovesLeft();
-    }
-
-    /**
-     * Checks if the current player can play. If he can't, it goes directly to
-     * the next player.
-     *
-     * @return
-     */
-    public boolean canPlay() {
-        boolean canPlay = hasMovesLeft();
-        if (!canPlay) {
+        //TODO à redéfinir, méthode ne fonctionne pas directement
+        if (hasMovesLeft()) {
+            return false;
+        } else {
             nextPlayer();
+            return !hasMovesLeft();
         }
-        return canPlay;
     }
 
     /**
@@ -67,8 +60,8 @@ public class Game {
     public int getScore() {
         return players.getScore();
     }
-    
-    public List<Player> getScores(){
+
+    public List<Player> getScores() {
         return players.getScores();
     }
 
@@ -124,7 +117,7 @@ public class Game {
         players.modifyScore(points + 1);
         nextPlayer();
         players.modifyScore(-points);
-        didPlay = true;
+//        didPlay = true;
     }
 
     /**
@@ -138,18 +131,19 @@ public class Game {
         }
         board.putWall(pos);
         nextPlayer();
-        didPlay = true;
+//        didPlay = true;
     }
 
     ///////////////////////////Private//Methods//////////////////////////////
     private void nextPlayer() {
         players.nextPlayer();
         // has to go through putPiece() so that didPlay is true;
-        didPlay = false;
+//        didPlay = false;
         updateAccessibles();
     }
 
     private void updateAccessibles() {
+        couldHavePutPiece = !accessibles.isEmpty();
         board.updateAccessibles(accessibles, players.getCurrentPlayer());
     }
 

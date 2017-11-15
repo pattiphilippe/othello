@@ -15,13 +15,22 @@ public class Read {
     private static final Scanner CLAVIER = new Scanner(System.in);
 
     /**
-     * Checks if the user wants to start a new game.
+     * Reads a valid command.
      *
-     * @return yes if he wants
+     * @return the read command
      */
-    public static boolean startAgain() {
-        System.out.println("Do you want to start a new game?");
-        return readBoolean();
+    public static Command readCommand() {
+        String msg;
+        while (true) {
+            System.out.print("Command : ");
+            msg = CLAVIER.next().toUpperCase();
+            try {
+                return Command.valueOf(msg);
+            } catch (IllegalArgumentException e) {
+                System.out.print("Wrond command! Enter one of following:");
+                System.out.println(Arrays.toString(Command.values()));
+            }
+        }
     }
 
     /**
@@ -30,11 +39,11 @@ public class Read {
      * @return
      */
     public static Coordinates readPos() {
-        System.out.println("Enter the position where you wanna put a piece.");
         int row = readRowCol(false), col = readRowCol(true);
         return new Coordinates(row, col);
     }
 
+    ////////////////////////////PRIVATE//METHODS/////////////////////////////
     private static int readRowCol(boolean readingCol) {
         boolean validInput = false;
         String read;
@@ -91,45 +100,5 @@ public class Read {
             return -1;
         }
         return MAX_ROWS_COLS - rowNb;
-    }
-
-    private static boolean readBoolean() {
-        boolean didAnswer = false, answer = false;
-        String msg;
-        while (!didAnswer) {
-            msg = CLAVIER.next().toUpperCase();
-            switch (msg) {
-                case "YES":
-                    answer = true;
-                    didAnswer = true;
-                    break;
-                case "NO":
-                    answer = false;
-                    didAnswer = true;
-                    break;
-                default:
-                    System.out.println("Enter yes or no.");
-            }
-        }
-        return answer;
-    }
-
-    /**
-     * Reads a valid command.
-     *
-     * @return the read command
-     */
-    public static Command readCommand() {
-        String msg;
-        while (true) {
-            System.out.print("Command : ");
-            msg = CLAVIER.next().toUpperCase();
-            try {
-                return Command.valueOf(msg);
-            } catch (IllegalArgumentException e) {
-                System.out.print("Wrond command! Enter one of following:");
-                System.out.println(Arrays.toString(Command.values()));
-            }
-        }
     }
 }
