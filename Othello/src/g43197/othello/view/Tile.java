@@ -78,7 +78,6 @@ public class Tile extends StackPane {
      *
      */
     public void switchColor() {
-        //TODO try to work with exceptions and not runtime exceptions
         if (wall.isVisible() == true) {
             throw new RuntimeException("Can't switch walls color!");
         }

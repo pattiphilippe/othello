@@ -36,12 +36,12 @@ public class Board implements Cloneable {
         BOARD = new Piece[MAX_ROWS_COLS][MAX_ROWS_COLS];
         initBoardCenter();
     }
-    
-    public List<Coordinates> getSwitchedPositions(){
-        //TODO check if needs to be clone or not
+
+    public List<Coordinates> getSwitchedPositions() {
+        //TODO check if needs to be copied or not
         return switchedPos;
     }
-    
+
     /**
      * Returns the piece in the given position.
      *
@@ -108,8 +108,6 @@ public class Board implements Cloneable {
             for (int col = 0; col < MAX_ROWS_COLS; col++) {
                 pos = new Coordinates(row, col);
                 if (getPiece(pos) == null && !getDirToSwitch(pos, color).isEmpty()) {
-                    //TODO optimiser condition : arrêter dès que c'est bon, pas tout vérifier
-                    //TODO check if useful: doing this simplifies code, but more checks
                     accessibles.add(pos);
                 }
             }

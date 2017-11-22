@@ -5,7 +5,9 @@ import g43197.othello.model.Color;
 import g43197.othello.model.Coordinates;
 import g43197.othello.model.Facade;
 import java.util.List;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -30,25 +32,37 @@ public class Board extends GridPane {
         super();
         this.game = game;
 
-        this.setOnMouseClicked(event -> {
-            Node source = (Node) event.get;
-            int row = GridPane.getRowIndex(source);
-            int col = GridPane.getColumnIndex(source);
-            if (event.isPrimaryButtonDown()) {
-                game.putPiece(new Coordinates(row, col));
-            } else if (event.isSecondaryButtonDown()) {
-                game.putWall(new Coordinates(row, col));
-            }
-        });
-
         Tile tile;
         height /= MAX_ROWS_COLS;
         width /= MAX_ROWS_COLS;
+
+        class ClickedTileHandler implements EventHandler<MouseEvent> {
+
+            private final int row;
+            private final int col;
+
+            public ClickedTileHandler(int row, int col) {
+                this.row = row;
+                this.col = col;
+            }
+
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("handle click tile");
+                if (event.isPrimaryButtonDown()) {
+                    game.putPiece(new Coordinates(row, col));
+                } else if (event.isSecondaryButtonDown()) {
+                    game.putWall(new Coordinates(row, col));
+                }
+            }
+
+        }
 
         for (int row = 0; row < MAX_ROWS_COLS; row++) {
             for (int col = 0; col < MAX_ROWS_COLS; col++) {
                 tile = new Tile(width, height);
                 tile.setMinSize(width, height);
+                tile.setOnMouseClicked(new ClickedTileHandler(row, col));
                 this.add(tile, col, row);
             }
         }
@@ -90,6 +104,7 @@ public class Board extends GridPane {
     }
 
     public void update(List<Coordinates> switchedPos, Color currentPlayer) {
+        //TODO mettre à jour en fonction de board, pas switchedPos
         int row, col;
         if (switchedPos.size() > 0) {
             row = switchedPos.get(0).getROW();

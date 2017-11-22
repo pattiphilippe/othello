@@ -23,6 +23,7 @@ public class Game extends Facade {
         players = new Players();
         accessibles = new LinkedList<>();
         startAgain();
+        notifyObservers();
     }
 
     @Override
@@ -49,7 +50,6 @@ public class Game extends Facade {
      * @return
      */
     public int getScore() {
-        //TODO retirer méthode getScore
         return players.getScore();
     }
 
@@ -66,6 +66,7 @@ public class Game extends Facade {
     @Override
     public Board getBoard() {
         try {
+            //TODO check no clone calls inside the model himself
             return board.clone();
         } catch (CloneNotSupportedException e) {
             return null;
@@ -99,7 +100,6 @@ public class Game extends Facade {
         players.modifyScore(points + 1);
         nextPlayer();
         players.modifyScore(-points);
-        notifyObservers();
     }
 
     @Override
@@ -109,13 +109,13 @@ public class Game extends Facade {
         }
         board.putWall(pos);
         nextPlayer();
-        notifyObservers();
     }
 
     ///////////////////////////Private//Methods//////////////////////////////
     private void nextPlayer() {
         players.nextPlayer();
         updateAccessibles();
+        notifyObservers();
     }
 
     private void updateAccessibles() {
