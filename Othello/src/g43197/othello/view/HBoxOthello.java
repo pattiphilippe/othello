@@ -29,8 +29,9 @@ public class HBoxOthello extends HBox implements Observer {
      * Creates a new othello hbox.
      *
      * @param boardSize size of the board
+     * @param game
      */
-    public HBoxOthello(double boardSize) {
+    public HBoxOthello(double boardSize, Facade game) {
         super();
 
         players = new Players(10);
@@ -44,7 +45,7 @@ public class HBoxOthello extends HBox implements Observer {
 
         wallsCpt = new WallsCpt();
 
-        board = new Board(boardSize, boardSize, wallsCpt);
+        board = new Board(boardSize, boardSize, wallsCpt, game);
         board.setCenterShape(true);
         board.setMaxWidth(boardSize);
         board.setMaxHeight(boardSize);

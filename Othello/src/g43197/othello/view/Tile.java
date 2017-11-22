@@ -1,7 +1,6 @@
 package g43197.othello.view;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.layout.StackPane;
 import static javafx.scene.paint.Color.BLACK;
 import static javafx.scene.paint.Color.WHITE;
@@ -35,6 +34,8 @@ public class Tile extends StackPane {
     public Tile(double width, double height) {
         this.setMinWidth(width);
         this.setMinHeight(height);
+        this.setOnMouseEntered(event -> setEffect(new InnerShadow(5, BLACK)));
+        this.setOnMouseExited(event -> setEffect(null));
 
         piece = new Ellipse(width * SHAPE_SIZE_FACT, height * SHAPE_SIZE_FACT);
         piece.setFill(BLACK);

@@ -16,7 +16,7 @@ import javafx.scene.text.Font;
  * @author Philippe
  */
 public class VBoxOthello extends VBox implements Observer {
-    
+
     private final Label title;
     private final Region region1;
     private final HBoxOthello hbox;
@@ -29,25 +29,25 @@ public class VBoxOthello extends VBox implements Observer {
      */
     public VBoxOthello(Facade game) {
         super();
-        
+
         game.addObserver(this);
-        
+
         title = new Label("----------OTHELLO----------");
         title.setFont(Font.font(55));
         title.setMinHeight(OthelloApp.HEIGHT * 1 / 8);
         this.setAlignment(Pos.CENTER);
-        
+
         region1 = new Region();
         VBox.setVgrow(region1, Priority.ALWAYS);
-        
-        hbox = new HBoxOthello(OthelloApp.HEIGHT * 3 / 5);
-        
+
+        hbox = new HBoxOthello(OthelloApp.HEIGHT * 3 / 5, game);
+
         region2 = new Region();
         VBox.setVgrow(region2, Priority.ALWAYS);
-        
+
         this.getChildren().addAll(title, region1, hbox, region2);
     }
-    
+
     @Override
     public void update(Observable o, Object arg) {
         hbox.update(o, arg);

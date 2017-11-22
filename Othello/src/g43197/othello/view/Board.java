@@ -3,14 +3,9 @@ package g43197.othello.view;
 import static g43197.othello.model.Board.*;
 import g43197.othello.model.Color;
 import g43197.othello.model.Coordinates;
+import g43197.othello.model.Facade;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -21,6 +16,7 @@ import javafx.scene.layout.GridPane;
 public class Board extends GridPane {
 
     private final WallsCpt wallsCpt;
+    private final Facade game;
 
     /**
      * Creates a new Board.
@@ -28,9 +24,22 @@ public class Board extends GridPane {
      * @param width width of the new board
      * @param height height of the new board
      * @param wallsCpt the walls counter of the board
+     * @param game
      */
-    public Board(double width, double height, WallsCpt wallsCpt) {
+    public Board(double width, double height, WallsCpt wallsCpt, Facade game) {
         super();
+        this.game = game;
+
+        this.setOnMouseClicked(event -> {
+            Node source = (Node) event.get;
+            int row = GridPane.getRowIndex(source);
+            int col = GridPane.getColumnIndex(source);
+            if (event.isPrimaryButtonDown()) {
+                game.putPiece(new Coordinates(row, col));
+            } else if (event.isSecondaryButtonDown()) {
+                game.putWall(new Coordinates(row, col));
+            }
+        });
 
         Tile tile;
         height /= MAX_ROWS_COLS;

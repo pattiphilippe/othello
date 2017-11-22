@@ -99,6 +99,7 @@ public class Game extends Facade {
         players.modifyScore(points + 1);
         nextPlayer();
         players.modifyScore(-points);
+        notifyObservers();
     }
 
     @Override
@@ -108,6 +109,7 @@ public class Game extends Facade {
         }
         board.putWall(pos);
         nextPlayer();
+        notifyObservers();
     }
 
     ///////////////////////////Private//Methods//////////////////////////////
