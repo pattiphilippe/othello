@@ -2,6 +2,7 @@ package g43197.othello.model;
 
 import static g43197.othello.model.Direction.increment;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -13,10 +14,11 @@ import java.util.List;
 public class Board implements Cloneable {
 
     /**
-     *
+     * The default number of rows and cols.
      */
     public static final int MAX_ROWS_COLS = 8;
     private final Piece[][] BOARD;
+    private final List<Coordinates> switchedPos;
 
     /**
      * Creates a new board with Max_rows_cols rows and Max_rows_cols columns.
@@ -29,11 +31,17 @@ public class Board implements Cloneable {
         if (MAX_ROWS_COLS < 4) {
             throw new GameException("Amount of rows and columns has to be greater or equal to 4!");
         }
+        switchedPos = new LinkedList<>();
 
         BOARD = new Piece[MAX_ROWS_COLS][MAX_ROWS_COLS];
         initBoardCenter();
     }
-
+    
+    public List<Coordinates> getSwitchedPositions(){
+        //TODO check if needs to be clone or not
+        return switchedPos;
+    }
+    
     /**
      * Returns the piece in the given position.
      *
@@ -175,6 +183,7 @@ public class Board implements Cloneable {
 
     /*Switch colors in given directions and updates toCheck list.*/
     private int consequencePut(Coordinates pos, List<Direction> dirs) {
+        switchedPos.clear();
         int nbSwitched = 0;
         for (Direction dir : dirs) {
             nbSwitched += switchColors(pos, dir);
@@ -194,6 +203,7 @@ public class Board implements Cloneable {
             if (piece != null && piece.getColor() != saveColor) {
                 piece.switchColor();
                 nbSwitched++;
+                switchedPos.add(pos);
             } else {
                 swapping = false;
             }

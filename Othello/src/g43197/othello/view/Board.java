@@ -2,7 +2,15 @@ package g43197.othello.view;
 
 import static g43197.othello.model.Board.*;
 import g43197.othello.model.Color;
+import g43197.othello.model.Coordinates;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -70,5 +78,17 @@ public class Board extends GridPane {
             wallsCpt.addWall();
         }
         getTileByRowCol(row, col).addPiece(color);
+    }
+
+    public void update(List<Coordinates> switchedPos, Color currentPlayer) {
+        int row, col;
+        if (switchedPos.size() > 0) {
+            row = switchedPos.get(0).getROW();
+            col = switchedPos.get(0).getCOL();
+            addPiece(row, col, currentPlayer);
+            switchedPos.stream().skip(1).forEach(pos
+                    -> getTileByRowCol(pos.getROW(), pos.getCOL()).switchColor()
+            );
+        }
     }
 }

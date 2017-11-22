@@ -1,5 +1,7 @@
 package g43197.othello.view;
 
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import static javafx.scene.paint.Color.BLACK;
 import static javafx.scene.paint.Color.WHITE;
@@ -73,14 +75,14 @@ public class Tile extends StackPane {
     /**
      * Switches the color of the piece on this tile.
      *
-     * @throws Exception if no piece added yet.
      */
-    public void switchColor() throws Exception {
+    public void switchColor() {
+        //TODO try to work with exceptions and not runtime exceptions
         if (wall.isVisible() == true) {
-            throw new Exception("Can't switch walls color!");
+            throw new RuntimeException("Can't switch walls color!");
         }
         if (piece.isVisible() == false) {
-            throw new Exception("No piece added there yet!");
+            throw new RuntimeException("No piece added there yet!");
         }
         if (piece.getFill() == BLACK) {
             piece.setFill(WHITE);

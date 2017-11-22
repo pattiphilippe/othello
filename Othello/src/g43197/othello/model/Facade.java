@@ -45,6 +45,14 @@ public abstract class Facade extends Observable {
     public abstract Board getBoard();
 
     /**
+     * Returns a list of the positions that switched colors. The first position
+     * is the position were the piece was put.
+     *
+     * @return
+     */
+    public abstract List<Coordinates> getSwitchedPositions();
+
+    /**
      * Returns a copy of the accessible positions for the current player.
      *
      * @return

@@ -86,6 +86,11 @@ public class Game extends Facade {
     }
 
     @Override
+    public List<Coordinates> getSwitchedPositions() {
+        return board.getSwitchedPositions();
+    }
+
+    @Override
     public void putPiece(Coordinates pos) {
         if (pos == null) {
             throw new IllegalArgumentException("Pos can't be null!");
