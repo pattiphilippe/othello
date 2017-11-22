@@ -15,18 +15,18 @@ import javafx.scene.paint.Color;
  *
  * @author Philippe
  */
-public class Players extends VBox {
+public class PlayersView extends VBox {
 
     private final Border border;
-    private final List<Player> players;
-    private Player currentPlayer;
+    private final List<PlayerView> players;
+    private PlayerView currentPlayer;
 
     /**
      * Creates the list of players with their score.
      *
      * @param d the insets between players node.
      */
-    public Players(double d) {
+    public PlayersView(double d) {
         super(d);
 
         double borderSize = 5;
@@ -35,8 +35,8 @@ public class Players extends VBox {
 
         players = new ArrayList<>(2);
 
-        players.add(new Player("Black"));
-        players.add(new Player("White"));
+        players.add(new PlayerView("Black"));
+        players.add(new PlayerView("White"));
 
         players.get(0).setBorder(border);
         players.get(1).setBorder(Border.EMPTY);

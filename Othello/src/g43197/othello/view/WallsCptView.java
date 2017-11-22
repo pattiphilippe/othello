@@ -8,12 +8,12 @@ import javafx.scene.text.Font;
  *
  * @author G43197
  */
-public class WallsCpt extends Pane {
+public class WallsCptView extends Pane {
 
     private int nbWalls;
     private final Label lblWallsCpt;
 
-    public WallsCpt() {
+    public WallsCptView() {
 
         this.nbWalls = 0;
 

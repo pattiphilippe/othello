@@ -1,9 +1,11 @@
 package g43197.othello.view;
 
+import g43197.othello.model.Board;
 import static g43197.othello.model.Board.*;
 import g43197.othello.model.Color;
 import g43197.othello.model.Coordinates;
 import g43197.othello.model.Facade;
+import g43197.othello.model.Piece;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -15,9 +17,9 @@ import javafx.scene.layout.GridPane;
  *
  * @author Philippe
  */
-public class Board extends GridPane {
+public class BoardView extends GridPane {
 
-    private final WallsCpt wallsCpt;
+    private final WallsCptView wallsCpt;
     private final Facade game;
 
     /**
@@ -28,11 +30,11 @@ public class Board extends GridPane {
      * @param wallsCpt the walls counter of the board
      * @param game
      */
-    public Board(double width, double height, WallsCpt wallsCpt, Facade game) {
+    public BoardView(double width, double height, WallsCptView wallsCpt, Facade game) {
         super();
         this.game = game;
 
-        Tile tile;
+        TileView tile;
         height /= MAX_ROWS_COLS;
         width /= MAX_ROWS_COLS;
 
@@ -58,24 +60,23 @@ public class Board extends GridPane {
 
         }
 
+        Board board = game.getBoard();
+        Coordinates pos;
+
         for (int row = 0; row < MAX_ROWS_COLS; row++) {
             for (int col = 0; col < MAX_ROWS_COLS; col++) {
-                tile = new Tile(width, height);
+                tile = new TileView(width, height);
                 tile.setMinSize(width, height);
                 tile.setOnMouseClicked(new ClickedTileHandler(row, col));
+                pos = new Coordinates(row, col);
                 this.add(tile, col, row);
+
+                if (board.getPiece(pos) != null) {
+                    addPiece(row, col, board.getPiece(pos).getColor());
+                }
             }
         }
         this.wallsCpt = wallsCpt;
-        firstPieces();
-    }
-
-    private void firstPieces() {
-        addPiece(3, 3, Color.WHITE);
-        addPiece(3, 4, Color.BLACK);
-        addPiece(4, 3, Color.BLACK);
-        addPiece(4, 4, Color.WHITE);
-        addPiece(0, 0, Color.WALL);
     }
 
     /**
@@ -85,11 +86,11 @@ public class Board extends GridPane {
      * @param col
      * @return
      */
-    public Tile getTileByRowCol(int row, int col) {
-        Tile tile = null;
+    public TileView getTileByRowCol(int row, int col) {
+        TileView tile = null;
         for (Node node : getChildren()) {
             if (getRowIndex(node) == row && getColumnIndex(node) == col) {
-                tile = (Tile) node;
+                tile = (TileView) node;
                 break;
             }
         }

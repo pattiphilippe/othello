@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
  *
  * @author Philippe
  */
-public class Player extends VBox {
+public class PlayerView extends VBox {
 
     private final Label name;
     private final Label score;
@@ -19,7 +19,7 @@ public class Player extends VBox {
      *
      * @param name
      */
-    public Player(String name) {
+    public PlayerView(String name) {
         super();
 
         this.name = new Label(name);

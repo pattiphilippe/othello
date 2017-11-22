@@ -13,11 +13,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 /**
- * Tile is a class created specially for Board.
+ * TileView is a class created specially for Board.
  *
  * @author Philippe
  */
-public class Tile extends StackPane {
+public class TileView extends StackPane {
 
     private final Rectangle rectangle;
     private final Shape piece;
@@ -31,7 +31,7 @@ public class Tile extends StackPane {
      * @param width
      * @param height
      */
-    public Tile(double width, double height) {
+    public TileView(double width, double height) {
         this.setMinWidth(width);
         this.setMinHeight(height);
         this.setOnMouseEntered(event -> setEffect(new InnerShadow(5, BLACK)));

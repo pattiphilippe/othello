@@ -19,9 +19,9 @@ import javafx.scene.paint.Color;
  */
 public class HBoxOthello extends HBox implements Observer {
 
-    private final Players players;
-    private final Board board;
-    private final WallsCpt wallsCpt;
+    private final PlayersView players;
+    private final BoardView board;
+    private final WallsCptView wallsCpt;
     private final Region region1;
     private final Region region2;
 
@@ -34,7 +34,7 @@ public class HBoxOthello extends HBox implements Observer {
     public HBoxOthello(double boardSize, Facade game) {
         super();
 
-        players = new Players(10);
+        players = new PlayersView(10);
         players.setMinWidth(boardSize * 2 / 8);
 
         players.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -43,9 +43,9 @@ public class HBoxOthello extends HBox implements Observer {
         region1.setMinWidth(boardSize * 1 / 20);
         HBox.setHgrow(region1, Priority.ALWAYS);
 
-        wallsCpt = new WallsCpt();
+        wallsCpt = new WallsCptView();
 
-        board = new Board(boardSize, boardSize, wallsCpt, game);
+        board = new BoardView(boardSize, boardSize, wallsCpt, game);
         board.setCenterShape(true);
         board.setMaxWidth(boardSize);
         board.setMaxHeight(boardSize);
