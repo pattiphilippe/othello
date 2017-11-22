@@ -48,6 +48,9 @@ public class Othello {
                     Display.startGame();
                     game.startAgain();
                     break;
+                case HELP:
+                    Display.commands();
+                    break;
                 case EXIT:
                     System.exit(0);
             }

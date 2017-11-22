@@ -1,6 +1,8 @@
 package g43197.othello.view.console;
 
+import g43197.othello.Command;
 import g43197.othello.model.Player;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -46,5 +48,10 @@ public class Display {
      */
     public static void gameIsFinished() {
         System.out.println("Can't play a turn, game is finished");
+    }
+
+    public static void commands() {
+        System.out.println("Commands : ");
+        System.out.println(Arrays.toString(Command.values()));
     }
 }

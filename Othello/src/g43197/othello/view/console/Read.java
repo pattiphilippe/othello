@@ -66,8 +66,8 @@ public class Read {
     }
 
     private static int convertToCol(String colChar) {
-        int col = colChar.toUpperCase().charAt(0) - 64;
-        if(col < 0 || col >= MAX_ROWS_COLS){
+        int col = colChar.toUpperCase().charAt(0) - 65;
+        if (col < 0 || col >= MAX_ROWS_COLS) {
             return -1;
         } else {
             return col;
