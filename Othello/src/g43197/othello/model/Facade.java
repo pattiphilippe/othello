@@ -1,13 +1,14 @@
 package g43197.othello.model;
 
 import java.util.List;
+import java.util.Observable;
 
 /**
  * Facade of the model for Othello.
  *
  * @author G43197
  */
-public interface Facade {
+public abstract class Facade extends Observable {
 
     /**
      * Starts a new game.
@@ -19,7 +20,7 @@ public interface Facade {
      *
      * @return
      */
-    public boolean isFinished();
+    public abstract boolean isFinished();
 
     /**
      * Returns a list with every player and their name and score. This list is
@@ -27,40 +28,40 @@ public interface Facade {
      *
      * @return
      */
-    public List<Player> getScores();
+    public abstract List<Player> getScores();
 
     /**
      * Gets the current player.
      *
      * @return
      */
-    public Color getCurrentPlayer();
+    public abstract Color getCurrentPlayer();
 
     /**
      * Returns a clone of the board.
      *
      * @return
      */
-    public Board getBoard();
+    public abstract Board getBoard();
 
     /**
      * Returns a copy of the accessible positions for the current player.
      *
      * @return
      */
-    public List<Coordinates> getAccessibles();
+    public abstract List<Coordinates> getAccessibles();
 
     /**
      * Puts a piece on the board.
      *
      * @param pos the given position
      */
-    public void putPiece(Coordinates pos);
+    public abstract void putPiece(Coordinates pos);
 
     /**
      * Puts a wall on the board.
      *
      * @param pos the given position
      */
-    public void putWall(Coordinates pos);
+    public abstract void putWall(Coordinates pos);
 }

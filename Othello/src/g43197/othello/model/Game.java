@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author g43197
  */
-public class Game implements Facade{
+public class Game extends Facade {
 
     private final Players players;
     private final List<Coordinates> accessibles;
@@ -75,13 +75,13 @@ public class Game implements Facade{
     @Override
     public List<Coordinates> getAccessibles() {
         List<Coordinates> accClone = new LinkedList<>();
-        for (Coordinates pos : accessibles) {
+        accessibles.forEach((pos) -> {
             try {
                 accClone.add(pos.clone());
             } catch (CloneNotSupportedException e) {
                 //TODO ? que faire avec catch vide
             }
-        }
+        });
         return accClone;
     }
 

@@ -29,4 +29,12 @@ public class Player extends VBox {
 
         this.getChildren().addAll(this.name, score);
     }
+    
+    public boolean isPlayer(String name){
+        return this.name.getText().equalsIgnoreCase(name);
+    }
+
+    void updateScore(Integer score) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

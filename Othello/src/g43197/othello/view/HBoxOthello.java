@@ -1,5 +1,8 @@
 package g43197.othello.view;
 
+import g43197.othello.model.Facade;
+import java.util.Observable;
+import java.util.Observer;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -14,7 +17,7 @@ import javafx.scene.paint.Color;
  *
  * @author Philippe
  */
-public class HBoxOthello extends HBox {
+public class HBoxOthello extends HBox implements Observer {
 
     private final Players players;
     private final Board board;
@@ -55,5 +58,11 @@ public class HBoxOthello extends HBox {
         wallsCpt.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
 
         this.getChildren().addAll(players, region1, board, region2, wallsCpt);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        Facade game = (Facade) o;
+        players.update(game.getCurrentPlayer(), game.getScores());
     }
 }

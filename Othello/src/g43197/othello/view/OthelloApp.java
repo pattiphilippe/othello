@@ -1,5 +1,7 @@
 package g43197.othello.view;
 
+import g43197.othello.model.Facade;
+import g43197.othello.model.Game;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -44,7 +46,8 @@ public class OthelloApp extends Application {
         primaryStage.setMaxWidth(WIDTH);
         primaryStage.setMaxHeight(HEIGHT);
 
-        VBoxOthello root = new VBoxOthello();
+        Facade game = new Game();
+        VBoxOthello root = new VBoxOthello(game);
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
