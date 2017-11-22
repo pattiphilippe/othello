@@ -18,6 +18,7 @@ public class Board implements Cloneable {
      */
     public static final int MAX_ROWS_COLS = 8;
     private final Piece[][] BOARD;
+    //TODO test switchedPos
     private final List<Coordinates> switchedPos;
 
     /**
@@ -120,12 +121,11 @@ public class Board implements Cloneable {
     }
 
     ///////////////////////////Private//Methods//////////////////////////////
-    /*Puts the first pieces in the center of the board. Initializes toCheck list too.*/
+    /*Puts the first pieces in the center of the board. Initializes switchedPos list too.*/
     private void initBoardCenter() {
-        List<Coordinates> list = new ArrayList<>(4);
-        getCenterPos(list);
+        getCenterPos(switchedPos);
         Color color;
-        for (Coordinates pos : list) {
+        for (Coordinates pos : switchedPos) {
             color = (pos.getROW() + pos.getCOL()) % 2 == 0 ? Color.WHITE : Color.BLACK;
             BOARD[pos.getROW()][pos.getCOL()] = new Piece(color);
         }
@@ -182,6 +182,7 @@ public class Board implements Cloneable {
     /*Switch colors in given directions and updates toCheck list.*/
     private int consequencePut(Coordinates pos, List<Direction> dirs) {
         switchedPos.clear();
+        switchedPos.add(pos);
         int nbSwitched = 0;
         for (Direction dir : dirs) {
             nbSwitched += switchColors(pos, dir);

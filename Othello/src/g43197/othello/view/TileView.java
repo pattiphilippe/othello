@@ -45,6 +45,7 @@ public class TileView extends StackPane {
         wall.setFill(BROWN);
         wall.setVisible(false);
 
+        //TODO accessible positions
         // si attribut reçoit nouvelle adresse, pas changement dans children()
         rectangle = new Rectangle(width, height);
 

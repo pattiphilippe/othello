@@ -1,5 +1,6 @@
 package g43197.othello.model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.Test;
@@ -188,7 +189,7 @@ public class BoardTest {
         expResult.add(new Coordinates(5, 4));
         assertTrue(accessibles.containsAll(expResult));
     }
-    
+
     /**
      * Initial case.
      */
@@ -258,5 +259,27 @@ public class BoardTest {
         } catch (CloneNotSupportedException e) {
             fail("Clone failed!");
         }
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testSwitchedPos() {
+        Board board = new Board();
+        List<Coordinates> list = board.getSwitchedPositions(), expResult = new ArrayList<>(10);
+        expResult.add(new Coordinates(3, 3));
+        expResult.add(new Coordinates(3, 4));
+        expResult.add(new Coordinates(4, 3));
+        expResult.add(new Coordinates(4, 4));
+        assertTrue(list.containsAll(expResult));
+
+        board.put(new Piece(Color.BLACK), new Coordinates(2, 3));
+
+        list = board.getSwitchedPositions();
+        expResult.clear();
+        expResult.add(new Coordinates(2, 3));
+        expResult.add(new Coordinates(3, 3));
+        assertTrue(list.containsAll(expResult));
     }
 }

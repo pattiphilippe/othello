@@ -105,7 +105,7 @@ public class BoardView extends GridPane {
     }
 
     public void update(List<Coordinates> switchedPos, Color currentPlayer) {
-        //TODO mettre à jour en fonction de board, pas switchedPos
+        //TODO mettre à jour en fonction de board, pas switchedPos?
         int row, col;
         if (switchedPos.size() > 0) {
             row = switchedPos.get(0).getROW();
