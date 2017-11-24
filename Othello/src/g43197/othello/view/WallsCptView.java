@@ -13,9 +13,9 @@ public class WallsCptView extends Pane {
     private int nbWalls;
     private final Label lblWallsCpt;
 
-    public WallsCptView() {
+    public WallsCptView(int nbWalls) {
 
-        this.nbWalls = 0;
+        this.nbWalls = nbWalls;
 
         this.lblWallsCpt = new Label("Walls: " + this.nbWalls);
         lblWallsCpt.setFont(new Font(20));

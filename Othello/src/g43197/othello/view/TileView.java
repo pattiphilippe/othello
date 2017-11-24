@@ -1,5 +1,6 @@
 package g43197.othello.view;
 
+import javafx.scene.effect.Glow;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -49,6 +50,7 @@ public class TileView extends StackPane {
         //TODO accessible positions
         // si attribut reçoit nouvelle adresse, pas changement dans children()
         rectangle = new Rectangle(width, height);
+        rectangle.setEffect(new Glow(0));
 
         rectangle.setStroke(SLATEBLUE);
         rectangle.setFill(LIGHTBLUE);
@@ -113,6 +115,14 @@ public class TileView extends StackPane {
                 return WHITE;
             default:
                 throw new RuntimeException("wrong color!");
+        }
+    }
+
+    public void setAccessible(boolean accessible) {
+        if (accessible) {
+            rectangle.setEffect(new Glow(1.5));
+        } else {
+            rectangle.setEffect(new Glow(0));
         }
     }
 }

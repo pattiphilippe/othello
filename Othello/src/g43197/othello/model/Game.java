@@ -2,6 +2,7 @@ package g43197.othello.model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Observer;
 
 /**
  * Facade of Othello. The methods in this class are mainly around the current
@@ -23,7 +24,6 @@ public class Game extends Facade {
         players = new Players();
         accessibles = new LinkedList<>();
         startAgain();
-        notifyObservers();
     }
 
     @Override
@@ -121,6 +121,7 @@ public class Game extends Facade {
     private void nextPlayer() {
         players.nextPlayer();
         updateAccessibles();
+        setChanged();
         notifyObservers();
     }
 

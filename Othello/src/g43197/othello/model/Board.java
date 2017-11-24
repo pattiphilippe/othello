@@ -18,7 +18,6 @@ public class Board implements Cloneable {
      */
     public static final int MAX_ROWS_COLS = 8;
     private final Piece[][] BOARD;
-    //TODO test switchedPos
     private final List<Coordinates> switchedPos;
 
     /**
@@ -92,6 +91,8 @@ public class Board implements Cloneable {
             throw new GameException("Position occupied!");
         }
         // check isInside ds getPiece()
+        switchedPos.clear();
+        switchedPos.add(pos);
         BOARD[pos.getROW()][pos.getCOL()] = new Piece(Color.WALL);
     }
 

@@ -1,8 +1,8 @@
 package g43197.othello.view;
 
 import g43197.othello.model.Facade;
-import java.util.Observable;
-import java.util.Observer;
+import g43197.othello.model.Player;
+import java.util.List;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -17,8 +17,9 @@ import javafx.scene.paint.Color;
  *
  * @author Philippe
  */
-public class HBoxOthello extends HBox implements Observer {
+public class HBoxOthello extends HBox {
 
+    private final Facade game;
     private final PlayersView players;
     private final BoardView board;
     private final WallsCptView wallsCpt;
@@ -33,8 +34,10 @@ public class HBoxOthello extends HBox implements Observer {
      */
     public HBoxOthello(double boardSize, Facade game) {
         super();
+        this.game = game;
 
-        players = new PlayersView(10);
+        List<Player> names = game.getScores();
+        players = new PlayersView(10, names.get(0).getScore(), names.get(0).getColor().name(), names.get(1).getColor().name());
         players.setMinWidth(boardSize * 2 / 8);
 
         players.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -43,7 +46,7 @@ public class HBoxOthello extends HBox implements Observer {
         region1.setMinWidth(boardSize * 1 / 20);
         HBox.setHgrow(region1, Priority.ALWAYS);
 
-        wallsCpt = new WallsCptView();
+        wallsCpt = new WallsCptView(game.getNbWalls());
 
         board = new BoardView(boardSize, boardSize, wallsCpt, game);
         board.setCenterShape(true);
@@ -61,9 +64,8 @@ public class HBoxOthello extends HBox implements Observer {
         this.getChildren().addAll(players, region1, board, region2, wallsCpt);
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        Facade game = (Facade) o;
+    public void update() {
+        System.out.println("update hbox");
         players.update(game.getCurrentPlayer(), game.getScores());
         board.update();
         wallsCpt.update(game.getNbWalls());

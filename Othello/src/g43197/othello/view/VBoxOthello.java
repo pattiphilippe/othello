@@ -50,6 +50,6 @@ public class VBoxOthello extends VBox implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        hbox.update(o, arg);
+        hbox.update();
     }
 }

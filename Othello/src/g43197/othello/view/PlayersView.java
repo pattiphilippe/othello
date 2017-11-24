@@ -25,8 +25,10 @@ public class PlayersView extends VBox {
      * Creates the list of players with their score.
      *
      * @param d the insets between players node.
+     * @param score first score of the players
+     * @param names array of players name, at least 2 names
      */
-    public PlayersView(double d) {
+    public PlayersView(double d, int score, String... names) {
         super(d);
 
         double borderSize = 5;
@@ -35,8 +37,8 @@ public class PlayersView extends VBox {
 
         players = new ArrayList<>(2);
 
-        players.add(new PlayerView("Black"));
-        players.add(new PlayerView("White"));
+        players.add(new PlayerView(names[0], score));
+        players.add(new PlayerView(names[1], score));
 
         players.get(0).setBorder(border);
         players.get(1).setBorder(Border.EMPTY);
@@ -47,12 +49,14 @@ public class PlayersView extends VBox {
     }
 
     private void nextPlayer() {
+        currentPlayer.setBorder(Border.EMPTY);
         int i = players.indexOf(currentPlayer) + 1;
         if (i < players.size()) {
             currentPlayer = players.get(i);
         } else {
             currentPlayer = players.get(0);
         }
+        currentPlayer.setBorder(border);
     }
 
     /**

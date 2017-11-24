@@ -53,7 +53,8 @@ public abstract class Facade extends Observable {
 
     /**
      * Returns a list of the positions that switched colors. The first position
-     * is the position were the piece was put.
+     * is the position were the piece was put. If the list has only one element,
+     * it is the position of a wall just put.
      *
      * @return
      */

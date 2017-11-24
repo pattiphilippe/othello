@@ -17,24 +17,25 @@ public class PlayerView extends VBox {
     /**
      * Creates a new player with the given name.
      *
-     * @param name
+     * @param name player's name
+     * @param score first score of the player
      */
-    public PlayerView(String name) {
+    public PlayerView(String name, int score) {
         super();
 
         this.name = new Label(name);
         this.name.setFont(Font.font(20));
-        score = new Label("Score : " + 0);
-        score.setFont(Font.font(20));
+        this.score = new Label("Score : " + score);
+        this.score.setFont(Font.font(20));
 
-        this.getChildren().addAll(this.name, score);
+        this.getChildren().addAll(this.name, this.score);
     }
-    
-    public boolean isPlayer(String name){
+
+    public boolean isPlayer(String name) {
         return this.name.getText().equalsIgnoreCase(name);
     }
 
-    void updateScore(Integer score) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateScore(Integer score) {
+        this.score.setText("Score : " + score);
     }
 }

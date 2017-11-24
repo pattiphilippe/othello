@@ -50,22 +50,17 @@ public class BoardView extends GridPane {
 
             @Override
             public void handle(MouseEvent event) {
-                //TODO gérer les erreurs: si pas dans accessibles, consume
-                if(!accessibles.contains(new Coordinates(row, col))){
+                try {
+                    switch (event.getButton()) {
+                        case PRIMARY:
+                            game.putPiece(new Coordinates(row, col));
+                            break;
+                        case SECONDARY:
+                            game.putWall(new Coordinates(row, col));
+                            break;
+                    }
+                } catch (Exception e) {
                     event.consume();
-                }
-                switch (event.getButton()) {
-                    case PRIMARY:
-                        System.out.println("handle prim click tile");
-                        game.putPiece(new Coordinates(row, col));
-                        break;
-                    case SECONDARY:
-                        System.out.println("handle sec click tile");
-                        game.putWall(new Coordinates(row, col));
-                        break;
-                    default:
-                        System.out.println("click not used");
-                        break;
                 }
             }
         }
@@ -86,6 +81,7 @@ public class BoardView extends GridPane {
                 }
             }
         }
+        updateAccessibles();
     }
 
     /**
@@ -111,20 +107,35 @@ public class BoardView extends GridPane {
     }
 
     public void update() {
-        accessibles = game.getAccessibles();
-        
+        if (game.isFinished()) {
+            //TODO coder fin du jeu ici
+        }
+        updateAccessibles();
+
         List<Coordinates> switchedPos = game.getSwitchedPositions();
-        Color currentPlayer = game.getCurrentPlayer();
+        Color prevPlayer = game.getCurrentPlayer() == Color.BLACK ? Color.WHITE : Color.BLACK;
         //TODO mettre à jour en fonction de board, pas switchedPos?
         //TODO OU PAS?
         int row, col;
-        if (switchedPos.size() > 0) {
+        if (switchedPos.size() == 1) {
             row = switchedPos.get(0).getROW();
             col = switchedPos.get(0).getCOL();
-            addPiece(row, col, currentPlayer);
+            addPiece(row, col, Color.WALL);
+        } else if (switchedPos.size() > 0) {
+            row = switchedPos.get(0).getROW();
+            col = switchedPos.get(0).getCOL();
+            addPiece(row, col, prevPlayer);
             switchedPos.stream().skip(1).forEach(pos
                     -> getTileByRowCol(pos.getROW(), pos.getCOL()).switchColor()
             );
         }
+    }
+
+    private void updateAccessibles() {
+        accessibles.stream().forEach(pos
+                -> getTileByRowCol(pos.getROW(), pos.getCOL()).setAccessible(false));
+        accessibles = game.getAccessibles();
+        accessibles.stream().forEach(pos
+                -> getTileByRowCol(pos.getROW(), pos.getCOL()).setAccessible(true));
     }
 }
