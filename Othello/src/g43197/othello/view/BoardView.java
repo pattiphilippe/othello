@@ -26,10 +26,9 @@ public class BoardView extends GridPane {
      *
      * @param width width of the new board
      * @param height height of the new board
-     * @param wallsCpt the walls counter of the board
      * @param game
      */
-    public BoardView(double width, double height, WallsCptView wallsCpt, Facade game) {
+    public BoardView(double width, double height, Facade game) {
         super();
         this.game = game;
         accessibles = game.getAccessibles();

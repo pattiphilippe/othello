@@ -52,7 +52,7 @@ public class VBoxOthello extends VBox implements Observer {
     public void update(Observable o, Object arg) {
         Facade game = (Facade) o;
         if (game.isFinished()) {
-            
+            //TODO code finished game
         }
         hbox.update();
     }

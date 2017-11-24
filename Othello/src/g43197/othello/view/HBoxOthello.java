@@ -10,6 +10,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 /**
@@ -18,13 +19,16 @@ import javafx.scene.paint.Color;
  * @author Philippe
  */
 public class HBoxOthello extends HBox {
-
+    
+    private final VBox left;
+    private final VBox right;
     private final Facade game;
     private final PlayersView players;
     private final BoardView board;
     private final WallsCptView wallsCpt;
-    private final Region region1;
-    private final Region region2;
+    private final Region regionPlyWall;
+    private final Region regionLeftCenter;
+    private final Region regionCenterRidht;
 
     /**
      * Creates a new othello hbox.
@@ -35,35 +39,44 @@ public class HBoxOthello extends HBox {
     public HBoxOthello(double boardSize, Facade game) {
         super();
         this.game = game;
-
+        
         List<Player> names = game.getScores();
         players = new PlayersView(10, names.get(0).getScore(), names.get(0).getColor().name(), names.get(1).getColor().name());
         players.setPrefWidth(boardSize * 2 / 8);
+//        players.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        players.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-
-        region1 = new Region();
-        region1.setPrefWidth(boardSize * 1 / 20);
-        HBox.setHgrow(region1, Priority.ALWAYS);
-
+        regionPlyWall = new Region();
+        VBox.setVgrow(regionPlyWall, Priority.ALWAYS);
+        
         wallsCpt = new WallsCptView(game.getNbWalls());
-
-        board = new BoardView(boardSize, boardSize, wallsCpt, game);
+        wallsCpt.setPrefWidth(boardSize * 2 / 8);
+        wallsCpt.setPrefHeight(boardSize * 1 / 8);
+        wallsCpt.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        
+        regionLeftCenter = new Region();
+        regionLeftCenter.setPrefWidth(boardSize * 1 / 20);
+        HBox.setHgrow(regionLeftCenter, Priority.ALWAYS);
+        
+        board = new BoardView(boardSize, boardSize, game);
         board.setCenterShape(true);
         board.setPrefWidth(boardSize);
         board.setPrefHeight(boardSize);
-
-        region2 = new Region();
-        region2.setPrefWidth(boardSize * 1 / 20);
-        HBox.setHgrow(region2, Priority.ALWAYS);
-
-        wallsCpt.setPrefWidth(boardSize * 2 / 8);
-
-        wallsCpt.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-
-        this.getChildren().addAll(players, region1, board, region2, wallsCpt);
+        
+        regionCenterRidht = new Region();
+        regionCenterRidht.setPrefWidth(boardSize * 1 / 20);
+        HBox.setHgrow(regionCenterRidht, Priority.ALWAYS);
+        
+        left = new VBox(10);
+        left.getChildren().addAll(players, regionPlyWall, wallsCpt);
+        left.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        
+        right = new VBox(10);
+        right.setPrefWidth(boardSize * 2 / 8);
+        right.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        
+        this.getChildren().addAll(left, regionLeftCenter, board, regionCenterRidht, right);
     }
-
+    
     public void update() {
         players.update(game.getCurrentPlayer(), game.getScores());
         board.update();
