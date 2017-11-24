@@ -39,6 +39,7 @@ public class Game extends Facade {
         if (hasMovesLeft()) {
             return false;
         } else {
+            setChanged();
             nextPlayer();
             return !hasMovesLeft();
         }
@@ -105,6 +106,8 @@ public class Game extends Facade {
         players.modifyScore(points + 1);
         nextPlayer();
         players.modifyScore(-points);
+        setChanged();
+        notifyObservers();
     }
 
     @Override
@@ -114,6 +117,7 @@ public class Game extends Facade {
         }
         board.putWall(pos);
         rack.addWall();
+        setChanged();
         nextPlayer();
     }
 
@@ -121,7 +125,6 @@ public class Game extends Facade {
     private void nextPlayer() {
         players.nextPlayer();
         updateAccessibles();
-        setChanged();
         notifyObservers();
     }
 

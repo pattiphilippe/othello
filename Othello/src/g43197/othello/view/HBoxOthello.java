@@ -65,7 +65,6 @@ public class HBoxOthello extends HBox {
     }
 
     public void update() {
-        System.out.println("update hbox");
         players.update(game.getCurrentPlayer(), game.getScores());
         board.update();
         wallsCpt.update(game.getNbWalls());
