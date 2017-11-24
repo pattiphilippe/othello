@@ -19,6 +19,7 @@ import javafx.scene.layout.GridPane;
 public class BoardView extends GridPane {
 
     private final Facade game;
+    private List<Coordinates> accessibles;
 
     /**
      * Creates a new Board.
@@ -31,6 +32,7 @@ public class BoardView extends GridPane {
     public BoardView(double width, double height, WallsCptView wallsCpt, Facade game) {
         super();
         this.game = game;
+        accessibles = game.getAccessibles();
 
         TileView tile;
         height /= MAX_ROWS_COLS;
@@ -48,14 +50,24 @@ public class BoardView extends GridPane {
 
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("handle click tile");
-                if (event.isPrimaryButtonDown()) {
-                    game.putPiece(new Coordinates(row, col));
-                } else if (event.isSecondaryButtonDown()) {
-                    game.putWall(new Coordinates(row, col));
+                //TODO gérer les erreurs: si pas dans accessibles, consume
+                if(!accessibles.contains(new Coordinates(row, col))){
+                    event.consume();
+                }
+                switch (event.getButton()) {
+                    case PRIMARY:
+                        System.out.println("handle prim click tile");
+                        game.putPiece(new Coordinates(row, col));
+                        break;
+                    case SECONDARY:
+                        System.out.println("handle sec click tile");
+                        game.putWall(new Coordinates(row, col));
+                        break;
+                    default:
+                        System.out.println("click not used");
+                        break;
                 }
             }
-
         }
 
         Board board = game.getBoard();
@@ -98,8 +110,13 @@ public class BoardView extends GridPane {
         getTileByRowCol(row, col).addPiece(color);
     }
 
-    public void update(List<Coordinates> switchedPos, Color currentPlayer) {
+    public void update() {
+        accessibles = game.getAccessibles();
+        
+        List<Coordinates> switchedPos = game.getSwitchedPositions();
+        Color currentPlayer = game.getCurrentPlayer();
         //TODO mettre à jour en fonction de board, pas switchedPos?
+        //TODO OU PAS?
         int row, col;
         if (switchedPos.size() > 0) {
             row = switchedPos.get(0).getROW();
