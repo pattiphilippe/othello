@@ -5,7 +5,6 @@ import static g43197.othello.model.Board.*;
 import g43197.othello.model.Color;
 import g43197.othello.model.Coordinates;
 import g43197.othello.model.Facade;
-import g43197.othello.model.Piece;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -19,7 +18,6 @@ import javafx.scene.layout.GridPane;
  */
 public class BoardView extends GridPane {
 
-    private final WallsCptView wallsCpt;
     private final Facade game;
 
     /**
@@ -76,7 +74,6 @@ public class BoardView extends GridPane {
                 }
             }
         }
-        this.wallsCpt = wallsCpt;
     }
 
     /**
@@ -98,9 +95,6 @@ public class BoardView extends GridPane {
     }
 
     private void addPiece(int row, int col, Color color) {
-        if (color == Color.WALL) {
-            wallsCpt.addWall();
-        }
         getTileByRowCol(row, col).addPiece(color);
     }
 

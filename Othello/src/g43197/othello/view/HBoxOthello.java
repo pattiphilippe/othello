@@ -66,6 +66,6 @@ public class HBoxOthello extends HBox implements Observer {
         Facade game = (Facade) o;
         players.update(game.getCurrentPlayer(), game.getScores());
         board.update(game.getSwitchedPositions(), game.getCurrentPlayer());
-        
+        wallsCpt.update(game.getNbWalls());
     }
 }

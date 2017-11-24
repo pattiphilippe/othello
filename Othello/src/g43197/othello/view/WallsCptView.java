@@ -22,8 +22,8 @@ public class WallsCptView extends Pane {
         this.getChildren().add(this.lblWallsCpt);
     }
 
-    public void addWall() {
-        nbWalls++;
+    public void update(int nbWalls) {
+        this.nbWalls = nbWalls;
         lblWallsCpt.setText("Walls: " + this.nbWalls);
     }
 
