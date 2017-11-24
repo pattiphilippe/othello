@@ -20,7 +20,7 @@ import javafx.scene.shape.Shape;
  * @author Philippe
  */
 public class TileView extends StackPane {
-    
+
     private final Rectangle rectangle;
     private final Shape piece;
     private final Shape wall;
@@ -34,15 +34,15 @@ public class TileView extends StackPane {
      * @param height
      */
     public TileView(double width, double height) {
-        this.setMinWidth(width);
-        this.setMinHeight(height);
+        this.setPrefWidth(width);
+        this.setPrefHeight(height);
         this.setOnMouseEntered(event -> setEffect(new InnerShadow(5, BLACK)));
         this.setOnMouseExited(event -> setEffect(null));
-        
+
         piece = new Ellipse(width * SHAPE_SIZE_FACT, height * SHAPE_SIZE_FACT);
         piece.setFill(BLACK);
         piece.setVisible(false);
-        
+
         wall = new Rectangle(width * WALL_SIZE_FACT, height * WALL_SIZE_FACT);
         wall.setFill(BROWN);
         wall.setVisible(false);
@@ -50,10 +50,10 @@ public class TileView extends StackPane {
         // si attribut reçoit nouvelle adresse, pas changement dans children()
         rectangle = new Rectangle(width, height);
         rectangle.setEffect(new Glow(0));
-        
+
         rectangle.setStroke(SLATEBLUE);
         rectangle.setFill(LIGHTBLUE);
-        
+
         this.getChildren().addAll(rectangle, piece, wall);
     }
 
@@ -73,7 +73,7 @@ public class TileView extends StackPane {
                 break;
         }
     }
-    
+
     private void addWall() {
         piece.setVisible(false);
         wall.setVisible(true);
@@ -96,7 +96,7 @@ public class TileView extends StackPane {
             piece.setFill(BLACK);
         }
     }
-    
+
     private Paint getFxColor(g43197.othello.model.Color color) {
         switch (color) {
             case BLACK:
@@ -107,7 +107,7 @@ public class TileView extends StackPane {
                 throw new RuntimeException("wrong color!");
         }
     }
-    
+
     public void setAccessible(boolean accessible) {
         if (accessible) {
             rectangle.setFill(Color.CHARTREUSE);

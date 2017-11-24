@@ -34,10 +34,6 @@ public class BoardView extends GridPane {
         this.game = game;
         accessibles = game.getAccessibles();
 
-        TileView tile;
-        height /= MAX_ROWS_COLS;
-        width /= MAX_ROWS_COLS;
-
         class ClickedTileHandler implements EventHandler<MouseEvent> {
 
             private final int row;
@@ -64,14 +60,17 @@ public class BoardView extends GridPane {
                 }
             }
         }
-
+       
+        TileView tile;
+        height /= MAX_ROWS_COLS;
+        width /= MAX_ROWS_COLS;
         Board board = game.getBoard();
         Coordinates pos;
 
         for (int row = 0; row < MAX_ROWS_COLS; row++) {
             for (int col = 0; col < MAX_ROWS_COLS; col++) {
                 tile = new TileView(width, height);
-                tile.setMinSize(width, height);
+                tile.setPrefSize(width, height);
                 tile.setOnMouseClicked(new ClickedTileHandler(row, col));
                 pos = new Coordinates(row, col);
                 this.add(tile, col, row);

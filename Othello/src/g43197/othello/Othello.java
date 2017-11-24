@@ -32,6 +32,7 @@ public class Othello {
                     draw(game.getBoard(), game.getAccessibles());
                     break;
                 case PLAY:
+                case PASS:
                 case WALL:
                     if (!game.isFinished()) {
                         playTurn(game, command);
@@ -62,10 +63,21 @@ public class Othello {
             try {
                 switch (command) {
                     case PLAY:
-                        game.putPiece(Read.readPos());
+                        if (!game.canPlay()) {
+                            Display.cantPlay();
+                        } else {
+                            game.putPiece(Read.readPos());
+                        }
                         break;
                     case WALL:
                         game.putWall(Read.readPos());
+                        break;
+                    case PASS:
+                        if (game.canPlay()) {
+                            Display.cantPass();
+                        } else {
+                            game.pass();
+                        }
                         break;
                 }
                 played = true;

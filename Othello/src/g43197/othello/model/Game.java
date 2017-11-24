@@ -2,7 +2,6 @@ package g43197.othello.model;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Observer;
 
 /**
  * Facade of Othello. The methods in this class are mainly around the current
@@ -36,13 +35,23 @@ public class Game extends Facade {
 
     @Override
     public boolean isFinished() {
-        if (hasMovesLeft()) {
+        if (canPlay()) {
             return false;
         } else {
-            setChanged();
             nextPlayer();
-            return !hasMovesLeft();
+            boolean isFinished = !canPlay();
+            nextPlayer();
+            return isFinished;
         }
+    }
+
+    /**
+     * Returns true if the current player can put a piece to switch others.
+     *
+     * @return true if he can
+     */
+    public boolean canPlay() {
+        return !accessibles.isEmpty();
     }
 
     /**
@@ -121,6 +130,14 @@ public class Game extends Facade {
         nextPlayer();
     }
 
+    @Override
+    public void pass() {
+        if (canPlay()) {
+            throw new GameException("Can't pass, can play a turn.");
+        }
+        nextPlayer();
+    }
+
     ///////////////////////////Private//Methods//////////////////////////////
     private void nextPlayer() {
         players.nextPlayer();
@@ -130,9 +147,5 @@ public class Game extends Facade {
 
     private void updateAccessibles() {
         board.updateAccessibles(accessibles, players.getCurrentPlayer());
-    }
-
-    private boolean hasMovesLeft() {
-        return !accessibles.isEmpty();
     }
 }

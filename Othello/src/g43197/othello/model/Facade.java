@@ -80,4 +80,9 @@ public abstract class Facade extends Observable {
      * @param pos the given position
      */
     public abstract void putWall(Coordinates pos);
+
+    /**
+     * Pass the turn of the player, only if he can't play a turn.
+     */
+    public abstract void pass();
 }

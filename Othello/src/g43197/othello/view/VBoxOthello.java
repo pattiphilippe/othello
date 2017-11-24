@@ -34,7 +34,7 @@ public class VBoxOthello extends VBox implements Observer {
 
         title = new Label("----------OTHELLO----------");
         title.setFont(Font.font(55));
-        title.setMinHeight(OthelloApp.HEIGHT * 1 / 8);
+        title.setPrefHeight(OthelloApp.HEIGHT * 1 / 8);
         this.setAlignment(Pos.CENTER);
 
         region1 = new Region();
@@ -51,7 +51,7 @@ public class VBoxOthello extends VBox implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Facade game = (Facade) o;
-        if(game.isFinished()){
+        if (game.isFinished()) {
             
         }
         hbox.update();

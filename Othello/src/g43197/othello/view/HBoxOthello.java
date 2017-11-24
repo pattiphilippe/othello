@@ -38,26 +38,26 @@ public class HBoxOthello extends HBox {
 
         List<Player> names = game.getScores();
         players = new PlayersView(10, names.get(0).getScore(), names.get(0).getColor().name(), names.get(1).getColor().name());
-        players.setMinWidth(boardSize * 2 / 8);
+        players.setPrefWidth(boardSize * 2 / 8);
 
         players.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
 
         region1 = new Region();
-        region1.setMinWidth(boardSize * 1 / 20);
+        region1.setPrefWidth(boardSize * 1 / 20);
         HBox.setHgrow(region1, Priority.ALWAYS);
 
         wallsCpt = new WallsCptView(game.getNbWalls());
 
         board = new BoardView(boardSize, boardSize, wallsCpt, game);
         board.setCenterShape(true);
-        board.setMaxWidth(boardSize);
-        board.setMaxHeight(boardSize);
+        board.setPrefWidth(boardSize);
+        board.setPrefHeight(boardSize);
 
         region2 = new Region();
-        region2.setMinWidth(boardSize * 1 / 20);
+        region2.setPrefWidth(boardSize * 1 / 20);
         HBox.setHgrow(region2, Priority.ALWAYS);
 
-        wallsCpt.setMinWidth(boardSize * 2 / 8);
+        wallsCpt.setPrefWidth(boardSize * 2 / 8);
 
         wallsCpt.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
 

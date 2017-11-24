@@ -54,4 +54,12 @@ public class Display {
         System.out.println("Commands : ");
         System.out.println(Arrays.toString(Command.values()));
     }
+
+    public static void cantPlay() {
+        System.out.println("Can't put a piece, no possible moves");
+    }
+
+    public static void cantPass() {
+        System.out.println("Can't pass, can put a piece.");
+    }
 }
