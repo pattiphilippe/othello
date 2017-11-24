@@ -50,6 +50,10 @@ public class VBoxOthello extends VBox implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        Facade game = (Facade) o;
+        if(game.isFinished()){
+            
+        }
         hbox.update();
     }
 }

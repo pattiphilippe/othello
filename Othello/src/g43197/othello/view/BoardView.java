@@ -1,4 +1,4 @@
-package g43197.othello.view;
+ package g43197.othello.view;
 
 import g43197.othello.model.Board;
 import static g43197.othello.model.Board.*;

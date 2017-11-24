@@ -20,7 +20,7 @@ import javafx.scene.shape.Shape;
  * @author Philippe
  */
 public class TileView extends StackPane {
-
+    
     private final Rectangle rectangle;
     private final Shape piece;
     private final Shape wall;
@@ -38,23 +38,22 @@ public class TileView extends StackPane {
         this.setMinHeight(height);
         this.setOnMouseEntered(event -> setEffect(new InnerShadow(5, BLACK)));
         this.setOnMouseExited(event -> setEffect(null));
-
+        
         piece = new Ellipse(width * SHAPE_SIZE_FACT, height * SHAPE_SIZE_FACT);
         piece.setFill(BLACK);
         piece.setVisible(false);
-
+        
         wall = new Rectangle(width * WALL_SIZE_FACT, height * WALL_SIZE_FACT);
         wall.setFill(BROWN);
         wall.setVisible(false);
 
-        //TODO accessible positions
         // si attribut reçoit nouvelle adresse, pas changement dans children()
         rectangle = new Rectangle(width, height);
         rectangle.setEffect(new Glow(0));
-
+        
         rectangle.setStroke(SLATEBLUE);
         rectangle.setFill(LIGHTBLUE);
-
+        
         this.getChildren().addAll(rectangle, piece, wall);
     }
 
@@ -64,29 +63,20 @@ public class TileView extends StackPane {
      * @param color
      */
     public void addPiece(g43197.othello.model.Color color) {
-        if (null == color) {
-            addAccessible();
-            //TODO changer ça
-        } else {
-            switch (color) {
-                case WALL:
-                    addWall();
-                    break;
-                default:
-                    piece.setVisible(true);
-                    piece.setFill(getFxColor(color));
-                    break;
-            }
+        switch (color) {
+            case WALL:
+                addWall();
+                break;
+            default:
+                piece.setVisible(true);
+                piece.setFill(getFxColor(color));
+                break;
         }
     }
-
+    
     private void addWall() {
         piece.setVisible(false);
         wall.setVisible(true);
-    }
-
-    private void addAccessible() {
-        rectangle.setFill(Color.LAWNGREEN);
     }
 
     /**
@@ -106,7 +96,7 @@ public class TileView extends StackPane {
             piece.setFill(BLACK);
         }
     }
-
+    
     private Paint getFxColor(g43197.othello.model.Color color) {
         switch (color) {
             case BLACK:
@@ -117,11 +107,13 @@ public class TileView extends StackPane {
                 throw new RuntimeException("wrong color!");
         }
     }
-
+    
     public void setAccessible(boolean accessible) {
         if (accessible) {
-            rectangle.setEffect(new Glow(1.5));
+            rectangle.setFill(Color.CHARTREUSE);
+            rectangle.setEffect(new Glow(0.6));
         } else {
+            rectangle.setFill(LIGHTBLUE);
             rectangle.setEffect(new Glow(0));
         }
     }
