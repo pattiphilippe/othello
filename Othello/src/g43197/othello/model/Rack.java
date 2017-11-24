@@ -13,6 +13,7 @@ import java.util.List;
 public class Rack {
 
     private final List<Piece> pieces;
+    private int nbWalls;
 
     /**
      * Creates a new rack with as much pieces as tiles on the board, but removes
@@ -23,6 +24,7 @@ public class Rack {
         for (int i = 0; i < MAX_ROWS_COLS * MAX_ROWS_COLS - 4; i++) {
             pieces.add(new Piece(Color.BLACK));
         }
+        nbWalls = 0;
     }
 
     /**
@@ -41,5 +43,21 @@ public class Rack {
             piece.switchColor();
         }
         return piece;
+    }
+
+    /**
+     * Returns the number of walls on the board.
+     *
+     * @return
+     */
+    public int getNbWalls() {
+        return nbWalls;
+    }
+
+    /**
+     * Adds a wall to the counter of walls on the board.
+     */
+    public void addWall() {
+        nbWalls++;
     }
 }

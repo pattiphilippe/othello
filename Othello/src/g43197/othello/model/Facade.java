@@ -38,6 +38,13 @@ public abstract class Facade extends Observable {
     public abstract Color getCurrentPlayer();
 
     /**
+     * Returns the number of walls on the board.
+     *
+     * @return the number of walls
+     */
+    public abstract int getNbWalls();
+
+    /**
      * Returns a clone of the board.
      *
      * @return

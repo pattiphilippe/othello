@@ -64,6 +64,11 @@ public class Game extends Facade {
     }
 
     @Override
+    public int getNbWalls() {
+        return rack.getNbWalls();
+    }
+
+    @Override
     public Board getBoard() {
         try {
             //TODO check no clone calls inside the model himself
@@ -108,6 +113,7 @@ public class Game extends Facade {
             throw new IllegalArgumentException("Pos can't be null!");
         }
         board.putWall(pos);
+        rack.addWall();
         nextPlayer();
     }
 
