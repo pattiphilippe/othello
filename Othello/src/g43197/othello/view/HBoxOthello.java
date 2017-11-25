@@ -3,7 +3,10 @@ package g43197.othello.view;
 import g43197.othello.model.Facade;
 import g43197.othello.model.Player;
 import java.util.List;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -26,9 +29,9 @@ public class HBoxOthello extends HBox {
     private final PlayersView players;
     private final BoardView board;
     private final WallsCptView wallsCpt;
-//    private final Button pass;
-//    private final Button replay;
-//    private final Button abandon;
+    private final Button pass;
+    private final Button replay;
+    private final Button abandon;
     //TODO button undo
     private final Region regionPlyWall;
     private final Region regionLeftCenter;
@@ -69,6 +72,24 @@ public class HBoxOthello extends HBox {
         regionCenterRidht = new Region();
         regionCenterRidht.setPrefWidth(boardSize * 1 / 20);
         HBox.setHgrow(regionCenterRidht, Priority.ALWAYS);
+
+        pass = new Button("Pass");
+        pass.setOnMouseClicked(event -> {
+            if(game.canPlay()){
+                game.pass();
+            } else {
+                //TODO coder popup "ne sait pas passer"
+                //TODO ou pas?
+                event.consume();
+            }
+        });
+        abandon = new Button("Abandon");
+        //TODO coder abandon du jeu
+        replay = new Button("Replay");
+        replay.setOnMouseClicked(event -> {
+            //TODO popup vérification
+            game.startAgain();
+        });
 
         left = new VBox(10);
         left.getChildren().addAll(players, regionPlyWall, wallsCpt);

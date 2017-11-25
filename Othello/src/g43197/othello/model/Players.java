@@ -1,6 +1,7 @@
 package g43197.othello.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  *
  * @author Philippe
  */
-public class Players {
+public class Players implements Iterator<Player> {
 
     private final List<Player> players;
     private Player currentPlayer;
@@ -31,18 +32,6 @@ public class Players {
         players.forEach((player) -> {
             player.initScore();
         });
-    }
-
-    /**
-     * Changes the current player to the next one.
-     */
-    void nextPlayer() {
-        int i = players.indexOf(currentPlayer) + 1;
-        if (i < players.size()) {
-            currentPlayer = players.get(i);
-        } else {
-            currentPlayer = players.get(0);
-        }
     }
 
     /**
@@ -76,4 +65,19 @@ public class Players {
         return players;
     }
 
+    @Override
+    public boolean hasNext() {
+        return players.size() != (players.indexOf(currentPlayer) + 1);
+    }
+
+    @Override
+    public Player next() {
+        int i = players.indexOf(currentPlayer) + 1;
+        if (i < players.size()) {
+            currentPlayer = players.get(i);
+        } else {
+            currentPlayer = players.get(0);
+        }
+        return currentPlayer;
+    }
 }

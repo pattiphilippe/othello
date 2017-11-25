@@ -1,5 +1,6 @@
 package g43197.othello;
 
+import g43197.othello.model.Facade;
 import g43197.othello.model.Game;
 import g43197.othello.model.GameException;
 import static g43197.othello.view.console.BoardView.*;
@@ -22,7 +23,7 @@ public class Othello {
      * @param args
      */
     public static void main(String[] args) {
-        Game game = new Game();
+        Facade game = new Game();
         Display.startGame();
         Command command;
         while (true) {
@@ -57,7 +58,7 @@ public class Othello {
     }
 
     /*Plays a turn for the player.*/
-    private static void playTurn(Game game, Command command) {
+    private static void playTurn(Facade game, Command command) {
         boolean played = false;
         while (!played) {
             try {

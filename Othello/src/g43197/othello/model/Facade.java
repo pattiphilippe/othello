@@ -23,6 +23,13 @@ public abstract class Facade extends Observable {
     public abstract boolean isFinished();
 
     /**
+     * Returns true if the current player can put a piece.
+     *
+     * @return
+     */
+    public abstract boolean canPlay();
+
+    /**
      * Returns a list with every player and their name and score. This list is
      * only made of clones.
      *

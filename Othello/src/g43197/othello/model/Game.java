@@ -142,7 +142,7 @@ public class Game extends Facade {
     }
 
     private void nextPlayer() {
-        players.nextPlayer();
+        players.next();
         updateAccessibles();
         notifyObservers();
     }
