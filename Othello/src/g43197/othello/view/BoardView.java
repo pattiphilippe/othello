@@ -1,7 +1,5 @@
 package g43197.othello.view;
 
-import g43197.othello.model.Board;
-import static g43197.othello.model.Game.*;
 import g43197.othello.model.Color;
 import g43197.othello.model.Coordinates;
 import g43197.othello.model.Facade;
@@ -65,21 +63,21 @@ public class BoardView extends GridPane {
         }
 
         TileView tile;
-        height /= MAX_ROWS_COLS;
-        width /= MAX_ROWS_COLS;
-        Board board = game.getBoard();
+        int maxRowsCols = game.getMaxRowsCols();
+        height /= maxRowsCols;
+        width /= maxRowsCols;
         Coordinates pos;
 
-        for (int row = 0; row < MAX_ROWS_COLS; row++) {
-            for (int col = 0; col < MAX_ROWS_COLS; col++) {
+        for (int row = 0; row < maxRowsCols; row++) {
+            for (int col = 0; col < maxRowsCols; col++) {
                 tile = new TileView(width, height);
                 tile.setPrefSize(width, height);
                 tile.setOnMouseClicked(new ClickedTileHandler(row, col));
                 pos = new Coordinates(row, col);
                 this.add(tile, col, row);
 
-                if (board.getPiece(pos) != null) {
-                    addPiece(row, col, board.getPiece(pos).getColor());
+                if (game.getPiece(pos) != null) {
+                    addPiece(row, col, game.getPiece(pos).getColor());
                 }
             }
         }

@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Philippe
  */
-public class Rack {
+class Rack {
 
     private final List<Piece> pieces;
     private int nbWalls;
@@ -20,9 +20,9 @@ public class Rack {
      * Creates a new rack with as much pieces as tiles on the board, but removes
      * the 4 center pieces from the board.
      */
-    public Rack() {
+    Rack(int maxRowsCols) {
         pieces = new ArrayList<>();
-        for (int i = 0; i < MAX_ROWS_COLS * MAX_ROWS_COLS - 4; i++) {
+        for (int i = 0; i < maxRowsCols * maxRowsCols - 4; i++) {
             pieces.add(new Piece(Color.BLACK));
         }
         nbWalls = 0;
@@ -34,7 +34,7 @@ public class Rack {
      * @param color
      * @return
      */
-    public Piece getPiece(Color color) {
+    Piece getPiece(Color color) {
         if (pieces.isEmpty()) {
             throw new GameException("No pieces left!");
         }
@@ -51,14 +51,14 @@ public class Rack {
      *
      * @return
      */
-    public int getNbWalls() {
+    int getNbWalls() {
         return nbWalls;
     }
 
     /**
      * Adds a wall to the counter of walls on the board.
      */
-    public void addWall() {
+    void addWall() {
         nbWalls++;
     }
 }

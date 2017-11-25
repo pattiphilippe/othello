@@ -15,7 +15,7 @@ public class Player implements Cloneable {
      *
      * @param color
      */
-    public Player(Color color) {
+    Player(Color color) {
         if (color == null) {
             throw new IllegalArgumentException("Color can't be null!");
         }
@@ -27,7 +27,7 @@ public class Player implements Cloneable {
     /**
      * Initializes the score of the player to 2. Can be called when new game.
      */
-    public final void initScore() {
+    final void initScore() {
         this.score = 2;
     }
 
@@ -54,7 +54,7 @@ public class Player implements Cloneable {
      *
      * @param delta
      */
-    public void modifyScore(int delta) {
+    void modifyScore(int delta) {
         if (score < -delta) {
             throw new GameException("You're badly in the sh*t,"
                     + " the score is negative!");
@@ -84,5 +84,4 @@ public class Player implements Cloneable {
     public Player clone() throws CloneNotSupportedException {
         return (Player) super.clone();
     }
-
 }

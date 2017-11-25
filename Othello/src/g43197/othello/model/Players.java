@@ -16,7 +16,7 @@ public class Players {
     /**
      * Creates a new list of players.
      */
-    public Players() {
+    Players() {
         players = new ArrayList<>(2);
         for (int i = 0; i < 2; i++) {
             players.add(new Player(Color.values()[i]));
@@ -27,7 +27,7 @@ public class Players {
     /**
      * initializes the score of every player.
      */
-    public void initScores() {
+    void initScores() {
         players.forEach((player) -> {
             player.initScore();
         });
@@ -36,7 +36,7 @@ public class Players {
     /**
      * Changes the current player to the next one.
      */
-    public void nextPlayer() {
+    void nextPlayer() {
         int i = players.indexOf(currentPlayer) + 1;
         if (i < players.size()) {
             currentPlayer = players.get(i);
@@ -50,7 +50,7 @@ public class Players {
      *
      * @return
      */
-    public Color getCurrentPlayer() {
+    Color getCurrentPlayer() {
         return currentPlayer.getColor();
     }
 
@@ -59,7 +59,7 @@ public class Players {
      *
      * @return
      */
-    public int getScore() {
+    int getScore() {
         return currentPlayer.getScore();
     }
 
@@ -68,11 +68,11 @@ public class Players {
      *
      * @param delta
      */
-    public void modifyScore(int delta) {
+    void modifyScore(int delta) {
         currentPlayer.modifyScore(delta);
     }
 
-    public List<Player> getScores() {
+    List<Player> getScores() {
         List<Player> result = new ArrayList<>(2);
         for (Player p : players) {
             try {

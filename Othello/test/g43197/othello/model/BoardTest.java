@@ -17,7 +17,7 @@ public class BoardTest {
      */
     @Test
     public void testNewBoard() {
-        Board board = new Board();
+        Board board = new Board(8);
         Coordinates pos = new Coordinates(3, 3);
         assertEquals(new Piece(Color.WHITE), board.getPiece(pos));
         pos = new Coordinates(3, 4);
@@ -36,7 +36,7 @@ public class BoardTest {
     public void testPutGetPiece() {
         Piece piece = new Piece(Color.BLACK);
         Coordinates pos = new Coordinates(2, 3);
-        Board board = new Board();
+        Board board = new Board(8);
         board.put(piece, pos);
         assertEquals(piece, board.getPiece(pos));
         pos = new Coordinates(3, 3);
@@ -48,7 +48,7 @@ public class BoardTest {
      */
     @Test
     public void testPutWall() {
-        Board board = new Board();
+        Board board = new Board(8);
 
         Coordinates pos = new Coordinates(2, 3);
         board.putWall(pos);
@@ -68,7 +68,7 @@ public class BoardTest {
      */
     @Test(expected = GameException.class)
     public void testPutWallNotNull() {
-        Board board = new Board();
+        Board board = new Board(8);
         Coordinates pos = new Coordinates(3, 3);
         board.putWall(pos);
     }
@@ -78,7 +78,7 @@ public class BoardTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void testPutNullPiece() {
-        Board board = new Board();
+        Board board = new Board(8);
         board.put(null, null);
     }
 
@@ -87,7 +87,7 @@ public class BoardTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void testPutNullPos() {
-        Board board = new Board();
+        Board board = new Board(8);
         board.put(new Piece(Color.BLACK), null);
     }
 
@@ -96,7 +96,7 @@ public class BoardTest {
      */
     @Test(expected = GameException.class)
     public void testPutPosOutside() {
-        Board board = new Board();
+        Board board = new Board(8);
         board.put(new Piece(Color.BLACK), new Coordinates(-1, 0));
     }
 
@@ -105,7 +105,7 @@ public class BoardTest {
      */
     @Test(expected = GameException.class)
     public void testPutWallPosOutside() {
-        Board board = new Board();
+        Board board = new Board(8);
         board.putWall(new Coordinates(-1, 0));
     }
 
@@ -114,7 +114,7 @@ public class BoardTest {
      */
     @Test
     public void testPutMultiplesSwitchColors() {
-        Board board = new Board();
+        Board board = new Board(8);
         List<Coordinates> poss = new LinkedList<>();
         poss.add(new Coordinates(2, 3));
         poss.add(new Coordinates(2, 2));
@@ -145,7 +145,7 @@ public class BoardTest {
      */
     @Test
     public void testSwitchMultiples() {
-        Board board = new Board();
+        Board board = new Board(8);
         List<Coordinates> poss = new LinkedList<>();
         poss.add(new Coordinates(2, 3));
         poss.add(new Coordinates(2, 2));
@@ -179,7 +179,7 @@ public class BoardTest {
      */
     @Test
     public void testUpdateAccessibles() {
-        Board board = new Board();
+        Board board = new Board(8);
         List<Coordinates> accessibles = new LinkedList<>();
         board.updateAccessibles(accessibles, Color.BLACK);
         List<Coordinates> expResult = new LinkedList<>();
@@ -195,7 +195,7 @@ public class BoardTest {
      */
     @Test
     public void testUpdateAccessiblesWall() {
-        Board board = new Board();
+        Board board = new Board(8);
         board.putWall(new Coordinates(2, 3));
         List<Coordinates> accessibles = new LinkedList<>();
         board.updateAccessibles(accessibles, Color.BLACK);
@@ -211,7 +211,7 @@ public class BoardTest {
      */
     @Test
     public void testUpdateAccessiblesAfterMove() {
-        Board board = new Board();
+        Board board = new Board(8);
         board.put(new Piece(Color.BLACK), new Coordinates(2, 3));
         List<Coordinates> accessibles = new LinkedList<>();
         board.updateAccessibles(accessibles, Color.WHITE);
@@ -227,7 +227,7 @@ public class BoardTest {
      */
     @Test
     public void testUpdateAccessiblesAfterMoves() {
-        Board board = new Board();
+        Board board = new Board(8);
         board.put(new Piece(Color.BLACK), new Coordinates(2, 3));
         board.put(new Piece(Color.WHITE), new Coordinates(2, 2));
         board.put(new Piece(Color.BLACK), new Coordinates(2, 1));
@@ -249,7 +249,7 @@ public class BoardTest {
     @Test
     public void testClone() {
         try {
-            Board board = new Board();
+            Board board = new Board(8);
             Board boardClone = board.clone();
             assertEquals(new Piece(Color.WHITE), boardClone.getPiece(new Coordinates(3, 3)));
             assertEquals(new Piece(Color.BLACK), boardClone.getPiece(new Coordinates(3, 4)));
@@ -266,7 +266,7 @@ public class BoardTest {
      */
     @Test
     public void testSwitchedPos() {
-        Board board = new Board();
+        Board board = new Board(8);
         List<Coordinates> list = board.getSwitchedPositions(), expResult = new ArrayList<>(10);
         expResult.add(new Coordinates(3, 3));
         expResult.add(new Coordinates(3, 4));

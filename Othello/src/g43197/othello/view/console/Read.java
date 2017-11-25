@@ -2,7 +2,6 @@ package g43197.othello.view.console;
 
 import g43197.othello.Command;
 import g43197.othello.model.Coordinates;
-import static g43197.othello.model.Game.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -36,27 +35,28 @@ public class Read {
     /**
      * Reads a position that is on the board.
      *
+     * @param maxRowsCols
      * @return
      */
-    public static Coordinates readPos() {
-        int row = readRowCol(false), col = readRowCol(true);
+    public static Coordinates readPos(int maxRowsCols) {
+        int row = readRowCol(maxRowsCols, false), col = readRowCol(maxRowsCols, true);
         return new Coordinates(row, col);
     }
 
     ////////////////////////////PRIVATE//METHODS/////////////////////////////
-    private static int readRowCol(boolean readingCol) {
+    private static int readRowCol(int maxRowsCols, boolean readingCol) {
         boolean validInput = false;
         String read;
         int nb = 0;
         while (!validInput) {
             read = CLAVIER.next().charAt(0) + "";
-            nb = readingCol ? convertToCol(read) : convertToRow(read);
+            nb = readingCol ? convertToCol(read, maxRowsCols) : convertToRow(read, maxRowsCols);
             if (nb == -1) {
                 System.out.print("Wrong input.");
                 if (readingCol) {
-                    System.out.println("Enter a letter from A to H for the column.");
+                    System.out.println("Enter a letter for the column.");
                 } else {
-                    System.out.println("Enter a number from 1 to 8 for the row.");
+                    System.out.println("Enter a number from 1 to " + maxRowsCols + " for the row.");
                 }
             } else {
                 validInput = true;
@@ -65,25 +65,25 @@ public class Read {
         return nb;
     }
 
-    private static int convertToCol(String colChar) {
+    private static int convertToCol(String colChar, int maxRowsCols) {
         int col = colChar.toUpperCase().charAt(0) - 65;
-        if (col < 0 || col >= MAX_ROWS_COLS) {
+        if (col < 0 || maxRowsCols < col) {
             return -1;
         } else {
             return col;
         }
     }
 
-    private static int convertToRow(String row) {
+    private static int convertToRow(String row, int maxRowsCols) {
         int rowNb = 0;
         try {
             rowNb = Integer.parseInt(row);
         } catch (NumberFormatException e) {
             return -1;
         }
-        if (rowNb < 1 || 8 < rowNb) {
+        if (rowNb < 1 || maxRowsCols < rowNb) {
             return -1;
         }
-        return MAX_ROWS_COLS - rowNb;
+        return maxRowsCols - rowNb;
     }
 }

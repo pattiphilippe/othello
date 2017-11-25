@@ -19,14 +19,6 @@ public class PieceTest {
     }
 
     /**
-     * Checks the exception if null in arg of Piece constructor.
-     */
-    @Test(expected = IllegalArgumentException.class)
-    public void newPieceNullColor() {
-        new Piece(null);
-    }
-
-    /**
      * Test of switchColor method, of class Piece, Black case.
      */
     @Test

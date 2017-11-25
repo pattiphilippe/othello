@@ -187,6 +187,6 @@ public class GameTest {
         Game game = new Game();
         Coordinates pos = new Coordinates(5, 5);
         game.putWall(pos);
-        assertEquals(game.getBoard().getPiece(pos).getColor(), Color.WALL);
+        assertEquals(game.getPiece(pos).getColor(), Color.WALL);
     }
 }

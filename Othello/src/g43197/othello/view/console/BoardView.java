@@ -1,7 +1,8 @@
 package g43197.othello.view.console;
 
-import g43197.othello.model.*;
-import static g43197.othello.model.Game.*;
+import g43197.othello.model.Coordinates;
+import g43197.othello.model.Facade;
+import g43197.othello.model.Piece;
 import java.util.List;
 
 /**
@@ -10,10 +11,10 @@ import java.util.List;
  */
 public class BoardView {
 
-    private static final int ROWS_DISPLAY = 1 + 2 * MAX_ROWS_COLS;
-    private static final int COLS_DISPLAY = 1 + 4 * MAX_ROWS_COLS;
+    private static int rowsDisplay;
+    private static int colsDisplay;
 
-    private static final String[][] CLEAR_SCREEN = new String[ROWS_DISPLAY][COLS_DISPLAY];
+    private static String[][] clearScreen;
     private static String[][] screen;
 
     private static boolean init = false;
@@ -22,31 +23,31 @@ public class BoardView {
      * Draws the board with the pieces on it and the accessible positions given
      * in param.
      *
-     * @param board
+     * @param game
      * @param accessibles
      */
-    public static void draw(Board board, List<Coordinates> accessibles) {
+    public static void draw(Facade game, List<Coordinates> accessibles) {
         if (!init) {
-            init();
+            init(game);
             init = true;
         }
 
-        screen = CLEAR_SCREEN.clone();
+        screen = clearScreen.clone();
 
-        fillPieces(board);
+        fillPieces(game);
         fillAccessibles(accessibles);
         showBoard();
     }
 
     /*Fills the screen with the pieces on the board.*/
-    private static void fillPieces(Board board) {
+    private static void fillPieces(Facade game) {
         Piece piece;
         String str;
 
-        for (int i = 0; i < MAX_ROWS_COLS; i++) {
-            for (int j = 0; j < MAX_ROWS_COLS; j++) {
+        for (int i = 0; i < game.getMaxRowsCols(); i++) {
+            for (int j = 0; j < game.getMaxRowsCols(); j++) {
                 Coordinates coord = new Coordinates(i, j);
-                piece = board.getPiece(coord);
+                piece = game.getPiece(coord);
 
                 str = " ";
                 screen[1 + i * 2][1 + j * 4] = str;
@@ -82,13 +83,17 @@ public class BoardView {
     /**
      * fills the CLEAR_SCREEN array according to the size of the board
      */
-    private static void init() {
-        screen = new String[ROWS_DISPLAY][COLS_DISPLAY];
-        for (int i = 0; i < COLS_DISPLAY; i++) {
+    private static void init(Facade game) {
+        rowsDisplay = 1 + 2 * game.getMaxRowsCols();
+        colsDisplay = 1 + 4 * game.getMaxRowsCols();
+        clearScreen = new String[rowsDisplay][colsDisplay];
+        screen = new String[rowsDisplay][colsDisplay];
+
+        for (int i = 0; i < colsDisplay; i++) {
             fillLine(0, i, "╔", "═", "╦", "╗");
         }
-        for (int i = 1; i < ROWS_DISPLAY - 1; i++) {
-            for (int j = 0; j < COLS_DISPLAY; j++) {
+        for (int i = 1; i < rowsDisplay - 1; i++) {
+            for (int j = 0; j < colsDisplay; j++) {
                 if (i % 2 == 0) {
                     fillLine(i, j, "╠", "═", "╬", "╣");
                 } else {
@@ -96,8 +101,8 @@ public class BoardView {
                 }
             }
         }
-        for (int i = 0; i < COLS_DISPLAY; i++) {
-            fillLine(ROWS_DISPLAY - 1, i, "╚", "═", "╩", "╝");
+        for (int i = 0; i < colsDisplay; i++) {
+            fillLine(rowsDisplay - 1, i, "╚", "═", "╩", "╝");
         }
     }
 
@@ -105,7 +110,7 @@ public class BoardView {
         String str = "";
         if (j == 0) {
             str = a;
-        } else if (j == COLS_DISPLAY - 1) {
+        } else if (j == colsDisplay - 1) {
             str = d;
         } else {
             if (j % 4 == 0) {
@@ -114,7 +119,7 @@ public class BoardView {
                 str = b;
             }
         }
-        CLEAR_SCREEN[i][j] = str;
+        clearScreen[i][j] = str;
     }
 
     /**
@@ -124,7 +129,7 @@ public class BoardView {
      */
     private static void numberLine(int i) {
         if (i % 2 == 1 && i >= 1) {
-            System.out.print(" " + (ROWS_DISPLAY / 2 - i / 2) + " ");
+            System.out.print(" " + (rowsDisplay / 2 - i / 2) + " ");
         } else {
             System.out.print("   ");
         }

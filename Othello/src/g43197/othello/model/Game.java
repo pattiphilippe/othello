@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Game extends Facade {
 
-    public static final int MAX_ROWS_COLS = 8;
+    private static final int MAX_ROWS_COLS = 8;
     private final Players players;
     private final List<Coordinates> accessibles;
     private Board board;
@@ -77,13 +77,16 @@ public class Game extends Facade {
     }
 
     @Override
-    public Board getBoard() {
-        try {
-            //TODO check no clone calls inside the model himself
-            return board.clone();
-        } catch (CloneNotSupportedException e) {
+    public Piece getPiece(Coordinates pos) {
+        if (board.getPiece(pos) == null) {
             return null;
         }
+        return new Piece(board.getPiece(pos));
+    }
+
+    @Override
+    public int getMaxRowsCols() {
+        return MAX_ROWS_COLS;
     }
 
     @Override
@@ -138,8 +141,8 @@ public class Game extends Facade {
 
     ///////////////////////////Private//Methods//////////////////////////////
     private void initGame() {
-        board = new Board();
-        rack = new Rack();
+        board = new Board(MAX_ROWS_COLS);
+        rack = new Rack(MAX_ROWS_COLS);
         players.initScores();
         updateAccessibles();
     }

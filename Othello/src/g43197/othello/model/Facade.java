@@ -45,11 +45,19 @@ public abstract class Facade extends Observable {
     public abstract int getNbWalls();
 
     /**
-     * Returns a clone of the board.
+     * Returns the piece on the board in the given position
+     *
+     * @param pos
+     * @return
+     */
+    public abstract Piece getPiece(Coordinates pos);
+
+    /**
+     * Returns the number of rows and columns.
      *
      * @return
      */
-    public abstract Board getBoard();
+    public abstract int getMaxRowsCols();
 
     /**
      * Returns a list of the positions that switched colors. The first position

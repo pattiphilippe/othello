@@ -1,6 +1,5 @@
 package g43197.othello.model;
 
-import static g43197.othello.model.Game.MAX_ROWS_COLS;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,11 +9,12 @@ import java.util.List;
  *
  * @author Philippe
  */
-public class Board implements Cloneable {
+class Board implements Cloneable {
 
     /**
      * The default number of rows and cols.
      */
+    private final int maxRowsCols;
     private final Piece[][] BOARD;
     private final List<Coordinates> switchedPos;
 
@@ -22,20 +22,21 @@ public class Board implements Cloneable {
      * Creates a new board with Max_rows_cols rows and Max_rows_cols columns.
      * Puts the first pieces of the game.
      */
-    public Board() {
-        if (MAX_ROWS_COLS % 2 != 0) {
+    Board(int maxRowsCols) {
+        this.maxRowsCols = maxRowsCols;
+        if (maxRowsCols % 2 != 0) {
             throw new GameException("Amount of rows and columns has to be pair!");
         }
-        if (MAX_ROWS_COLS < 4) {
+        if (maxRowsCols < 4) {
             throw new GameException("Amount of rows and columns has to be greater or equal to 4!");
         }
         switchedPos = new ArrayList<>();
 
-        BOARD = new Piece[MAX_ROWS_COLS][MAX_ROWS_COLS];
+        BOARD = new Piece[maxRowsCols][maxRowsCols];
         initBoardCenter();
     }
 
-    public List<Coordinates> getSwitchedPositions() {
+    List<Coordinates> getSwitchedPositions() {
         //TODO check if needs to be copied or not
         return switchedPos;
     }
@@ -46,7 +47,7 @@ public class Board implements Cloneable {
      * @param pos
      * @return
      */
-    public Piece getPiece(Coordinates pos) {
+    Piece getPiece(Coordinates pos) {
         if (pos == null) {
             throw new IllegalArgumentException("Pos can't be null!");
         }
@@ -64,7 +65,7 @@ public class Board implements Cloneable {
      * @param pos
      * @return number of pieces switched
      */
-    public int put(Piece piece, Coordinates pos) {
+    int put(Piece piece, Coordinates pos) {
         if (getPiece(pos) != null) {
             throw new GameException("Position occupied!");
         }
@@ -84,7 +85,7 @@ public class Board implements Cloneable {
      *
      * @param pos
      */
-    public void putWall(Coordinates pos) {
+    void putWall(Coordinates pos) {
         if (getPiece(pos) != null) {
             throw new GameException("Position occupied!");
         }
@@ -101,11 +102,11 @@ public class Board implements Cloneable {
      * @param accessibles
      * @param color
      */
-    public void updateAccessibles(List<Coordinates> accessibles, Color color) {
+    void updateAccessibles(List<Coordinates> accessibles, Color color) {
         accessibles.clear();
         Coordinates pos;
-        for (int row = 0; row < MAX_ROWS_COLS; row++) {
-            for (int col = 0; col < MAX_ROWS_COLS; col++) {
+        for (int row = 0; row < maxRowsCols; row++) {
+            for (int col = 0; col < maxRowsCols; col++) {
                 pos = new Coordinates(row, col);
                 if (getPiece(pos) == null && !getDirToSwitch(pos, color).isEmpty()) {
                     accessibles.add(pos);
@@ -115,7 +116,7 @@ public class Board implements Cloneable {
     }
 
     @Override
-    public Board clone() throws CloneNotSupportedException {
+    protected Board clone() throws CloneNotSupportedException {
         return (Board) super.clone();
     }
 
@@ -132,7 +133,7 @@ public class Board implements Cloneable {
 
     /*Gives in a dynamic way 4 central positions of the board.*/
     private void getCenterPos(List<Coordinates> list) {
-        int rowcol = MAX_ROWS_COLS / 2 - 1;
+        int rowcol = maxRowsCols / 2 - 1;
         list.add(new Coordinates(rowcol, rowcol));
         list.add(new Coordinates(rowcol + 1, rowcol));
         list.add(new Coordinates(rowcol, rowcol + 1));
@@ -140,8 +141,8 @@ public class Board implements Cloneable {
     }
 
     private boolean isInside(Coordinates pos) {
-        boolean goodLine = isBetween(pos.getROW(), 0, MAX_ROWS_COLS - 1);
-        boolean goodCol = isBetween(pos.getCOL(), 0, MAX_ROWS_COLS - 1);
+        boolean goodLine = isBetween(pos.getROW(), 0, maxRowsCols - 1);
+        boolean goodCol = isBetween(pos.getCOL(), 0, maxRowsCols - 1);
         return goodLine && goodCol;
     }
 

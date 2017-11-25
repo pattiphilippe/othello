@@ -16,11 +16,11 @@ public class Piece {
      * @param color
      */
     public Piece(Color color) {
-        if (color == null) {
-            throw new IllegalArgumentException("Color can't be null!");
-        }
-
         this.color = color;
+    }
+
+    public Piece(Piece piece) {
+        this.color = piece.getColor();
     }
 
     /**
@@ -35,7 +35,7 @@ public class Piece {
     /**
      * Switches the color of the piece between the 2 first colors in Color Enum.
      */
-    public void switchColor() {
+    void switchColor() {
         Color[] colors = Color.values();
         if (color == colors[0]) {
             color = colors[1];
@@ -61,5 +61,4 @@ public class Piece {
         }
         return true;
     }
-
 }

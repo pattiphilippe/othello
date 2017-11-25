@@ -29,7 +29,7 @@ public class Othello {
             command = Read.readCommand();
             switch (command) {
                 case SHOW:
-                    draw(game.getBoard(), game.getAccessibles());
+                    draw(game, game.getAccessibles());
                     break;
                 case PLAY:
                 case PASS:
@@ -66,11 +66,11 @@ public class Othello {
                         if (!game.canPlay()) {
                             Display.cantPlay();
                         } else {
-                            game.putPiece(Read.readPos());
+                            game.putPiece(Read.readPos(game.getMaxRowsCols()));
                         }
                         break;
                     case WALL:
-                        game.putWall(Read.readPos());
+                        game.putWall(Read.readPos(game.getMaxRowsCols()));
                         break;
                     case PASS:
                         if (game.canPlay()) {

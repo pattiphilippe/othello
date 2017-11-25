@@ -15,7 +15,6 @@ public enum Color {
      *
      */
     WHITE("O"),
-
     /**
      * Specific color for a wall.
      */
