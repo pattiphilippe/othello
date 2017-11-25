@@ -1,8 +1,7 @@
 package g43197.othello.model;
 
-import static g43197.othello.model.Direction.increment;
+import static g43197.othello.model.Game.MAX_ROWS_COLS;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -16,7 +15,6 @@ public class Board implements Cloneable {
     /**
      * The default number of rows and cols.
      */
-    public static final int MAX_ROWS_COLS = 8;
     private final Piece[][] BOARD;
     private final List<Coordinates> switchedPos;
 
@@ -31,7 +29,7 @@ public class Board implements Cloneable {
         if (MAX_ROWS_COLS < 4) {
             throw new GameException("Amount of rows and columns has to be greater or equal to 4!");
         }
-        switchedPos = new LinkedList<>();
+        switchedPos = new ArrayList<>();
 
         BOARD = new Piece[MAX_ROWS_COLS][MAX_ROWS_COLS];
         initBoardCenter();
@@ -159,13 +157,13 @@ public class Board implements Cloneable {
         boolean hadOtherColors;
         for (Direction dir : Direction.values()) {
             hadOtherColors = false;
-            pos = increment(savePos, dir);
+            pos = savePos.increment(dir);
             while (isInside(pos)) {
                 piece = getPiece(pos);
                 if (piece != null && piece.getColor() != Color.WALL) {
                     if (piece.getColor() != saveColor) {
                         hadOtherColors = true;
-                        pos = increment(pos, dir);
+                        pos = pos.increment(dir);
                     } else if (hadOtherColors) {
                         dirs.add(dir);
                         break;
@@ -195,7 +193,7 @@ public class Board implements Cloneable {
     private int switchColors(Coordinates pos, Direction dir) {
         int nbSwitched = 0;
         Color saveColor = getPiece(pos).getColor();
-        pos = increment(pos, dir);
+        pos = pos.increment(dir);
         Piece piece;
         boolean swapping = true;
         while (isInside(pos) && swapping) {
@@ -207,7 +205,7 @@ public class Board implements Cloneable {
             } else {
                 swapping = false;
             }
-            pos = increment(pos, dir);
+            pos = pos.increment(dir);
         }
         return nbSwitched;
     }

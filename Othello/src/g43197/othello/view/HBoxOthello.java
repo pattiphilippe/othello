@@ -4,6 +4,7 @@ import g43197.othello.model.Facade;
 import g43197.othello.model.Player;
 import java.util.List;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -26,6 +27,10 @@ public class HBoxOthello extends HBox {
     private final PlayersView players;
     private final BoardView board;
     private final WallsCptView wallsCpt;
+//    private final Button pass;
+//    private final Button replay;
+//    private final Button abandon;
+    //TODO button undo
     private final Region regionPlyWall;
     private final Region regionLeftCenter;
     private final Region regionCenterRidht;
@@ -65,6 +70,8 @@ public class HBoxOthello extends HBox {
         regionCenterRidht = new Region();
         regionCenterRidht.setPrefWidth(boardSize * 1 / 20);
         HBox.setHgrow(regionCenterRidht, Priority.ALWAYS);
+        
+        
         
         left = new VBox(10);
         left.getChildren().addAll(players, regionPlyWall, wallsCpt);

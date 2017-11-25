@@ -1,7 +1,7 @@
- package g43197.othello.view;
+package g43197.othello.view;
 
 import g43197.othello.model.Board;
-import static g43197.othello.model.Board.*;
+import static g43197.othello.model.Game.*;
 import g43197.othello.model.Color;
 import g43197.othello.model.Coordinates;
 import g43197.othello.model.Facade;
@@ -45,21 +45,25 @@ public class BoardView extends GridPane {
 
             @Override
             public void handle(MouseEvent event) {
-                try {
-                    switch (event.getButton()) {
-                        case PRIMARY:
-                            game.putPiece(new Coordinates(row, col));
-                            break;
-                        case SECONDARY:
-                            game.putWall(new Coordinates(row, col));
-                            break;
-                    }
-                } catch (Exception e) {
+                if (game.isFinished()) {
                     event.consume();
+                } else {
+                    try {
+                        switch (event.getButton()) {
+                            case PRIMARY:
+                                game.putPiece(new Coordinates(row, col));
+                                break;
+                            case SECONDARY:
+                                game.putWall(new Coordinates(row, col));
+                                break;
+                        }
+                    } catch (Exception e) {
+                        event.consume();
+                    }
                 }
             }
         }
-       
+
         TileView tile;
         height /= MAX_ROWS_COLS;
         width /= MAX_ROWS_COLS;

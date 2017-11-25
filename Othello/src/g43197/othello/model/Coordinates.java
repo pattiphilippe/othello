@@ -63,4 +63,17 @@ public class Coordinates implements Cloneable {
         return true;
     }
 
+    /**
+     * Returns a new position that has moved from this position of 1 tile in
+     * given direction.
+     *
+     * @param dir
+     * @return the new Coordinate
+     */
+    public Coordinates increment(Direction dir) {
+        int row = this.ROW + dir.getDeltaRow();
+        int col = this.COL + dir.getDeltaCol();
+        return new Coordinates(row, col);
+    }
+
 }

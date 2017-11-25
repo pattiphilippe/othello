@@ -89,7 +89,7 @@ public class RackTest {
         Color color = Color.BLACK;
         Rack rack = new Rack();
         Piece piece;
-        int maxPieces = (int) Math.pow(Board.MAX_ROWS_COLS, 2);
+        int maxPieces = (int) Math.pow(Game.MAX_ROWS_COLS, 2);
         for (int i = 0; i < maxPieces + 2; i++) {
             piece = rack.getPiece(color);
             assertEquals(color, piece.getColor());

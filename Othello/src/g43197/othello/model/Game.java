@@ -1,6 +1,6 @@
 package g43197.othello.model;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class Game extends Facade {
 
+    public static final int MAX_ROWS_COLS = 8;
     private final Players players;
     private final List<Coordinates> accessibles;
     private Board board;
@@ -21,16 +22,13 @@ public class Game extends Facade {
      */
     public Game() {
         players = new Players();
-        accessibles = new LinkedList<>();
-        startAgain();
+        accessibles = new ArrayList<>();
+        initGame();
     }
 
     @Override
-    public final void startAgain() {
-        board = new Board();
-        rack = new Rack();
-        players.initScores();
-        updateAccessibles();
+    public void startAgain() {
+        initGame();
     }
 
     @Override
@@ -90,7 +88,7 @@ public class Game extends Facade {
 
     @Override
     public List<Coordinates> getAccessibles() {
-        List<Coordinates> accClone = new LinkedList<>();
+        List<Coordinates> accClone = new ArrayList<>();
         accessibles.forEach((pos) -> {
             try {
                 accClone.add(pos.clone());
@@ -139,6 +137,13 @@ public class Game extends Facade {
     }
 
     ///////////////////////////Private//Methods//////////////////////////////
+    private void initGame() {
+        board = new Board();
+        rack = new Rack();
+        players.initScores();
+        updateAccessibles();
+    }
+
     private void nextPlayer() {
         players.nextPlayer();
         updateAccessibles();

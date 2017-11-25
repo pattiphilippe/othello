@@ -68,18 +68,4 @@ public enum Direction {
     public int getDeltaCol() {
         return DELTA_COL;
     }
-
-    /**
-     * Returns a new position that has moved from origin of 1 tile in given
-     * direction.
-     *
-     * @param origin
-     * @param dir
-     * @return
-     */
-    public static Coordinates increment(Coordinates origin, Direction dir) {
-        int line = origin.getROW() + dir.getDeltaRow();
-        int col = origin.getCOL() + dir.getDeltaCol();
-        return new Coordinates(line, col);
-    }
 }

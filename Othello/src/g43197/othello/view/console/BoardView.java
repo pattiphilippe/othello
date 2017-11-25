@@ -1,7 +1,7 @@
 package g43197.othello.view.console;
 
 import g43197.othello.model.*;
-import static g43197.othello.model.Board.*;
+import static g43197.othello.model.Game.*;
 import java.util.List;
 
 /**

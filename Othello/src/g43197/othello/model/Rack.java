@@ -1,12 +1,13 @@
 package g43197.othello.model;
 
-import static g43197.othello.model.Board.*;
+import static g43197.othello.model.Game.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This class represents the rack of pieces. They are initially as much pieces
- * as tiles on the board. The pieces are all initialised with color black.
+ * as tiles on the board. The pieces are all initialised with color black. The
+ * rack also counts the number of walls.
  *
  * @author Philippe
  */
