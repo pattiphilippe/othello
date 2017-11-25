@@ -6,7 +6,7 @@ package g43197.othello.model;
  *
  * @author G43197
  */
-public class Coordinates implements Cloneable {
+public class Coordinates {
 
     private final int ROW;
     private final int COL;
@@ -19,6 +19,16 @@ public class Coordinates implements Cloneable {
     public Coordinates(int row, int col) {
         this.ROW = row;
         this.COL = col;
+    }
+
+    /**
+     * Creates a copy of the given position.
+     *
+     * @param pos
+     */
+    public Coordinates(Coordinates pos) {
+        this.ROW = pos.ROW;
+        this.COL = pos.COL;
     }
 
     /**
@@ -35,11 +45,6 @@ public class Coordinates implements Cloneable {
      */
     public int getCOL() {
         return COL;
-    }
-
-    @Override
-    public Coordinates clone() throws CloneNotSupportedException {
-        return (Coordinates) super.clone();
     }
 
     @Override
@@ -61,6 +66,14 @@ public class Coordinates implements Cloneable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 19 * hash + this.ROW;
+        hash = 19 * hash + this.COL;
+        return hash;
     }
 
     /**

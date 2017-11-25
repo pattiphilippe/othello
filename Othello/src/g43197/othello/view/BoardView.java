@@ -54,6 +54,8 @@ public class BoardView extends GridPane {
                             case SECONDARY:
                                 game.putWall(new Coordinates(row, col));
                                 break;
+                            default:
+                                event.consume();
                         }
                     } catch (Exception e) {
                         event.consume();
@@ -106,16 +108,14 @@ public class BoardView extends GridPane {
         getTileByRowCol(row, col).addPiece(color);
     }
 
+    /**
+     * Updates the view.
+     */
     public void update() {
-        if (game.isFinished()) {
-            //TODO coder fin du jeu ici
-        }
         updateAccessibles();
 
         List<Coordinates> switchedPos = game.getSwitchedPositions();
         Color prevPlayer = game.getCurrentPlayer() == Color.BLACK ? Color.WHITE : Color.BLACK;
-        //TODO mettre à jour en fonction de board, pas switchedPos?
-        //TODO OU PAS?
         int row, col;
         if (switchedPos.size() == 1) {
             row = switchedPos.get(0).getROW();

@@ -1,6 +1,7 @@
 package g43197.othello.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -38,6 +39,7 @@ public class Game extends Facade {
         } else {
             nextPlayer();
             boolean isFinished = !canPlay();
+            //TODO voir pour previous player
             nextPlayer();
             return isFinished;
         }
@@ -63,7 +65,7 @@ public class Game extends Facade {
 
     @Override
     public List<Player> getScores() {
-        return players.getScores();
+        return Collections.unmodifiableList(players.getScores());
     }
 
     @Override
@@ -91,20 +93,12 @@ public class Game extends Facade {
 
     @Override
     public List<Coordinates> getAccessibles() {
-        List<Coordinates> accClone = new ArrayList<>();
-        accessibles.forEach((pos) -> {
-            try {
-                accClone.add(pos.clone());
-            } catch (CloneNotSupportedException e) {
-                //TODO ? que faire avec catch vide
-            }
-        });
-        return accClone;
+        return Collections.unmodifiableList(accessibles);
     }
 
     @Override
     public List<Coordinates> getSwitchedPositions() {
-        return board.getSwitchedPositions();
+        return Collections.unmodifiableList(board.getSwitchedPositions());
     }
 
     @Override

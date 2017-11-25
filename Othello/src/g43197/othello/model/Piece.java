@@ -1,5 +1,7 @@
 package g43197.othello.model;
 
+import java.util.Objects;
+
 /**
  * This class represents a piece of the game. Each side has a different color
  * based on the colors in Color Enum.
@@ -19,6 +21,11 @@ public class Piece {
         this.color = color;
     }
 
+    /**
+     * Creates a copy of the given piece.
+     *
+     * @param piece
+     */
     public Piece(Piece piece) {
         this.color = piece.getColor();
     }
@@ -60,5 +67,12 @@ public class Piece {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.color);
+        return hash;
     }
 }

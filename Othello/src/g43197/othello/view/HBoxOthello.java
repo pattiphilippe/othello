@@ -4,7 +4,6 @@ import g43197.othello.model.Facade;
 import g43197.othello.model.Player;
 import java.util.List;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -82,6 +81,9 @@ public class HBoxOthello extends HBox {
         this.getChildren().addAll(left, regionLeftCenter, board, regionCenterRidht, right);
     }
 
+    /**
+     * Updates the hbox and its components.
+     */
     public void update() {
         players.update(game.getCurrentPlayer(), game.getScores());
         board.update();

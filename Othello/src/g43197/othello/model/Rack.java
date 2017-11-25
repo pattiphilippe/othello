@@ -1,6 +1,5 @@
 package g43197.othello.model;
 
-import static g43197.othello.model.Game.*;
 import java.util.ArrayList;
 import java.util.List;
 

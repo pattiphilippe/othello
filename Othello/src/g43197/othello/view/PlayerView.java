@@ -31,10 +31,21 @@ public class PlayerView extends VBox {
         this.getChildren().addAll(this.name, this.score);
     }
 
+    /**
+     * Returns true if the given name is for this player.
+     *
+     * @param name
+     * @return
+     */
     public boolean isPlayer(String name) {
         return this.name.getText().equalsIgnoreCase(name);
     }
 
+    /**
+     * Updates the view for the score.
+     *
+     * @param score
+     */
     public void updateScore(Integer score) {
         this.score.setText("Score : " + score);
     }

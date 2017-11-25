@@ -1,11 +1,13 @@
 package g43197.othello.model;
 
+import java.util.Objects;
+
 /**
  * This class represents a player. Players are different by their color.
  *
  * @author Philippe
  */
-public class Player implements Cloneable {
+public class Player {
 
     private final Color COLOR;
     private int score;
@@ -81,7 +83,9 @@ public class Player implements Cloneable {
     }
 
     @Override
-    public Player clone() throws CloneNotSupportedException {
-        return (Player) super.clone();
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.COLOR);
+        return hash;
     }
 }

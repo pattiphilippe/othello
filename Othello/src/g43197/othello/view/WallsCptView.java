@@ -13,6 +13,11 @@ public class WallsCptView extends Pane {
     private int nbWalls;
     private final Label lblWallsCpt;
 
+    /**
+     * Creates a view for the walls counter.
+     *
+     * @param nbWalls
+     */
     public WallsCptView(int nbWalls) {
 
         this.nbWalls = nbWalls;
@@ -22,6 +27,11 @@ public class WallsCptView extends Pane {
         this.getChildren().add(this.lblWallsCpt);
     }
 
+    /**
+     * Updates the view of the walls counter.
+     *
+     * @param nbWalls
+     */
     public void update(int nbWalls) {
         this.nbWalls = nbWalls;
         lblWallsCpt.setText("Walls: " + this.nbWalls);

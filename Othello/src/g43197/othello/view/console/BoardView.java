@@ -61,9 +61,7 @@ public class BoardView {
     }
 
     private static void fillAccessibles(List<Coordinates> accessibles) {
-        for (Coordinates pos : accessibles) {
-            screen[1 + pos.getROW() * 2][2 + pos.getCOL() * 4] = "?";
-        }
+        accessibles.forEach(pos -> screen[1 + pos.getROW() * 2][2 + pos.getCOL() * 4] = "?");
     }
 
     /*Prints the board on standard output.*/
@@ -107,7 +105,7 @@ public class BoardView {
     }
 
     private static void fillLine(int i, int j, String a, String b, String c, String d) { //String dans l'ordre d'apparition
-        String str = "";
+        String str;
         if (j == 0) {
             str = a;
         } else if (j == colsDisplay - 1) {
@@ -128,7 +126,7 @@ public class BoardView {
      * @param i
      */
     private static void numberLine(int i) {
-        if (i % 2 == 1 && i >= 1) {
+        if (i >= 1 && i % 2 == 1) {
             System.out.print(" " + (rowsDisplay / 2 - i / 2) + " ");
         } else {
             System.out.print("   ");

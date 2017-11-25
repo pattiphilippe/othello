@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Philippe
  */
-class Board implements Cloneable {
+class Board{
 
     /**
      * The default number of rows and cols.
@@ -37,7 +37,6 @@ class Board implements Cloneable {
     }
 
     List<Coordinates> getSwitchedPositions() {
-        //TODO check if needs to be copied or not
         return switchedPos;
     }
 
@@ -115,11 +114,6 @@ class Board implements Cloneable {
         }
     }
 
-    @Override
-    protected Board clone() throws CloneNotSupportedException {
-        return (Board) super.clone();
-    }
-
     ///////////////////////////Private//Methods//////////////////////////////
     /*Puts the first pieces in the center of the board. Initializes switchedPos list too.*/
     private void initBoardCenter() {
@@ -183,11 +177,7 @@ class Board implements Cloneable {
     private int consequencePut(Coordinates pos, List<Direction> dirs) {
         switchedPos.clear();
         switchedPos.add(pos);
-        int nbSwitched = 0;
-        for (Direction dir : dirs) {
-            nbSwitched += switchColors(pos, dir);
-        }
-        return nbSwitched;
+        return dirs.stream().map((dir) -> switchColors(pos, dir)).reduce(0, Integer::sum);
     }
 
     /*Returns the number of pieces switched.*/

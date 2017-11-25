@@ -173,9 +173,9 @@ public class GameTest {
         poss.add(new Coordinates(7, 2));
         poss.add(new Coordinates(7, 1));
         poss.add(new Coordinates(1, 1));
-        for (Coordinates pos : poss) {
+        poss.forEach((pos) -> {
             game.putPiece(pos);
-        }
+        });
         game.putPiece(new Coordinates(6, 1));
     }
 

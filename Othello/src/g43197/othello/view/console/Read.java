@@ -75,7 +75,7 @@ public class Read {
     }
 
     private static int convertToRow(String row, int maxRowsCols) {
-        int rowNb = 0;
+        int rowNb;
         try {
             rowNb = Integer.parseInt(row);
         } catch (NumberFormatException e) {

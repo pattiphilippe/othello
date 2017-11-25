@@ -108,6 +108,12 @@ public class TileView extends StackPane {
         }
     }
 
+    /**
+     * Displays that this tile is accessible if accessible boolean is true. If
+     * it's false, displays the tile normally.
+     *
+     * @param accessible
+     */
     public void setAccessible(boolean accessible) {
         if (accessible) {
             rectangle.setFill(Color.CHARTREUSE);

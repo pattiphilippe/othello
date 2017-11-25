@@ -73,15 +73,7 @@ public class Players {
     }
 
     List<Player> getScores() {
-        List<Player> result = new ArrayList<>(2);
-        for (Player p : players) {
-            try {
-                result.add(p.clone());
-            } catch (CloneNotSupportedException e) {
-
-            }
-        }
-        return result;
+        return players;
     }
 
 }

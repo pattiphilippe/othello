@@ -244,25 +244,7 @@ public class BoardTest {
     }
 
     /**
-     *
-     */
-    @Test
-    public void testClone() {
-        try {
-            Board board = new Board(8);
-            Board boardClone = board.clone();
-            assertEquals(new Piece(Color.WHITE), boardClone.getPiece(new Coordinates(3, 3)));
-            assertEquals(new Piece(Color.BLACK), boardClone.getPiece(new Coordinates(3, 4)));
-            assertEquals(new Piece(Color.BLACK), boardClone.getPiece(new Coordinates(4, 3)));
-            assertEquals(new Piece(Color.WHITE), boardClone.getPiece(new Coordinates(4, 4)));
-            assertNotEquals(board, boardClone);
-        } catch (CloneNotSupportedException e) {
-            fail("Clone failed!");
-        }
-    }
-
-    /**
-     *
+     * Test if the list of switched positions if well updated and initialized.
      */
     @Test
     public void testSwitchedPos() {

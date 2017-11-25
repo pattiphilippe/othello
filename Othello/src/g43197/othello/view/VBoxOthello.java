@@ -30,8 +30,6 @@ public class VBoxOthello extends VBox implements Observer {
     public VBoxOthello(Facade game) {
         super();
 
-        game.addObserver(this);
-
         title = new Label("----------OTHELLO----------");
         title.setFont(Font.font(55));
         title.setPrefHeight(OthelloApp.HEIGHT * 1 / 8);
@@ -46,10 +44,15 @@ public class VBoxOthello extends VBox implements Observer {
         VBox.setVgrow(region2, Priority.ALWAYS);
 
         this.getChildren().addAll(title, region1, hbox, region2);
+
+        game.addObserver(this);
     }
 
     @Override
     public void update(Observable o, Object arg) {
+        if (!(o instanceof Facade)) {
+            throw new IllegalArgumentException("Unknown type of observable!");
+        }
         Facade game = (Facade) o;
         if (game.isFinished()) {
             //TODO code finished game

@@ -50,15 +50,24 @@ public class Display {
         System.out.println("Can't play a turn, game is finished");
     }
 
+    /**
+     * Prints all the possible commands.
+     */
     public static void commands() {
         System.out.println("Commands : ");
         System.out.println(Arrays.toString(Command.values()));
     }
 
+    /**
+     * Displays that the current player can't play.
+     */
     public static void cantPlay() {
         System.out.println("Can't put a piece, no possible moves");
     }
 
+    /**
+     * Displays that the current player can't pass.
+     */
     public static void cantPass() {
         System.out.println("Can't pass, can put a piece.");
     }

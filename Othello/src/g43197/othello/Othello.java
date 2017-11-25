@@ -79,6 +79,8 @@ public class Othello {
                             game.pass();
                         }
                         break;
+                    default:
+                        throw new IllegalArgumentException("Shouldn't call this method with that command!");
                 }
                 played = true;
             } catch (GameException e) {

@@ -96,16 +96,4 @@ public class CoordinatesTest {
         Coordinates result = origin.increment(Direction.UP_LEFT);
         assertEquals(expResult, result);
     }
-
-    /**
-     * Test of clone method, of class Coordinates.
-     *
-     * @throws java.lang.Exception
-     */
-    @Test
-    public void testClone() throws Exception {
-        Coordinates pos = new Coordinates(2, 3);
-        Coordinates clone = pos.clone();
-        assertEquals(pos, clone);
-    }
 }
