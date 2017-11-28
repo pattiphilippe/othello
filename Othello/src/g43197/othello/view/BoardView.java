@@ -115,7 +115,7 @@ public class BoardView extends GridPane {
         updateAccessibles();
 
         List<Coordinates> switchedPos = game.getSwitchedPositions();
-        Color prevPlayer = game.getCurrentPlayer() == Color.BLACK ? Color.WHITE : Color.BLACK;
+        Color prevPlayer = game.getCurrentPlayer().getColor() == Color.BLACK ? Color.WHITE : Color.BLACK;
         int row, col;
         if (switchedPos.size() == 1) {
             row = switchedPos.get(0).getROW();

@@ -116,9 +116,11 @@ public class TileView extends StackPane {
      */
     public void setAccessible(boolean accessible) {
         if (accessible) {
+            System.out.println("setAccessible(true)");
             rectangle.setFill(Color.CHARTREUSE);
             rectangle.setEffect(new Glow(0.6));
         } else {
+            System.out.println("setAccessible(false)");
             rectangle.setFill(LIGHTBLUE);
             rectangle.setEffect(new Glow(0));
         }

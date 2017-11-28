@@ -42,7 +42,14 @@ public abstract class Facade extends Observable {
      *
      * @return
      */
-    public abstract Color getCurrentPlayer();
+    public abstract Player getCurrentPlayer();
+
+    /**
+     * Returns the winner. If the game isn't finished, returns null.
+     *
+     * @return
+     */
+    public abstract Player getWinner();
 
     /**
      * Returns the number of walls on the board.

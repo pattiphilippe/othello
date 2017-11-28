@@ -1,9 +1,11 @@
 package g43197.othello.view;
 
 import g43197.othello.model.Facade;
+import g43197.othello.model.Player;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -21,6 +23,7 @@ public class VBoxOthello extends VBox implements Observer {
     private final Region region1;
     private final HBoxOthello hbox;
     private final Region region2;
+    private final Alert finishedGame;
 
     /**
      * Creates a new Window for the Othello game.
@@ -45,6 +48,11 @@ public class VBoxOthello extends VBox implements Observer {
 
         this.getChildren().addAll(title, region1, hbox, region2);
 
+        // Alert
+        finishedGame = new Alert(Alert.AlertType.INFORMATION);
+        finishedGame.setTitle("Finished Game");
+        finishedGame.setHeaderText("Congratulations!");
+
         game.addObserver(this);
     }
 
@@ -55,6 +63,10 @@ public class VBoxOthello extends VBox implements Observer {
         }
         Facade game = (Facade) o;
         if (game.isFinished()) {
+            Player winner = game.getWinner();
+            finishedGame.setContentText("Player " + winner.getColor() 
+                    + " won with " + winner.getScore() + " points.");
+            //TODO player.getName()
             //TODO code finished game
             //IDEA popup avec partie finie: gagnant est joueur ... avec ... points
         }

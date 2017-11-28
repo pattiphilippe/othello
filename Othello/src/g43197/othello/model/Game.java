@@ -50,6 +50,7 @@ public class Game extends Facade {
      *
      * @return true if he can
      */
+    @Override
     public boolean canPlay() {
         return !accessibles.isEmpty();
     }
@@ -69,8 +70,18 @@ public class Game extends Facade {
     }
 
     @Override
-    public Color getCurrentPlayer() {
+    public Player getCurrentPlayer() {
         return players.getCurrentPlayer();
+    }
+
+    @Override
+    public Player getWinner() {
+        Player p = players.getWinner();
+        if (isFinished()) {
+            return p;
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -106,7 +117,7 @@ public class Game extends Facade {
         if (pos == null) {
             throw new IllegalArgumentException("Pos can't be null!");
         }
-        int points = board.put(rack.getPiece(players.getCurrentPlayer()), pos);
+        int points = board.put(rack.getPiece(players.getCurrentPlayer().getColor()), pos);
         players.modifyScore(points + 1);
         nextPlayer();
         players.modifyScore(-points);
@@ -148,6 +159,6 @@ public class Game extends Facade {
     }
 
     private void updateAccessibles() {
-        board.updateAccessibles(accessibles, players.getCurrentPlayer());
+        board.updateAccessibles(accessibles, players.getCurrentPlayer().getColor());
     }
 }

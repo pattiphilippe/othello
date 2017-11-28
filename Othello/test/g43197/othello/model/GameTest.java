@@ -86,11 +86,11 @@ public class GameTest {
     public void testNextPlayer() {
         Game game = new Game();
         Color color;
-        color = game.getCurrentPlayer();
+        color = game.getCurrentPlayer().getColor();
         game.putPiece(new Coordinates(2, 3));
-        assertNotEquals(color, game.getCurrentPlayer());
+        assertNotEquals(color, game.getCurrentPlayer().getColor());
         game.putPiece(new Coordinates(2, 2));
-        assertEquals(color, game.getCurrentPlayer());
+        assertEquals(color, game.getCurrentPlayer().getColor());
     }
 
     /**

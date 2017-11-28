@@ -3,10 +3,8 @@ package g43197.othello.view;
 import g43197.othello.model.Facade;
 import g43197.othello.model.Player;
 import java.util.List;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -50,7 +48,6 @@ public class HBoxOthello extends HBox {
         List<Player> names = game.getScores();
         players = new PlayersView(10, names.get(0).getScore(), names.get(0).getColor().name(), names.get(1).getColor().name());
         players.setPrefWidth(boardSize * 2 / 8);
-//        players.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
 
         regionPlyWall = new Region();
         VBox.setVgrow(regionPlyWall, Priority.ALWAYS);
@@ -106,7 +103,7 @@ public class HBoxOthello extends HBox {
      * Updates the hbox and its components.
      */
     public void update() {
-        players.update(game.getCurrentPlayer(), game.getScores());
+        players.update(game.getCurrentPlayer().getColor(), game.getScores());
         board.update();
         wallsCpt.update(game.getNbWalls());
     }

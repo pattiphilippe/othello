@@ -3,6 +3,7 @@ package g43197.othello.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class is a list of players and a few methods for it.
@@ -35,12 +36,21 @@ public class Players implements Iterator<Player> {
     }
 
     /**
-     * Returns the color of the current player.
+     * Returns the current player.
      *
      * @return
      */
-    Color getCurrentPlayer() {
-        return currentPlayer.getColor();
+    Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    /**
+     * Returns the player with the greatest score.
+     *
+     * @return
+     */
+    Player getWinner() {
+        return players.stream().max((Player p1, Player p2) -> p1.getScore() - p2.getScore()).get();
     }
 
     /**
