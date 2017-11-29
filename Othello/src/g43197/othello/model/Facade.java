@@ -107,4 +107,17 @@ public abstract class Facade extends Observable {
      * Pass the turn of the player, only if he can't play a turn.
      */
     public abstract void pass();
+
+    /**
+     * Makes the current player abandon the game. The other player is the winner
+     * and the game is finished.
+     */
+    public abstract void abandon();
+
+    /**
+     * Checks if someone has abandonned the game.
+     *
+     * @return true if someone did
+     */
+    public abstract boolean abandonned();
 }

@@ -32,6 +32,11 @@ public enum Command {
      */
     REPLAY,
     /**
+     * Abandons the game for the current player. The game is then finished and
+     * the winner is the other player.
+     */
+    ABANDON,
+    /**
      * Exits the game.
      */
     EXIT,

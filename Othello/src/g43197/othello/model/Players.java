@@ -3,7 +3,6 @@ package g43197.othello.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * This class is a list of players and a few methods for it.
@@ -11,6 +10,7 @@ import java.util.Optional;
  * @author Philippe
  */
 public class Players implements Iterator<Player> {
+//TODO check iterator   
 
     private final List<Player> players;
     private Player currentPlayer;
@@ -29,7 +29,8 @@ public class Players implements Iterator<Player> {
     /**
      * initializes the score of every player.
      */
-    void initScores() {
+    void init() {
+        currentPlayer = players.get(0);
         players.forEach((player) -> {
             player.initScore();
         });
@@ -70,16 +71,16 @@ public class Players implements Iterator<Player> {
     void modifyScore(int delta) {
         currentPlayer.modifyScore(delta);
     }
-
+    
     List<Player> getScores() {
         return players;
     }
-
+    
     @Override
     public boolean hasNext() {
         return players.size() != (players.indexOf(currentPlayer) + 1);
     }
-
+    
     @Override
     public Player next() {
         int i = players.indexOf(currentPlayer) + 1;

@@ -16,7 +16,6 @@ public class Othello {
 
     //TODO ? gérer les exceptions avec Exception et pas runtime Exception
     //TODO menu ds vue
-    //TODO changer clone par copies (voir lien sur clone)
     /**
      * Main method of Othello.
      *
@@ -47,6 +46,9 @@ public class Othello {
                 case REPLAY:
                     Display.startGame();
                     game.startAgain();
+                    break;
+                case ABANDON:
+                    game.abandon();
                     break;
                 case HELP:
                     Display.commands();

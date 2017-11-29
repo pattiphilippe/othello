@@ -17,6 +17,7 @@ public class Game extends Facade {
     private final List<Coordinates> accessibles;
     private Board board;
     private Rack rack;
+    private boolean abandonned;
 
     /**
      * Creates a new game.
@@ -30,11 +31,15 @@ public class Game extends Facade {
     @Override
     public void startAgain() {
         initGame();
+        setChanged();
+        notifyObservers();
     }
 
     @Override
     public boolean isFinished() {
-        if (canPlay()) {
+        if (abandonned) {
+            return true;
+        } else if (canPlay()) {
             return false;
         } else {
             nextPlayer();
@@ -104,7 +109,12 @@ public class Game extends Facade {
 
     @Override
     public List<Coordinates> getAccessibles() {
-        return Collections.unmodifiableList(accessibles);
+        //TODO check if can do it differently, not bind it directly with accessibles
+        List<Coordinates> list = new ArrayList<>();
+        for (Coordinates pos : accessibles) {
+            list.add(new Coordinates(pos));
+        }
+        return list;
     }
 
     @Override
@@ -141,14 +151,28 @@ public class Game extends Facade {
         if (canPlay()) {
             throw new GameException("Can't pass, can play a turn.");
         }
+        setChanged();
         nextPlayer();
+    }
+
+    @Override
+    public void abandon() {
+        abandonned = true;
+        setChanged();
+        notifyObservers();
+    }
+
+    @Override
+    public boolean abandonned() {
+        return abandonned;
     }
 
     ///////////////////////////Private//Methods//////////////////////////////
     private void initGame() {
         board = new Board(MAX_ROWS_COLS);
         rack = new Rack(MAX_ROWS_COLS);
-        players.initScores();
+        abandonned = false;
+        players.init();
         updateAccessibles();
     }
 

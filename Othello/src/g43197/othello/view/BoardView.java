@@ -3,6 +3,7 @@ package g43197.othello.view;
 import g43197.othello.model.Color;
 import g43197.othello.model.Coordinates;
 import g43197.othello.model.Facade;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -18,6 +19,7 @@ public class BoardView extends GridPane {
 
     private final Facade game;
     private List<Coordinates> accessibles;
+    private List<Coordinates> switchedPos;
 
     /**
      * Creates a new Board.
@@ -29,7 +31,8 @@ public class BoardView extends GridPane {
     public BoardView(double width, double height, Facade game) {
         super();
         this.game = game;
-        accessibles = game.getAccessibles();
+        accessibles = new ArrayList<>();
+        switchedPos = game.getSwitchedPositions();
 
         class ClickedTileHandler implements EventHandler<MouseEvent> {
 
@@ -114,7 +117,6 @@ public class BoardView extends GridPane {
     public void update() {
         updateAccessibles();
 
-        List<Coordinates> switchedPos = game.getSwitchedPositions();
         Color prevPlayer = game.getCurrentPlayer().getColor() == Color.BLACK ? Color.WHITE : Color.BLACK;
         int row, col;
         if (switchedPos.size() == 1) {
@@ -138,4 +140,20 @@ public class BoardView extends GridPane {
         accessibles.stream().forEach(pos
                 -> getTileByRowCol(pos.getROW(), pos.getCOL()).setAccessible(true));
     }
-}
+
+    public void replay() {
+        TileView tile;
+        Coordinates pos;
+        for (int row = 0; row < game.getMaxRowsCols(); row++) {
+            for (int col = 0; col < game.getMaxRowsCols(); col++) {
+                tile = getTileByRowCol(row, col);
+                tile.initTile();
+                pos = new Coordinates(row, col);
+                if (game.getPiece(pos) != null) {
+                    tile.addPiece(game.getPiece(pos).getColor());
+                }
+            }
+        }
+        switchedPos = game.getSwitchedPositions();
+    }}
+

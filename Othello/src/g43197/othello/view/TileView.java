@@ -41,20 +41,32 @@ public class TileView extends StackPane {
 
         piece = new Ellipse(width * SHAPE_SIZE_FACT, height * SHAPE_SIZE_FACT);
         piece.setFill(BLACK);
-        piece.setVisible(false);
 
         wall = new Rectangle(width * WALL_SIZE_FACT, height * WALL_SIZE_FACT);
         wall.setFill(BROWN);
-        wall.setVisible(false);
 
         // si attribut reçoit nouvelle adresse, pas changement dans children()
         rectangle = new Rectangle(width, height);
-        rectangle.setEffect(new Glow(0));
 
         rectangle.setStroke(SLATEBLUE);
         rectangle.setFill(LIGHTBLUE);
+        rectangle.setEffect(null);
+        init();
 
         this.getChildren().addAll(rectangle, piece, wall);
+    }
+
+    private void init() {
+        piece.setVisible(false);
+        wall.setVisible(false);
+    }
+
+    /**
+     * Puts the tile to its init state, with nothing visible in it. Doesn't
+     * change its visibility.
+     */
+    public void initTile() {
+        init();
     }
 
     /**
@@ -116,13 +128,13 @@ public class TileView extends StackPane {
      */
     public void setAccessible(boolean accessible) {
         if (accessible) {
-            System.out.println("setAccessible(true)");
             rectangle.setFill(Color.CHARTREUSE);
             rectangle.setEffect(new Glow(0.6));
         } else {
-            System.out.println("setAccessible(false)");
             rectangle.setFill(LIGHTBLUE);
-            rectangle.setEffect(new Glow(0));
+            rectangle.setEffect(null);
         }
     }
+
+    //TODO check visibilité des méthodes dans la vue
 }

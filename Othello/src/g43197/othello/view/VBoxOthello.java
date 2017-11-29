@@ -64,12 +64,13 @@ public class VBoxOthello extends VBox implements Observer {
         Facade game = (Facade) o;
         if (game.isFinished()) {
             Player winner = game.getWinner();
-            finishedGame.setContentText("Player " + winner.getColor() 
+            finishedGame.setContentText("Player " + winner.getColor()
                     + " won with " + winner.getScore() + " points.");
+            finishedGame.show();
             //TODO player.getName()
-            //TODO code finished game
-            //IDEA popup avec partie finie: gagnant est joueur ... avec ... points
         }
-        hbox.update();
+        if (!game.abandonned()) {
+            hbox.update();
+        }
     }
 }

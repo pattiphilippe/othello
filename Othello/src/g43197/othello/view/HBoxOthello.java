@@ -4,7 +4,10 @@ import g43197.othello.model.Facade;
 import g43197.othello.model.Player;
 import java.util.List;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -28,8 +31,11 @@ public class HBoxOthello extends HBox {
     private final BoardView board;
     private final WallsCptView wallsCpt;
     private final Button pass;
+    private final Alert cantPass;
     private final Button replay;
+    private final Alert checkReplay;
     private final Button abandon;
+    private final Alert checkAbandon;
     //TODO button undo
     private final Region regionPlyWall;
     private final Region regionLeftCenter;
@@ -70,22 +76,51 @@ public class HBoxOthello extends HBox {
         regionCenterRidht.setPrefWidth(boardSize * 1 / 20);
         HBox.setHgrow(regionCenterRidht, Priority.ALWAYS);
 
+        cantPass = new Alert(AlertType.ERROR);
+        cantPass.setTitle("Passing alert");
+        cantPass.setHeaderText("Can't pass!");
+        cantPass.setContentText("Player can't pass, because he can put a piece. "
+                + "When a player can't put a piece, he can build a wall or pass");
+
         pass = new Button("Pass");
         pass.setOnMouseClicked(event -> {
-            if(game.canPlay()){
+            if (!game.canPlay()) {
                 game.pass();
             } else {
-                //TODO coder popup "ne sait pas passer"
-                //TODO ou pas?
+                cantPass.show();
                 event.consume();
             }
         });
+
+        checkAbandon = new Alert(AlertType.CONFIRMATION);
+        checkAbandon.setTitle("Abandon game");
+        checkAbandon.setHeaderText("Check abnadon game");
+        checkAbandon.setContentText("Are you sure you wannna abandon the game?");
         abandon = new Button("Abandon");
+        abandon.setOnMouseClicked(event -> {
+            checkAbandon.showAndWait();
+            if (checkAbandon.getResult() == ButtonType.OK) {
+                game.abandon();
+            } else {
+                event.consume();
+            }
+        });
+        //TODO bug abandon retourne à nouveau les pos switch au tour précédent
+
         //TODO coder abandon du jeu
+        checkReplay = new Alert(AlertType.CONFIRMATION);
+        checkReplay.setTitle("Replay game");
+        checkReplay.setHeaderText("Check replay game");
+        checkReplay.setContentText("Are you sure you wannna replay a new game?");
         replay = new Button("Replay");
         replay.setOnMouseClicked(event -> {
-            //TODO popup vérification
-            game.startAgain();
+            checkReplay.showAndWait();
+            if (checkReplay.getResult() == ButtonType.OK) {
+                game.startAgain();
+                board.replay();
+            } else {
+                event.consume();
+            }
         });
 
         left = new VBox(10);
@@ -94,6 +129,7 @@ public class HBoxOthello extends HBox {
 
         right = new VBox(10);
         right.setPrefWidth(boardSize * 2 / 8);
+        right.getChildren().addAll(pass, replay, abandon);
         right.setBackground(new Background(new BackgroundFill(Color.LIGHTGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
 
         this.getChildren().addAll(left, regionLeftCenter, board, regionCenterRidht, right);
