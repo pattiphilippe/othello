@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
@@ -31,7 +32,7 @@ public class Window extends BorderPane implements Observer {
     private final PlayersView players;
     // Others
     private final Alert finishedGame;
-    
+
     public Window(Facade game) {
         //this settings
         super();
@@ -45,7 +46,7 @@ public class Window extends BorderPane implements Observer {
         double boardSize = OthelloApp.HEIGHT * 4 / 7;
         board = new BoardView(boardSize, boardSize, game);
         buttons = new Buttons(game, board);
-        
+
         VBox left = new VBox();
         left.setPadding(new Insets(25));
         left.setSpacing(25);
@@ -53,10 +54,11 @@ public class Window extends BorderPane implements Observer {
         this.setLeft(left);
 
         // Right side
-        players = new PlayersView(10, game.getScores().get(0).getScore(),
-                game.getScores().stream().map(p -> p.getName()).toArray(String[]::new));
-        
+        List<Player> playersList = game.getScores();
+        players = new PlayersView(10, playersList.toArray(new Player[playersList.size()]));
+
         VBox right = new VBox();
+        right.setPadding(new Insets(25));
         right.getChildren().addAll(players);
         this.setRight(right);
 
@@ -65,7 +67,7 @@ public class Window extends BorderPane implements Observer {
         finishedGame.setTitle("Finished Game");
         finishedGame.setHeaderText("Congratulations!");
     }
-    
+
     @Override
     public void update(Observable o, Object arg) {
         if (!(o instanceof Facade)) {
@@ -80,7 +82,7 @@ public class Window extends BorderPane implements Observer {
         }
         if (!game.abandonned()) {
             //TODO check if other stuff to update : wallscpt
-            players.update(game.getCurrentPlayer().getColor(), game.getScores());
+            players.update(game.getCurrentPlayer().getName(), game.getScores());
             board.update();
         }
     }

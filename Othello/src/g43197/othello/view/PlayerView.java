@@ -1,7 +1,11 @@
 package g43197.othello.view;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 
 /**
@@ -9,9 +13,12 @@ import javafx.scene.text.Font;
  *
  * @author Philippe
  */
-public class PlayerView extends VBox {
+public class PlayerView extends GridPane {
 
+//    private final Label name;
+//    private final Label score;
     private final Label name;
+    private final Pane piece;
     private final Label score;
 
     /**
@@ -19,16 +26,38 @@ public class PlayerView extends VBox {
      *
      * @param name player's name
      * @param score first score of the player
+     * @param color color of the piece
      */
-    public PlayerView(String name, int score) {
+    public PlayerView(String name, int score, Color color) {
         super();
+        this.setHgap(10);
+        this.setVgap(10);
+
+        Label nameLbl = new Label("Name");
+        nameLbl.setFont(Font.font(15));
+        nameLbl.setTextFill(Color.BLUE);
+
+        Label pieceLbl = new Label("Piece");
+        pieceLbl.setFont(Font.font(15));
+        pieceLbl.setTextFill(Color.BLUE);
+
+        Label scoreLbl = new Label("Score");
+        scoreLbl.setFont(Font.font(15));
+        scoreLbl.setTextFill(Color.BLUE);
 
         this.name = new Label(name);
-        this.name.setFont(Font.font(20));
-        this.score = new Label("Score : " + score);
-        this.score.setFont(Font.font(20));
 
-        this.getChildren().addAll(this.name, this.score);
+        piece = new Pane();
+        piece.getChildren().add(new Circle(5, color));
+
+        this.score = new Label(score + "");
+
+        this.add(nameLbl, 0, 0);
+        this.add(pieceLbl, 1, 0);
+        this.add(scoreLbl, 2, 0);
+        this.add(this.name, 0, 1);
+        this.add(piece, 1, 1);
+        this.add(this.score, 2, 1);
     }
 
     /**
@@ -47,6 +76,6 @@ public class PlayerView extends VBox {
      * @param score
      */
     public void updateScore(Integer score) {
-        this.score.setText("Score : " + score);
+        this.score.setText(score + "");
     }
 }

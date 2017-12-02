@@ -98,6 +98,7 @@ public class BoardView extends GridPane {
      */
     public TileView getTileByRowCol(int row, int col) {
         TileView tile = null;
+        //TODO optimiser méthode avec child(x) : x étant calculé avec row et col
         for (Node node : getChildren()) {
             if (getRowIndex(node) == row && getColumnIndex(node) == col) {
                 tile = (TileView) node;

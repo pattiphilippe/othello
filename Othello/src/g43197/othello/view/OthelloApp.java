@@ -42,8 +42,8 @@ public class OthelloApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Othello");
         //TODO refaire toutes les tailles, et tirer les min size dans OthelloApp
-        primaryStage.setMinWidth(WIDTH * 4 / 5);
-        primaryStage.setMinHeight(HEIGHT * 4 / 5);
+//        primaryStage.setMinWidth(WIDTH * 4 / 5);
+//        primaryStage.setMinHeight(HEIGHT * 4 / 5);
         primaryStage.setMaxWidth(WIDTH);
         primaryStage.setMaxHeight(HEIGHT);
         //TODO coder menubar avec exit et les commandes

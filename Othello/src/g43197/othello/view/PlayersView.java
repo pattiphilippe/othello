@@ -1,13 +1,14 @@
 package g43197.othello.view;
 
+import g43197.othello.model.Player;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 /**
@@ -15,9 +16,11 @@ import javafx.scene.paint.Color;
  *
  * @author Philippe
  */
-public class PlayersView extends VBox {
+public class PlayersView extends HBox {
 
-    private final Border border;
+//    private final Border border;
+    private final Background selected;
+    private final Background notSelected;
     private final List<PlayerView> players;
     private PlayerView currentPlayer;
 
@@ -25,54 +28,54 @@ public class PlayersView extends VBox {
      * Creates the list of players with their score.
      *
      * @param d the insets between players node.
-     * @param score first score of the players
-     * @param names array of players name, at least 2 names
+     * @param players
      */
-    public PlayersView(double d, int score, String... names) {
+    public PlayersView(double d, Player... players) {
         super(d);
+        this.setAlignment(Pos.CENTER);
 
-        double borderSize = 5;
-        border = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.DOTTED,
-                new CornerRadii(borderSize), new BorderWidths(borderSize)));
+        this.players = new ArrayList<>(2);
 
-        players = new ArrayList<>(2);
+        Color color;
+        for (Player p : players) {
+            color = p.getColor() == g43197.othello.model.Color.BLACK ? Color.BLACK : Color.WHITE;
+            this.players.add(new PlayerView(p.getName(), p.getScore(), color));
+        }
 
-        players.add(new PlayerView(names[0], score));
-        players.add(new PlayerView(names[1], score));
+        selected = new Background(new BackgroundFill(Color.GREENYELLOW, new CornerRadii(8), Insets.EMPTY));
+        notSelected = new Background(new BackgroundFill(Color.ORANGERED, new CornerRadii(8), Insets.EMPTY));
+        this.players.get(0).setBackground(selected);
+        this.players.get(1).setBackground(notSelected);
+        currentPlayer = this.players.get(0);
 
-        players.get(0).setBorder(border);
-        players.get(1).setBorder(Border.EMPTY);
-
-        currentPlayer = players.get(0);
-
-        players.forEach(p -> this.getChildren().add(p));
+        this.players.forEach(p -> this.getChildren().add(p));
     }
 
     private void nextPlayer() {
-        currentPlayer.setBorder(Border.EMPTY);
+        currentPlayer.setBackground(notSelected);
         int i = players.indexOf(currentPlayer) + 1;
         if (i < players.size()) {
             currentPlayer = players.get(i);
         } else {
             currentPlayer = players.get(0);
         }
-        currentPlayer.setBorder(border);
+        currentPlayer.setBackground(selected);
     }
 
     /**
      * Updates the players: currentPlayer and scores.
      *
-     * @param currentPlayer
+     * @param name
      * @param scores
      */
-    public void update(g43197.othello.model.Color currentPlayer,
-            List<g43197.othello.model.Player> scores) {
-        updatePlayer(currentPlayer);
+    public void update(String name, List<g43197.othello.model.Player> scores) {
+        //TODO check sur le name et pas sur le nom de la couleur
+        updatePlayer(name);
         updateScores(scores);
     }
 
-    private void updatePlayer(g43197.othello.model.Color currentPlayer) {
-        if (!this.currentPlayer.isPlayer(currentPlayer.toString())) {
+    private void updatePlayer(String name) {
+        if (!this.currentPlayer.isPlayer(name)) {
             nextPlayer();
         }
     }
