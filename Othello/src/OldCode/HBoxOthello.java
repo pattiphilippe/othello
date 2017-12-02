@@ -1,7 +1,10 @@
-package g43197.othello.view;
+package OldCode;
 
 import g43197.othello.model.Facade;
 import g43197.othello.model.Player;
+import g43197.othello.view.BoardView;
+import g43197.othello.view.PlayersView;
+import g43197.othello.view.WallsCptView;
 import java.util.List;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
@@ -36,7 +39,7 @@ public class HBoxOthello extends HBox {
     private final Alert checkReplay;
     private final Button abandon;
     private final Alert checkAbandon;
-    //TODO button undo
+    //TODO ? button undo
     private final Region regionPlyWall;
     private final Region regionLeftCenter;
     private final Region regionCenterRidht;
@@ -105,9 +108,6 @@ public class HBoxOthello extends HBox {
                 event.consume();
             }
         });
-        //TODO bug abandon retourne à nouveau les pos switch au tour précédent
-
-        //TODO coder abandon du jeu
         checkReplay = new Alert(AlertType.CONFIRMATION);
         checkReplay.setTitle("Replay game");
         checkReplay.setHeaderText("Check replay game");

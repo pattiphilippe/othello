@@ -11,6 +11,7 @@ public class Player {
 
     private final Color COLOR;
     private int score;
+    private final String name;
 
     /**
      * Creates a player. The color is set to the given color.
@@ -23,6 +24,9 @@ public class Player {
         }
 
         this.COLOR = color;
+        String firstLetter = COLOR.name().charAt(0) + "";
+        String rest = COLOR.name().substring(1).toLowerCase();
+        name = firstLetter.concat(rest);
         initScore();
     }
 
@@ -40,6 +44,15 @@ public class Player {
      */
     public Color getColor() {
         return COLOR;
+    }
+
+    /**
+     * Returns the name of the player.
+     *
+     * @return
+     */
+    public String getName() {
+        return name;
     }
 
     /**

@@ -155,5 +155,5 @@ public class BoardView extends GridPane {
             }
         }
         switchedPos = game.getSwitchedPositions();
-    }}
-
+    }
+}

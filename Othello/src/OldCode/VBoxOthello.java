@@ -1,7 +1,8 @@
-package g43197.othello.view;
+package OldCode;
 
 import g43197.othello.model.Facade;
 import g43197.othello.model.Player;
+import g43197.othello.view.OthelloApp;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.geometry.Pos;
@@ -64,7 +65,7 @@ public class VBoxOthello extends VBox implements Observer {
         Facade game = (Facade) o;
         if (game.isFinished()) {
             Player winner = game.getWinner();
-            finishedGame.setContentText("Player " + winner.getColor()
+            finishedGame.setContentText("Player " + winner.getName()
                     + " won with " + winner.getScore() + " points.");
             finishedGame.show();
             //TODO player.getName()

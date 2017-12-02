@@ -41,13 +41,16 @@ public class OthelloApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Othello");
+        //TODO refaire toutes les tailles, et tirer les min size dans OthelloApp
         primaryStage.setMinWidth(WIDTH * 4 / 5);
         primaryStage.setMinHeight(HEIGHT * 4 / 5);
         primaryStage.setMaxWidth(WIDTH);
         primaryStage.setMaxHeight(HEIGHT);
+        //TODO coder menubar avec exit et les commandes
+        //TODO tableView<...> , class ligne avec properties, observableList<Ligne>
 
         Facade game = new Game();
-        VBoxOthello root = new VBoxOthello(game);
+        Window root = new Window(game);
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

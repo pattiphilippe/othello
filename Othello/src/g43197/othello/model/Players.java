@@ -71,16 +71,16 @@ public class Players implements Iterator<Player> {
     void modifyScore(int delta) {
         currentPlayer.modifyScore(delta);
     }
-    
+
     List<Player> getScores() {
         return players;
     }
-    
+
     @Override
     public boolean hasNext() {
         return players.size() != (players.indexOf(currentPlayer) + 1);
     }
-    
+
     @Override
     public Player next() {
         int i = players.indexOf(currentPlayer) + 1;
