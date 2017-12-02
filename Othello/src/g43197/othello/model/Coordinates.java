@@ -89,4 +89,9 @@ public class Coordinates {
         return new Coordinates(row, col);
     }
 
+    @Override
+    public String toString() {
+        return ROW + ", " + COL;
+    }
+
 }

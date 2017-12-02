@@ -1,9 +1,16 @@
 package g43197.othello.view;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -15,10 +22,8 @@ import javafx.scene.text.Font;
  */
 public class PlayerView extends GridPane {
 
-//    private final Label name;
-//    private final Label score;
     private final Label name;
-    private final Pane piece;
+    private final StackPane piece;
     private final Label score;
 
     /**
@@ -30,8 +35,14 @@ public class PlayerView extends GridPane {
      */
     public PlayerView(String name, int score, Color color) {
         super();
+        this.setPadding(new Insets(10));
         this.setHgap(10);
         this.setVgap(10);
+        this.setEffect(new DropShadow());
+        ColumnConstraints colGrow = new ColumnConstraints();
+        colGrow.setHgrow(Priority.ALWAYS);
+        //TODO demander comment faire: 1 constraint pour toutes les colonnes
+        this.getColumnConstraints().addAll(colGrow, colGrow, colGrow);
 
         Label nameLbl = new Label("Name");
         nameLbl.setFont(Font.font(15));
@@ -47,8 +58,10 @@ public class PlayerView extends GridPane {
 
         this.name = new Label(name);
 
-        piece = new Pane();
-        piece.getChildren().add(new Circle(5, color));
+        piece = new StackPane();
+        Circle c = new Circle(8, color);
+        piece.getChildren().add(c);
+        StackPane.setAlignment(c, Pos.CENTER);
 
         this.score = new Label(score + "");
 
@@ -58,6 +71,8 @@ public class PlayerView extends GridPane {
         this.add(this.name, 0, 1);
         this.add(piece, 1, 1);
         this.add(this.score, 2, 1);
+
+        getChildren().forEach((child) -> GridPane.setHalignment(child, HPos.CENTER));
     }
 
     /**

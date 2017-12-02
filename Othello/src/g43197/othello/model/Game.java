@@ -3,6 +3,7 @@ package g43197.othello.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javafx.collections.ObservableList;
 
 /**
  * Facade of Othello. The methods in this class are mainly around the current
@@ -17,6 +18,7 @@ public class Game extends Facade {
     private final List<Coordinates> accessibles;
     private Board board;
     private Rack rack;
+    private final Historic historic;
     private boolean abandonned;
 
     /**
@@ -25,6 +27,7 @@ public class Game extends Facade {
     public Game() {
         players = new Players();
         accessibles = new ArrayList<>();
+        historic = new Historic();
         initGame();
     }
 
@@ -123,12 +126,18 @@ public class Game extends Facade {
     }
 
     @Override
+    public ObservableList<Move> getHistoric() {
+        return historic.getHistoric();
+    }
+
+    @Override
     public void putPiece(Coordinates pos) {
         if (pos == null) {
             throw new IllegalArgumentException("Pos can't be null!");
         }
         int points = board.put(rack.getPiece(players.getCurrentPlayer().getColor()), pos);
         players.modifyScore(points + 1);
+        historic.add(players.getCurrentPlayer().getName(), MoveAction.PIECE, pos, points);
         nextPlayer();
         players.modifyScore(-points);
         setChanged();
@@ -142,6 +151,7 @@ public class Game extends Facade {
         }
         board.putWall(pos);
         rack.addWall();
+        historic.add(players.getCurrentPlayer().getName(), MoveAction.WALL, pos, 0);
         setChanged();
         nextPlayer();
     }
@@ -151,6 +161,7 @@ public class Game extends Facade {
         if (canPlay()) {
             throw new GameException("Can't pass, can play a turn.");
         }
+        historic.add(players.getCurrentPlayer().getName(), MoveAction.PASS, null, 0);
         setChanged();
         nextPlayer();
     }
@@ -158,6 +169,7 @@ public class Game extends Facade {
     @Override
     public void abandon() {
         abandonned = true;
+        historic.add(players.getCurrentPlayer().getName(), MoveAction.ABANDON, null, 0);
         setChanged();
         notifyObservers();
     }
@@ -173,6 +185,7 @@ public class Game extends Facade {
         rack = new Rack(MAX_ROWS_COLS);
         abandonned = false;
         players.init();
+        historic.add(players.getCurrentPlayer().getName(), MoveAction.NEW_GAME, null, 0);
         updateAccessibles();
     }
 

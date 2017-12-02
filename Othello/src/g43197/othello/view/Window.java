@@ -2,14 +2,11 @@ package g43197.othello.view;
 
 import g43197.othello.model.Facade;
 import g43197.othello.model.Player;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
@@ -30,9 +27,10 @@ public class Window extends BorderPane implements Observer {
     private final Buttons buttons;
     // Right
     private final PlayersView players;
+    private final HistoricView historic;
     // Others
     private final Alert finishedGame;
-
+    
     public Window(Facade game) {
         //this settings
         super();
@@ -46,7 +44,7 @@ public class Window extends BorderPane implements Observer {
         double boardSize = OthelloApp.HEIGHT * 4 / 7;
         board = new BoardView(boardSize, boardSize, game);
         buttons = new Buttons(game, board);
-
+        
         VBox left = new VBox();
         left.setPadding(new Insets(25));
         left.setSpacing(25);
@@ -56,10 +54,13 @@ public class Window extends BorderPane implements Observer {
         // Right side
         List<Player> playersList = game.getScores();
         players = new PlayersView(10, playersList.toArray(new Player[playersList.size()]));
-
+        
+        historic = new HistoricView(game.getHistoric());
+        
         VBox right = new VBox();
         right.setPadding(new Insets(25));
-        right.getChildren().addAll(players);
+        right.setSpacing(25);
+        right.getChildren().addAll(players, historic);
         this.setRight(right);
 
         // Others
@@ -67,7 +68,7 @@ public class Window extends BorderPane implements Observer {
         finishedGame.setTitle("Finished Game");
         finishedGame.setHeaderText("Congratulations!");
     }
-
+    
     @Override
     public void update(Observable o, Object arg) {
         if (!(o instanceof Facade)) {

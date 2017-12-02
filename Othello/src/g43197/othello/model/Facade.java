@@ -2,6 +2,7 @@ package g43197.othello.model;
 
 import java.util.List;
 import java.util.Observable;
+import javafx.collections.ObservableList;
 
 /**
  * Facade of the model for Othello.
@@ -57,6 +58,13 @@ public abstract class Facade extends Observable {
      * @return the number of walls
      */
     public abstract int getNbWalls();
+
+    /**
+     * Returns the historic of the games played.
+     *
+     * @return
+     */
+    public abstract ObservableList<Move> getHistoric();
 
     /**
      * Returns the piece on the board in the given position

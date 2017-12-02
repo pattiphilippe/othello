@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
@@ -30,6 +31,7 @@ public class BoardView extends GridPane {
      */
     public BoardView(double width, double height, Facade game) {
         super();
+        this.setEffect(new DropShadow());
         this.game = game;
         accessibles = new ArrayList<>();
         switchedPos = game.getSwitchedPositions();
