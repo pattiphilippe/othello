@@ -43,7 +43,7 @@ public class Move {
         if (pos == null) {
             return "-";
         } else {
-            return pos.toString();
+            return (8 - pos.getROW()) + ", " + (pos.getCOL() + 1);
         }
     }
 

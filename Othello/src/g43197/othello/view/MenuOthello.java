@@ -17,10 +17,10 @@ public class MenuOthello extends MenuBar {
 
     public MenuOthello() {
         super();
+        //TODO faire plus d'options dans le menu : export historic, save/load?, help, change pictures?, change animation?, IA / 2 players, nom des joueurs...
 
         menuFile = new Menu("File");
         exit = new MenuItem("Exit");
-        //TODO accelerator fonctionne tout le temps?
         exit.setAccelerator(KeyCombination.valueOf("Ctrl+X"));
         exit.setOnAction(event -> {
             System.out.println("Exit handler");

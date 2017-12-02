@@ -68,7 +68,6 @@
 //            finishedGame.setContentText("Player " + winner.getName()
 //                    + " won with " + winner.getScore() + " points.");
 //            finishedGame.show();
-//            //TODO player.getName()
 //        }
 //        if (!game.abandonned()) {
 //            hbox.update();
