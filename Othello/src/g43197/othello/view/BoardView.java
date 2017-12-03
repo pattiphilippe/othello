@@ -63,7 +63,6 @@ public class BoardView extends GridPane {
                                 event.consume();
                         }
                     } catch (Exception e) {
-                        System.out.println(e.getMessage());
                         event.consume();
                     }
                 }

@@ -1,5 +1,8 @@
 package g43197.othello.view;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.scene.effect.Glow;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.layout.StackPane;
@@ -10,9 +13,11 @@ import static javafx.scene.paint.Color.SLATEBLUE;
 import static javafx.scene.paint.Color.LIGHTBLUE;
 import static javafx.scene.paint.Color.BROWN;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.util.Duration;
 
 /**
  * TileView is a class created specially for Board.
@@ -22,10 +27,12 @@ import javafx.scene.shape.Shape;
 public class TileView extends StackPane {
 
     private final Rectangle rectangle;
-    private final Shape piece;
+    private final Circle piece;
     private final Shape wall;
     private static final double SHAPE_SIZE_FACT = 2 / 5.;
     private static final double WALL_SIZE_FACT = 13 / 20.;
+    private final Timeline switchColorPart1;
+    private final Timeline switchColorPart2;
 
     /**
      * Creates a new Tile with the given width and height.
@@ -39,7 +46,8 @@ public class TileView extends StackPane {
         this.setOnMouseEntered(event -> setEffect(new InnerShadow(5, BLACK)));
         this.setOnMouseExited(event -> setEffect(null));
 
-        piece = new Ellipse(width * SHAPE_SIZE_FACT, height * SHAPE_SIZE_FACT);
+//        piece = new Ellipse(width * SHAPE_SIZE_FACT, height * SHAPE_SIZE_FACT);
+        piece = new Circle(height / 2.4);
         piece.setFill(BLACK);
 
         wall = new Rectangle(width * WALL_SIZE_FACT, height * WALL_SIZE_FACT);
@@ -54,6 +62,9 @@ public class TileView extends StackPane {
         init();
 
         this.getChildren().addAll(rectangle, piece, wall);
+
+        switchColorPart1 = new Timeline(new KeyFrame(new Duration(2000), new KeyValue(piece.radiusProperty(), 100)));
+        switchColorPart2 = new Timeline(new KeyFrame(new Duration(2000), new KeyValue(piece.radiusProperty(), height / 2.4)));
     }
 
     private void init() {
@@ -102,11 +113,14 @@ public class TileView extends StackPane {
         if (piece.isVisible() == false) {
             throw new RuntimeException("No piece added there yet!");
         }
+
+        switchColorPart1.play();
         if (piece.getFill() == BLACK) {
             piece.setFill(WHITE);
         } else {
             piece.setFill(BLACK);
         }
+        switchColorPart2.play();
     }
 
     private Paint getFxColor(g43197.othello.model.Color color) {
