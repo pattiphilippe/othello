@@ -24,13 +24,14 @@ public class Window extends BorderPane implements Observer {
     private final MenuOthello menu;
     // Left
     private final BoardView board;
+    private final GraphicHelps graphicHelps;
     private final Buttons buttons;
     // Right
     private final PlayersView players;
     private final HistoricView historic;
     // Others
     private final Alert finishedGame;
-    
+
     public Window(Facade game) {
         //this settings
         super();
@@ -43,20 +44,20 @@ public class Window extends BorderPane implements Observer {
         // Left side
         double boardSize = OthelloApp.HEIGHT * 4 / 7;
         board = new BoardView(boardSize, boardSize, game);
+        graphicHelps = new GraphicHelps(game);
         buttons = new Buttons(game, board);
-        
+
         VBox left = new VBox();
         left.setPadding(new Insets(25));
         left.setSpacing(25);
-        left.getChildren().addAll(board, buttons);
+        left.getChildren().addAll(board, graphicHelps, buttons);
         this.setLeft(left);
 
         // Right side
         List<Player> playersList = game.getScores();
         players = new PlayersView(10, playersList.toArray(new Player[playersList.size()]));
-        
         historic = new HistoricView(game.getHistoric());
-        
+
         VBox right = new VBox();
         right.setPadding(new Insets(25));
         right.setSpacing(25);
@@ -68,7 +69,7 @@ public class Window extends BorderPane implements Observer {
         finishedGame.setTitle("Finished Game");
         finishedGame.setHeaderText("Congratulations!");
     }
-    
+
     @Override
     public void update(Observable o, Object arg) {
         if (!(o instanceof Facade)) {
@@ -83,6 +84,7 @@ public class Window extends BorderPane implements Observer {
         }
         if (!game.abandonned()) {
             //TODO check if other stuff to update : wallscpt
+            graphicHelps.update();
             players.update(game.getCurrentPlayer().getName(), game.getScores());
             board.update();
         }

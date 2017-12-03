@@ -136,6 +136,7 @@ public class Game extends Facade {
             throw new IllegalArgumentException("Pos can't be null!");
         }
         int points = board.put(rack.getPiece(players.getCurrentPlayer().getColor()), pos);
+        rack.removePiece();
         players.modifyScore(points + 1);
         historic.add(players.getCurrentPlayer().getName(), MoveAction.PIECE, pos, points);
         nextPlayer();

@@ -28,7 +28,7 @@ class Rack {
     }
 
     /**
-     * Returns a piece of the rack and takes it off the rack at the same time.
+     * Returns a piece of the rack .
      *
      * @param color
      * @return
@@ -38,7 +38,6 @@ class Rack {
             throw new GameException("No pieces left!");
         }
         Piece piece = pieces.get(0);
-        pieces.remove(0);
         if (color == Color.WHITE) {
             piece.switchColor();
         }
@@ -59,5 +58,15 @@ class Rack {
      */
     void addWall() {
         nbWalls++;
+    }
+
+    /**
+     * Removes a piece of the rack. Should be called after a getPiece is the
+     * piece was really used.
+     */
+    void removePiece() {
+        if (!pieces.isEmpty()) {
+            pieces.remove(0);
+        }
     }
 }
