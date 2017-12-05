@@ -129,7 +129,6 @@ class TileView extends StackPane {
         }
     }
 
-    //TODO check visibilité des méthodes dans la vue
     ///////////////////////////Private//Methods//////////////////////////////
     private void init() {
         piece.setVisible(false);

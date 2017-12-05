@@ -10,7 +10,6 @@ import g43197.othello.model.util.Color;
  */
 public class IA extends Player implements Strategy {
 
-    //TODO check all visibilities in view
     private Strategy strategy;
 
     public IA(Color color, String name) {

@@ -51,13 +51,15 @@ class Buttons extends HBox {
         abandon = new Button("Abandon");
         abandon.setOnMouseClicked(event -> {
             checkAbandon.showAndWait();
-            if (checkAbandon.getResult() == ButtonType.OK) {
+            if (checkAbandon.getResult() == ButtonType.OK && !game.isFinished()) {
                 game.abandon();
             } else {
                 event.consume();
             }
         });
 
+        //TODO pas fin de jeu quand ia sait jouer
+        //TODO pas bouton possible avant affichage tour ia
         // Replay
         checkReplay = new Alert(Alert.AlertType.CONFIRMATION);
         checkReplay.setTitle("Replay game");

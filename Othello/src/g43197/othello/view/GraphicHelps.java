@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
  */
 class GraphicHelps extends VBox {
 
+    //TODO ajouter autre progresindicator et walls cpt
     private final Facade game;
     private final ProgressBar pieceProgress;
 
@@ -40,7 +41,6 @@ class GraphicHelps extends VBox {
         pieceProgress.setProgress(nbBlackPieces / (nbBlackPieces + otherPieces));
     }
 
-    //TODO check visibilities of methods and classes
     void update() {
         updatePieceProgress();
     }

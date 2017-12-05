@@ -26,7 +26,7 @@ class Players implements Iterator<Player> {
         players = new ArrayList<>(2);
         String name;
         for (int i = 0; i < 2; i++) {
-            name = names.length >= i ? names[i] : "";
+            name = names.length > i ? names[i] : "";
             if ((i == 0 && ia1) || (i == 1 && ia2)) {
                 players.add(new IA(Color.values()[i], name));
             } else {

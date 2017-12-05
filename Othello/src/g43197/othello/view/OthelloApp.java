@@ -15,6 +15,7 @@ public class OthelloApp extends Application {
 
     //TODO pas abandon possible si game is finished
     //TODO ? comment gérer les tailles: définie min max, ou pref? (peut faire fenêtre plus petite)
+    //TODO demander première infos
     /**
      * The height of the window.
      */
