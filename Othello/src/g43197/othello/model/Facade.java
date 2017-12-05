@@ -1,5 +1,7 @@
 package g43197.othello.model;
 
+import g43197.othello.model.util.Coordinates;
+import g43197.othello.model.util.Observable;
 import java.util.List;
 import javafx.collections.ObservableList;
 
@@ -14,6 +16,8 @@ public abstract class Facade extends Observable {
      * Starts a new game.
      */
     public abstract void startAgain();
+
+    public abstract void iaStart();
 
     /**
      * Checks if the game is over.

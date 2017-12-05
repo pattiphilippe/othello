@@ -1,9 +1,10 @@
 package g43197.othello.view;
 
-import g43197.othello.model.Color;
-import g43197.othello.model.Coordinates;
+import g43197.othello.model.util.Color;
+import g43197.othello.model.util.Coordinates;
 import g43197.othello.model.Facade;
 import g43197.othello.model.IA;
+import g43197.othello.model.Piece;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
@@ -17,7 +18,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author Philippe
  */
-public class BoardView extends GridPane {
+class BoardView extends GridPane {
 
     private final Facade game;
     private List<Coordinates> accessibles;
@@ -30,7 +31,7 @@ public class BoardView extends GridPane {
      * @param height height of the new board
      * @param game
      */
-    public BoardView(double width, double height, Facade game) {
+    BoardView(double width, double height, Facade game) {
         super();
         this.setEffect(new DropShadow());
         this.game = game;
@@ -98,7 +99,7 @@ public class BoardView extends GridPane {
      * @param col
      * @return
      */
-    public TileView getTileByRowCol(int row, int col) {
+    TileView getTileByRowCol(int row, int col) {
         TileView tile = null;
         //TODO optimiser méthode avec child(x) : x étant calculé avec row et col
         for (Node node : getChildren()) {
@@ -110,41 +111,7 @@ public class BoardView extends GridPane {
         return tile;
     }
 
-    private void addPiece(int row, int col, Color color) {
-        getTileByRowCol(row, col).addPiece(color);
-    }
-
-    /**
-     * Updates the view.
-     */
-    public void update() {
-        updateAccessibles();
-
-        Color prevPlayer = game.getCurrentPlayer().getColor() == Color.BLACK ? Color.WHITE : Color.BLACK;
-        int row, col;
-        if (switchedPos.size() == 1) {
-            row = switchedPos.get(0).getROW();
-            col = switchedPos.get(0).getCOL();
-            addPiece(row, col, Color.WALL);
-        } else if (switchedPos.size() > 0) {
-            row = switchedPos.get(0).getROW();
-            col = switchedPos.get(0).getCOL();
-            addPiece(row, col, prevPlayer);
-            switchedPos.stream().skip(1).forEach(pos
-                    -> getTileByRowCol(pos.getROW(), pos.getCOL()).switchColor()
-            );
-        }
-    }
-
-    private void updateAccessibles() {
-        accessibles.stream().forEach(pos
-                -> getTileByRowCol(pos.getROW(), pos.getCOL()).setAccessible(false));
-        accessibles = game.getAccessibles();
-        accessibles.stream().forEach(pos
-                -> getTileByRowCol(pos.getROW(), pos.getCOL()).setAccessible(true));
-    }
-
-    public void replay() {
+    void replay() {
         TileView tile;
         Coordinates pos;
         for (int row = 0; row < game.getMaxRowsCols(); row++) {
@@ -158,5 +125,59 @@ public class BoardView extends GridPane {
             }
         }
         switchedPos = game.getSwitchedPositions();
+    }
+
+    /**
+     * Updates the view.
+     */
+    void update() {
+        updateAccessibles();
+
+        if (game.getCurrentPlayer() instanceof IA && game.getPreviousPlayer() instanceof IA) {
+            updateFull();
+        } else {
+
+            Color prevPlayer = game.getPreviousPlayer().getColor();
+            int row, col;
+            if (switchedPos.size() == 1) {
+                row = switchedPos.get(0).getROW();
+                col = switchedPos.get(0).getCOL();
+                addPiece(row, col, Color.WALL);
+            } else if (switchedPos.size() > 0) {
+                row = switchedPos.get(0).getROW();
+                col = switchedPos.get(0).getCOL();
+                addPiece(row, col, prevPlayer);
+                switchedPos.stream().skip(1).forEach(pos
+                        -> getTileByRowCol(pos.getROW(), pos.getCOL()).switchColor()
+                );
+            }
+        }
+    }
+
+    ///////////////////////////Private//Methods//////////////////////////////
+    private void addPiece(int row, int col, Color color) {
+        getTileByRowCol(row, col).addPiece(color);
+    }
+
+    private void updateAccessibles() {
+        accessibles.stream().forEach(pos
+                -> getTileByRowCol(pos.getROW(), pos.getCOL()).setAccessible(false));
+        accessibles = game.getAccessibles();
+        accessibles.stream().forEach(pos
+                -> getTileByRowCol(pos.getROW(), pos.getCOL()).setAccessible(true));
+    }
+
+    private void updateFull() {
+        TileView tile;
+        Piece piece;
+        for (int row = 0; row < game.getMaxRowsCols(); row++) {
+            for (int col = 0; col < game.getMaxRowsCols(); col++) {
+                piece = game.getPiece(new Coordinates(row, col));
+                if (piece != null) {
+                    tile = getTileByRowCol(row, col);
+                    tile.addPiece(piece.getColor());
+                }
+            }
+        }
     }
 }

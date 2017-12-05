@@ -4,18 +4,16 @@ import g43197.othello.model.Move;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Shadow;
 
 /**
  *
  * @author Philippe
  */
-public class HistoricView extends TableView {
+class HistoricView extends TableView {
 
     private final TableColumn<Move, Integer> id;
     private final TableColumn<Move, String> name;
@@ -23,7 +21,7 @@ public class HistoricView extends TableView {
     private final TableColumn<Move, String> pos;
     private final TableColumn<Move, Integer> nbTakes;
 
-    public HistoricView(ObservableList<Move> historic) {
+    HistoricView(ObservableList<Move> historic) {
         super(historic);
         this.setEffect(new DropShadow());
 

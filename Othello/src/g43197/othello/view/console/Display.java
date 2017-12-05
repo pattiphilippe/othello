@@ -1,6 +1,6 @@
 package g43197.othello.view.console;
 
-import g43197.othello.Command;
+import g43197.othello.console.Command;
 import g43197.othello.model.Player;
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package g43197.othello.model;
+package g43197.othello.model.util;
 
 /**
  * Possible colors of the pieces.

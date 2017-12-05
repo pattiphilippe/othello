@@ -1,4 +1,4 @@
-package g43197.othello.model;
+package g43197.othello.model.util;
 
 /**
  * All the possible actions that a player can do.

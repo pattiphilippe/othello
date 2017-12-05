@@ -17,8 +17,8 @@ import javafx.scene.paint.Color;
  *
  * @author Philippe
  */
-public class PlayersView extends HBox {
-    
+class PlayersView extends HBox {
+
     private final Background selected;
     private final Background notSelected;
     private final List<PlayerView> players;
@@ -30,28 +30,28 @@ public class PlayersView extends HBox {
      * @param d the insets between players node.
      * @param players
      */
-    public PlayersView(double d, Player... players) {
+    PlayersView(double d, Player... players) {
         super(d);
         this.setAlignment(Pos.CENTER);
-        
+
         this.players = new ArrayList<>(2);
-        
+
         Color color;
         for (Player p : players) {
-            color = p.getColor() == g43197.othello.model.Color.BLACK ? Color.BLACK : Color.WHITE;
+            color = p.getColor() == g43197.othello.model.util.Color.BLACK ? Color.BLACK : Color.WHITE;
             this.players.add(new PlayerView(p.getName(), p.getScore(), color));
         }
         this.players.forEach(p -> setHgrow(p, Priority.ALWAYS));
-        
+
         selected = new Background(new BackgroundFill(Color.GREENYELLOW, new CornerRadii(8), Insets.EMPTY));
         notSelected = new Background(new BackgroundFill(Color.ORANGERED, new CornerRadii(8), Insets.EMPTY));
         this.players.get(0).setBackground(selected);
         this.players.get(1).setBackground(notSelected);
         currentPlayer = this.players.get(0);
-        
+
         this.players.forEach(p -> this.getChildren().add(p));
     }
-    
+
     private void nextPlayer() {
         currentPlayer.setBackground(notSelected);
         int i = players.indexOf(currentPlayer) + 1;
@@ -69,17 +69,17 @@ public class PlayersView extends HBox {
      * @param name
      * @param scores
      */
-    public void update(String name, List<g43197.othello.model.Player> scores) {
+    void update(String name, List<Player> scores) {
         updatePlayer(name);
         updateScores(scores);
     }
-    
-    private void updatePlayer(String name) {
+
+    void updatePlayer(String name) {
         while (!this.currentPlayer.isPlayer(name)) {
             nextPlayer();
         }
     }
-    
+
     private void updateScores(List<Player> scores) {
         for (int i = 0; i < scores.size(); i++) {
             players.get(i).updateScore(scores.get(i).getScore());

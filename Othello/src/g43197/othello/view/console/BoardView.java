@@ -1,6 +1,6 @@
 package g43197.othello.view.console;
 
-import g43197.othello.model.Coordinates;
+import g43197.othello.model.util.Coordinates;
 import g43197.othello.model.Facade;
 import g43197.othello.model.Piece;
 import java.util.List;

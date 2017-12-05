@@ -1,5 +1,8 @@
 package g43197.othello.model;
 
+import g43197.othello.model.util.StratRandom;
+import g43197.othello.model.util.Strategy;
+import g43197.othello.model.util.Color;
 
 /**
  *
@@ -7,27 +10,25 @@ package g43197.othello.model;
  */
 public class IA extends Player implements Strategy {
 
-    //TODO check all visibilities
+    //TODO check all visibilities in view
     private Strategy strategy;
 
-    IA(Color color) {
-        this(color, new StratRandom());
+    public IA(Color color, String name) {
+        this(color, name, new StratRandom());
     }
 
-    IA(Color color, Strategy strategy) {
-        super(color);
-        this.name = "IA";
+    public IA(Color color, String name, Strategy strategy) {
+        super(color, name);
         this.strategy = strategy;
     }
 
-    IA(IA ia) {
-        this(ia.getColor(), ia.strategy);
+    public IA(IA ia) {
+        this(ia.getColor(), ia.getName(), ia.strategy);
     }
 
     @Override
     public void play(Facade game) {
         strategy.play(game);
-
     }
 
     //TODO permit to change strat
@@ -35,7 +36,7 @@ public class IA extends Player implements Strategy {
      *
      * @param strategy
      */
-    void setStrategy(Strategy strategy) {
+    public void setStrategy(Strategy strategy) {
         this.strategy = strategy;
     }
 }

@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
  *
  * @author Philippe
  */
-public class Buttons extends HBox {
+class Buttons extends HBox {
 
     private final Button pass;
     private final Alert cantPass;
@@ -21,7 +21,7 @@ public class Buttons extends HBox {
     private final Button abandon;
     private final Alert checkAbandon;
 
-    public Buttons(Facade game, BoardView board) {
+    Buttons(Facade game, BoardView board) {
         super(10);
         this.setAlignment(Pos.CENTER);
 
@@ -70,11 +70,11 @@ public class Buttons extends HBox {
             if (checkReplay.getResult() == ButtonType.OK) {
                 game.startAgain();
                 board.replay();
+                game.iaStart();
             } else {
                 event.consume();
             }
         });
         this.getChildren().addAll(pass, abandon, replay);
     }
-
 }

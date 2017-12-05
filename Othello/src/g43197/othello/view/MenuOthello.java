@@ -10,12 +10,12 @@ import javafx.scene.input.KeyCombination;
  *
  * @author Philippe
  */
-public class MenuOthello extends MenuBar {
+class MenuOthello extends MenuBar {
 
     private final Menu menuFile;
     private final MenuItem exit;
 
-    public MenuOthello() {
+    MenuOthello() {
         super();
         //TODO faire plus d'options dans le menu : export historic, save/load?, help, change pictures?, change animation?, IA / 2 players, nom des joueurs...
 

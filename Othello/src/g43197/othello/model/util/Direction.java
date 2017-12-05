@@ -1,4 +1,4 @@
-package g43197.othello.model;
+package g43197.othello.model.util;
 
 /**
  * This enum are directions to move on the board. Each one of them goes 1 tile

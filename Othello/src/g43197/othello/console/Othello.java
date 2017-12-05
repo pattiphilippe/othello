@@ -1,8 +1,8 @@
-package g43197.othello;
+package g43197.othello.console;
 
 import g43197.othello.model.Facade;
 import g43197.othello.model.Game;
-import g43197.othello.model.GameException;
+import g43197.othello.model.util.GameException;
 import static g43197.othello.view.console.BoardView.*;
 import g43197.othello.view.console.Display;
 import g43197.othello.view.console.Read;
@@ -15,6 +15,9 @@ import g43197.othello.view.console.Read;
 public class Othello {
 
     //TODO ? gérer les exceptions avec Exception et pas runtime Exception
+    //TODO ajouter des images pour le wall et en background
+    //TODO ajouter musique de fond
+    //TODO ? button undo
     /**
      * Main method of Othello.
      *

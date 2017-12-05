@@ -1,4 +1,4 @@
-package g43197.othello.model;
+package g43197.othello.model.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,23 +45,23 @@ public class Observable {
         }
     }
 
-    public synchronized void deleteObservers() {
+    public void deleteObservers() {
         obs.clear();
     }
 
-    protected synchronized void setChanged() {
+    protected void setChanged() {
         changed = true;
     }
 
-    protected synchronized void clearChanged() {
+    protected void clearChanged() {
         changed = false;
     }
 
-    public synchronized boolean hasChanged() {
+    public boolean hasChanged() {
         return changed;
     }
 
-    public synchronized int countObservers() {
+    public int countObservers() {
         return obs.size();
     }
 }

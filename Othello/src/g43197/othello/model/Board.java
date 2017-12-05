@@ -1,5 +1,9 @@
 package g43197.othello.model;
 
+import g43197.othello.model.util.Color;
+import g43197.othello.model.util.Coordinates;
+import g43197.othello.model.util.Direction;
+import g43197.othello.model.util.GameException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +13,7 @@ import java.util.List;
  *
  * @author Philippe
  */
-class Board{
+class Board {
 
     /**
      * The default number of rows and cols.

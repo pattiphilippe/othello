@@ -1,5 +1,7 @@
 package g43197.othello.model;
 
+import g43197.othello.model.util.Color;
+import g43197.othello.model.util.GameException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -14,7 +16,7 @@ public class PlayerTest {
      */
     @Test
     public void newPlayer() {
-        Player p = new Player(Color.BLACK);
+        Player p = new Player(Color.BLACK, "");
         assertEquals(p.getColor(), Color.BLACK);
         assertEquals(p.getScore(), 2);
     }
@@ -24,7 +26,7 @@ public class PlayerTest {
      */
     @Test
     public void testModifyScoreFirst() {
-        Player player = new Player(Color.WHITE);
+        Player player = new Player(Color.WHITE, "");
         int delta = 2;
         player.modifyScore(delta);
         assertEquals(4, player.getScore());
@@ -35,7 +37,7 @@ public class PlayerTest {
      */
     @Test
     public void testModifyScoreSeveral() {
-        Player player = new Player(Color.WHITE);
+        Player player = new Player(Color.WHITE, "");
         int delta = 15;
         player.modifyScore(delta);
         delta = 10;
@@ -48,7 +50,7 @@ public class PlayerTest {
      */
     @Test
     public void testModifyScoreNegative() {
-        Player player = new Player(Color.WHITE);
+        Player player = new Player(Color.WHITE, "");
         int delta = 15;
         player.modifyScore(delta);
         delta = -5;
@@ -61,7 +63,7 @@ public class PlayerTest {
      */
     @Test(expected = GameException.class)
     public void testModifyScoreIsNegative() {
-        Player player = new Player(Color.WHITE);
+        Player player = new Player(Color.WHITE, "");
         player.modifyScore(-5);
     }
 

@@ -1,4 +1,4 @@
-package g43197.othello.model;
+package g43197.othello.model.util;
 
 /**
  * This class purpose is to differenciate a code error from a broken game's

@@ -1,6 +1,6 @@
 package g43197.othello.view;
 
-import g43197.othello.model.Color;
+import g43197.othello.model.util.Color;
 import g43197.othello.model.Facade;
 import g43197.othello.model.Player;
 import javafx.scene.control.Label;
@@ -9,15 +9,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
+ * Class with multiple Graphic helps like a progressbar.
  *
  * @author Philippe
  */
-public class GraphicHelps extends VBox {
+class GraphicHelps extends VBox {
 
     private final Facade game;
     private final ProgressBar pieceProgress;
 
-    public GraphicHelps(Facade game) {
+    GraphicHelps(Facade game) {
         this.game = game;
         HBox pieceProgressContainer = new HBox(10);
         pieceProgress = new ProgressBar();
@@ -40,7 +41,7 @@ public class GraphicHelps extends VBox {
     }
 
     //TODO check visibilities of methods and classes
-    public void update() {
+    void update() {
         updatePieceProgress();
     }
 

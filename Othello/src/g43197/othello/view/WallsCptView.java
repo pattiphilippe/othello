@@ -10,6 +10,7 @@ import javafx.scene.text.Font;
  */
 public class WallsCptView extends Pane {
 
+    //TODO classe à réécrire, à insérer dans GraphicHelps
     private int nbWalls;
     private final Label lblWallsCpt;
 

@@ -1,5 +1,8 @@
 package g43197.othello.model;
 
+import g43197.othello.model.util.Coordinates;
+import g43197.othello.model.util.Color;
+import g43197.othello.model.util.GameException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;

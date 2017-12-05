@@ -1,5 +1,7 @@
 package g43197.othello.model;
 
+import g43197.othello.model.util.Coordinates;
+import g43197.othello.model.util.Direction;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

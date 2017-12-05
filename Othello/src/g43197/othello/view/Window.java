@@ -2,14 +2,10 @@ package g43197.othello.view;
 
 import g43197.othello.model.Facade;
 import g43197.othello.model.IA;
-import g43197.othello.model.Observable;
-import g43197.othello.model.Observer;
+import g43197.othello.model.util.Observable;
+import g43197.othello.model.util.Observer;
 import g43197.othello.model.Player;
-import g43197.othello.model.Strategy;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
@@ -21,12 +17,9 @@ import javafx.util.Duration;
  *
  * @author Philippe
  */
-public class Window extends BorderPane implements Observer {
+class Window extends BorderPane implements Observer {
 
-    //TODO top: menubar
-    //TODO left : board, buttons ; right : players, historic 
     //TODO add a wall cpt view
-    //TODO add a class for graphicHelps with progressBar, ...
     private final Facade game;
     // Top
     private final MenuOthello menu;
@@ -41,7 +34,7 @@ public class Window extends BorderPane implements Observer {
     private final Alert finishedGame;
     private final PauseTransition pause;
 
-    public Window(Facade game) {
+    Window(Facade game) {
         //this settings
         super();
         this.game = game;
@@ -78,8 +71,10 @@ public class Window extends BorderPane implements Observer {
         finishedGame = new Alert(Alert.AlertType.INFORMATION);
         finishedGame.setTitle("Finished Game");
         finishedGame.setHeaderText("Congratulations!");
-        pause = new PauseTransition(new Duration(2000));
+        pause = new PauseTransition(new Duration(1000));
         pause.setOnFinished(e -> update());
+
+        game.iaStart();
     }
 
     @Override

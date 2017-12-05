@@ -1,5 +1,6 @@
-package g43197.othello.model;
+package g43197.othello.model.util;
 
+import g43197.othello.model.Facade;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ public class StratRandom implements Strategy {
         if (!accessibles.isEmpty()) {
             game.putPiece(accessibles.get(random(accessibles.size())));
         } else {
+            //TODO check no bug when can't pass, and don't put up finished game
             boolean stop = false;
             for (int i = 0; i < 8 && !stop; i++) {
                 for (int j = 0; j < 8 && !stop; j++) {

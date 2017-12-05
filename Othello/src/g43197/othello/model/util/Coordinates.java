@@ -1,4 +1,4 @@
-package g43197.othello.model;
+package g43197.othello.model.util;
 
 /**
  * Simple coordinate representation with a row and a column. Can take every

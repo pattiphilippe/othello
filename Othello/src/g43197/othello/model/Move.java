@@ -1,5 +1,8 @@
 package g43197.othello.model;
 
+import g43197.othello.model.util.Coordinates;
+import g43197.othello.model.util.MoveAction;
+
 /**
  *
  * @author Philippe

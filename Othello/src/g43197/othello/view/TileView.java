@@ -14,7 +14,6 @@ import static javafx.scene.paint.Color.LIGHTBLUE;
 import static javafx.scene.paint.Color.BROWN;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.util.Duration;
@@ -24,7 +23,7 @@ import javafx.util.Duration;
  *
  * @author Philippe
  */
-public class TileView extends StackPane {
+class TileView extends StackPane {
 
     private final Rectangle rectangle;
     private final Circle piece;
@@ -40,11 +39,12 @@ public class TileView extends StackPane {
      * @param width
      * @param height
      */
-    public TileView(double width, double height) {
+    TileView(double width, double height) {
         this.setPrefWidth(width);
         this.setPrefHeight(height);
         this.setOnMouseEntered(event -> setEffect(new InnerShadow(5, BLACK)));
         this.setOnMouseExited(event -> setEffect(null));
+        //TODO circle ou ellipse
 
 //        piece = new Ellipse(width * SHAPE_SIZE_FACT, height * SHAPE_SIZE_FACT);
         piece = new Circle(height / 2.4);
@@ -67,16 +67,11 @@ public class TileView extends StackPane {
         switchColorPart2 = new Timeline(new KeyFrame(new Duration(2000), new KeyValue(piece.radiusProperty(), height / 2.4)));
     }
 
-    private void init() {
-        piece.setVisible(false);
-        wall.setVisible(false);
-    }
-
     /**
      * Puts the tile to its init state, with nothing visible in it. Doesn't
      * change its visibility.
      */
-    public void initTile() {
+    void initTile() {
         init();
     }
 
@@ -85,7 +80,7 @@ public class TileView extends StackPane {
      *
      * @param color
      */
-    public void addPiece(g43197.othello.model.Color color) {
+    void addPiece(g43197.othello.model.util.Color color) {
         switch (color) {
             case WALL:
                 addWall();
@@ -97,16 +92,11 @@ public class TileView extends StackPane {
         }
     }
 
-    private void addWall() {
-        piece.setVisible(false);
-        wall.setVisible(true);
-    }
-
     /**
      * Switches the color of the piece on this tile.
      *
      */
-    public void switchColor() {
+    void switchColor() {
         if (wall.isVisible() == true) {
             throw new RuntimeException("Can't switch walls color!");
         }
@@ -123,24 +113,13 @@ public class TileView extends StackPane {
         switchColorPart2.play();
     }
 
-    private Paint getFxColor(g43197.othello.model.Color color) {
-        switch (color) {
-            case BLACK:
-                return BLACK;
-            case WHITE:
-                return WHITE;
-            default:
-                throw new RuntimeException("wrong color!");
-        }
-    }
-
     /**
      * Displays that this tile is accessible if accessible boolean is true. If
      * it's false, displays the tile normally.
      *
      * @param accessible
      */
-    public void setAccessible(boolean accessible) {
+    void setAccessible(boolean accessible) {
         if (accessible) {
             rectangle.setFill(Color.CHARTREUSE);
             rectangle.setEffect(new Glow(0.6));
@@ -151,4 +130,25 @@ public class TileView extends StackPane {
     }
 
     //TODO check visibilité des méthodes dans la vue
+    ///////////////////////////Private//Methods//////////////////////////////
+    private void init() {
+        piece.setVisible(false);
+        wall.setVisible(false);
+    }
+
+    private Paint getFxColor(g43197.othello.model.util.Color color) {
+        switch (color) {
+            case BLACK:
+                return BLACK;
+            case WHITE:
+                return WHITE;
+            default:
+                throw new RuntimeException("wrong color!");
+        }
+    }
+
+    private void addWall() {
+        piece.setVisible(false);
+        wall.setVisible(true);
+    }
 }

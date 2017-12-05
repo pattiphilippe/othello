@@ -1,5 +1,7 @@
 package g43197.othello.model;
 
+import g43197.othello.model.util.Color;
+import g43197.othello.model.util.GameException;
 import java.util.Objects;
 
 /**
@@ -11,27 +13,31 @@ public class Player {
 
     private final Color COLOR;
     private int score;
-    String name;
+    private String name;
 
     /**
      * Creates a player. The color is set to the given color.
      *
      * @param color
+     * @param name
      */
-    Player(Color color) {
-        if (color == null) {
+    public Player(Color color, String name) {
+        if (color == null || name == null) {
             throw new IllegalArgumentException("Color can't be null!");
         }
 
         this.COLOR = color;
-        String firstLetter = COLOR.name().charAt(0) + "";
-        String rest = COLOR.name().substring(1).toLowerCase();
-        name = firstLetter.concat(rest);
-        initScore();
+        this.score = 2;
+        if (name.equals("")) {
+            String firstLetter = COLOR.name().charAt(0) + "";
+            String rest = COLOR.name().substring(1).toLowerCase();
+            this.name = firstLetter.concat(rest);
+        } else {
+            this.name = name;
+        }
     }
-    //TODO gérer les noms différents
 
-    Player(Player player) {
+    public Player(Player player) {
         if (player == null) {
             throw new IllegalArgumentException("Player can't be null!");
         }
@@ -43,7 +49,7 @@ public class Player {
     /**
      * Initializes the score of the player to 2. Can be called when new game.
      */
-    final void initScore() {
+    public void initScore() {
         this.score = 2;
     }
 

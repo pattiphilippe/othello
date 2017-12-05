@@ -1,5 +1,7 @@
 package g43197.othello.model;
 
+import g43197.othello.model.util.Color;
+import g43197.othello.model.util.GameException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

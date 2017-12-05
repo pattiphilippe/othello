@@ -1,5 +1,9 @@
 package g43197.othello.model;
 
+import g43197.othello.model.util.Coordinates;
+import g43197.othello.model.util.MoveAction;
+import g43197.othello.model.util.Strategy;
+import g43197.othello.model.util.GameException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -43,6 +47,13 @@ public class Game extends Facade {
     }
 
     @Override
+    public void iaStart() {
+        if (players.getCurrentPlayer() instanceof IA) {
+            iaPlay();
+        }
+    }
+
+    @Override
     public boolean isFinished() {
         if (abandonned) {
             return true;
@@ -51,8 +62,7 @@ public class Game extends Facade {
         } else {
             players.next();
             boolean isFinished = !canPlay();
-            //TODO voir pour previous player
-            players.next();
+            players.previous();
             return isFinished;
         }
     }
@@ -128,7 +138,6 @@ public class Game extends Facade {
 
     @Override
     public List<Coordinates> getAccessibles() {
-        //TODO check if can do it differently, not bind it directly with accessibles
         List<Coordinates> list = new ArrayList<>();
         for (Coordinates pos : accessibles) {
             list.add(new Coordinates(pos));
@@ -138,6 +147,7 @@ public class Game extends Facade {
 
     @Override
     public List<Coordinates> getSwitchedPositions() {
+        // Be careful, the next code line links it to the real list, instantly updated
         return Collections.unmodifiableList(board.getSwitchedPositions());
     }
 

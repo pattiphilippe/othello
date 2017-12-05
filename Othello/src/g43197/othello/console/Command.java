@@ -1,4 +1,4 @@
-package g43197.othello;
+package g43197.othello.console;
 
 /**
  * Enum of every possible commands in console game.

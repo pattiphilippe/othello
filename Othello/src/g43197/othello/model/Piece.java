@@ -1,5 +1,7 @@
 package g43197.othello.model;
 
+import g43197.othello.model.util.Color;
+import g43197.othello.model.util.Color;
 import java.util.Objects;
 
 /**
@@ -42,7 +44,7 @@ public class Piece {
     /**
      * Switches the color of the piece between the 2 first colors in Color Enum.
      */
-    void switchColor() {
+    public void switchColor() {
         Color[] colors = Color.values();
         if (color == colors[0]) {
             color = colors[1];

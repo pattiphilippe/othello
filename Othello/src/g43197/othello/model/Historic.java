@@ -1,5 +1,7 @@
 package g43197.othello.model;
 
+import g43197.othello.model.util.Coordinates;
+import g43197.othello.model.util.MoveAction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

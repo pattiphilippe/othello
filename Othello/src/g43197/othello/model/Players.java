@@ -1,5 +1,6 @@
 package g43197.othello.model;
 
+import g43197.othello.model.util.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,8 +10,7 @@ import java.util.List;
  *
  * @author Philippe
  */
-public class Players implements Iterator<Player> {
-//TODO check iterator   
+class Players implements Iterator<Player> {
 
     private final List<Player> players;
     private Player currentPlayer;
@@ -18,17 +18,19 @@ public class Players implements Iterator<Player> {
     /**
      * Creates a new list of players.
      */
-    Players() {
-        this(false, false);
+    Players(String... names) {
+        this(false, false, names);
     }
 
-    Players(boolean ia1, boolean ia2) {
+    Players(boolean ia1, boolean ia2, String... names) {
         players = new ArrayList<>(2);
+        String name;
         for (int i = 0; i < 2; i++) {
+            name = names.length >= i ? names[i] : "";
             if ((i == 0 && ia1) || (i == 1 && ia2)) {
-                players.add(new IA(Color.values()[i]));
+                players.add(new IA(Color.values()[i], name));
             } else {
-                players.add(new Player(Color.values()[i]));
+                players.add(new Player(Color.values()[i], name));
             }
         }
         currentPlayer = players.get(0);
@@ -52,7 +54,7 @@ public class Players implements Iterator<Player> {
     Player getCurrentPlayer() {
         return currentPlayer;
     }
-    
+
     /**
      * Returns the previous player.
      *
@@ -105,9 +107,10 @@ public class Players implements Iterator<Player> {
         return players;
     }
 
+    //TODO employer hasNext ou supprimer implements iterator
     @Override
     public boolean hasNext() {
-        return players.size() != (players.indexOf(currentPlayer) + 1);
+        return true;
     }
 
     @Override
@@ -119,5 +122,9 @@ public class Players implements Iterator<Player> {
             currentPlayer = players.get(0);
         }
         return currentPlayer;
+    }
+
+    Player previous() {
+        return next();
     }
 }
