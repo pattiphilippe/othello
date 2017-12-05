@@ -1,7 +1,6 @@
 package g43197.othello.model;
 
 import java.util.List;
-import java.util.Observable;
 import javafx.collections.ObservableList;
 
 /**
@@ -45,6 +44,8 @@ public abstract class Facade extends Observable {
      * @return
      */
     public abstract Player getCurrentPlayer();
+
+    public abstract Player getPreviousPlayer();
 
     /**
      * Returns the winner. If the game isn't finished, returns null.
@@ -122,11 +123,4 @@ public abstract class Facade extends Observable {
      * and the game is finished.
      */
     public abstract void abandon();
-
-    /**
-     * Checks if someone has abandonned the game.
-     *
-     * @return true if someone did
-     */
-    public abstract boolean abandonned();
 }

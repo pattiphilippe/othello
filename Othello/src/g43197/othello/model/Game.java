@@ -49,10 +49,10 @@ public class Game extends Facade {
         } else if (canPlay()) {
             return false;
         } else {
-            nextPlayer();
+            players.next();
             boolean isFinished = !canPlay();
             //TODO voir pour previous player
-            nextPlayer();
+            players.next();
             return isFinished;
         }
     }
@@ -83,14 +83,26 @@ public class Game extends Facade {
 
     @Override
     public Player getCurrentPlayer() {
-        return players.getCurrentPlayer();
+        Player p = players.getCurrentPlayer();
+        if (p instanceof IA) {
+            return new IA((IA) p);
+        }
+        return new Player(p);
+    }
+
+    @Override
+    public Player getPreviousPlayer() {
+        Player p = players.getPreviousPlayer();
+        if (p instanceof IA) {
+            return new IA((IA) p);
+        }
+        return new Player(p);
     }
 
     @Override
     public Player getWinner() {
-        Player p = players.getWinner();
         if (isFinished()) {
-            return p;
+            return new Player(players.getWinner());
         } else {
             return null;
         }
@@ -141,9 +153,8 @@ public class Game extends Facade {
         }
         int points = board.put(rack.getPiece(players.getCurrentPlayer().getColor()), pos);
         rack.removePiece();
-        players.modifyScore(points + 1);
+        players.modifyScore(points);
         historic.add(players.getCurrentPlayer().getName(), MoveAction.PIECE, pos, points);
-        System.out.println("update put piece");
         setChanged();
         nextPlayer();
     }
@@ -157,7 +168,6 @@ public class Game extends Facade {
         rack.addWall();
         historic.add(players.getCurrentPlayer().getName(), MoveAction.WALL, pos, 0);
         setChanged();
-        System.out.println("update put wall");
         nextPlayer();
     }
 
@@ -168,7 +178,6 @@ public class Game extends Facade {
         }
         historic.add(players.getCurrentPlayer().getName(), MoveAction.PASS, null, 0);
         setChanged();
-        System.out.println("update pass");
         nextPlayer();
     }
 
@@ -177,13 +186,7 @@ public class Game extends Facade {
         abandonned = true;
         historic.add(players.getCurrentPlayer().getName(), MoveAction.ABANDON, null, 0);
         setChanged();
-        System.out.println("update abandon");
         notifyObservers();
-    }
-
-    @Override
-    public boolean abandonned() {
-        return abandonned;
     }
 
     ///////////////////////////Private//Methods//////////////////////////////
@@ -200,12 +203,15 @@ public class Game extends Facade {
         players.next();
         updateAccessibles();
         notifyObservers();
+        if (!isFinished()) {
+            iaPlay();
+        }
+    }
+
+    private void iaPlay() {
         if (players.getCurrentPlayer() instanceof Strategy) {
-            System.out.println("player has strategy");
             Strategy ia = (Strategy) players.getCurrentPlayer();
             ia.play(this);
-        } else {
-            System.out.println("human player");
         }
     }
 

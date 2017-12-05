@@ -20,14 +20,6 @@ public class PlayerTest {
     }
 
     /**
-     * Checks the exception if null in arg of Player constructor.
-     */
-    @Test(expected = IllegalArgumentException.class)
-    public void newPlayerNullColor() {
-        new Player(null);
-    }
-
-    /**
      * Test when first incrementation of score.
      */
     @Test

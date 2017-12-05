@@ -3,6 +3,7 @@ package g43197.othello.view;
 import g43197.othello.model.Color;
 import g43197.othello.model.Coordinates;
 import g43197.othello.model.Facade;
+import g43197.othello.model.IA;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
@@ -48,7 +49,7 @@ public class BoardView extends GridPane {
 
             @Override
             public void handle(MouseEvent event) {
-                if (game.isFinished()) {
+                if (game.isFinished() || (game.getCurrentPlayer() instanceof IA)) {
                     event.consume();
                 } else {
                     try {
@@ -59,12 +60,11 @@ public class BoardView extends GridPane {
                             case SECONDARY:
                                 game.putWall(new Coordinates(row, col));
                                 break;
-                            default:
-                                event.consume();
                         }
                     } catch (Exception e) {
                         event.consume();
                     }
+                    event.consume();
                 }
             }
         }
@@ -118,7 +118,6 @@ public class BoardView extends GridPane {
      * Updates the view.
      */
     public void update() {
-        System.out.println("update board");
         updateAccessibles();
 
         Color prevPlayer = game.getCurrentPlayer().getColor() == Color.BLACK ? Color.WHITE : Color.BLACK;

@@ -29,6 +29,16 @@ public class Player {
         name = firstLetter.concat(rest);
         initScore();
     }
+    //TODO gérer les noms différents
+
+    Player(Player player) {
+        if (player == null) {
+            throw new IllegalArgumentException("Player can't be null!");
+        }
+        this.COLOR = player.COLOR;
+        this.name = player.name;
+        this.score = player.score;
+    }
 
     /**
      * Initializes the score of the player to 2. Can be called when new game.

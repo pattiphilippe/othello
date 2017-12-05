@@ -1,14 +1,21 @@
 package g43197.othello.view;
 
 import g43197.othello.model.Facade;
+import g43197.othello.model.IA;
+import g43197.othello.model.Observable;
+import g43197.othello.model.Observer;
 import g43197.othello.model.Player;
+import g43197.othello.model.Strategy;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.animation.PauseTransition;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  *
@@ -20,6 +27,7 @@ public class Window extends BorderPane implements Observer {
     //TODO left : board, buttons ; right : players, historic 
     //TODO add a wall cpt view
     //TODO add a class for graphicHelps with progressBar, ...
+    private final Facade game;
     // Top
     private final MenuOthello menu;
     // Left
@@ -31,11 +39,13 @@ public class Window extends BorderPane implements Observer {
     private final HistoricView historic;
     // Others
     private final Alert finishedGame;
+    private final PauseTransition pause;
 
     public Window(Facade game) {
         //this settings
         super();
-        game.addObserver(this);
+        this.game = game;
+        this.game.addObserver(this);
 
         // Top
         menu = new MenuOthello();
@@ -68,26 +78,28 @@ public class Window extends BorderPane implements Observer {
         finishedGame = new Alert(Alert.AlertType.INFORMATION);
         finishedGame.setTitle("Finished Game");
         finishedGame.setHeaderText("Congratulations!");
+        pause = new PauseTransition(new Duration(2000));
+        pause.setOnFinished(e -> update());
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        if (!(o instanceof Facade)) {
-            throw new IllegalArgumentException("Unknown type of observable!");
+        if (game.getPreviousPlayer() instanceof IA) {
+            pause.play();
+        } else {
+            update();
         }
-        System.out.println("update window");
-        Facade game = (Facade) o;
+    }
+
+    private void update() {
+        graphicHelps.update();
+        players.update(game.getCurrentPlayer().getName(), game.getPlayers());
+        board.update();
         if (game.isFinished()) {
             Player winner = game.getWinner();
             finishedGame.setContentText("Player " + winner.getName()
                     + " won with " + winner.getScore() + " points.");
             finishedGame.show();
-        }
-        if (!game.abandonned()) {
-            //TODO check if other stuff to update : wallscpt
-            graphicHelps.update();
-            players.update(game.getCurrentPlayer().getName(), game.getPlayers());
-            board.update();
         }
     }
 }

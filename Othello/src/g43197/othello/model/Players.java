@@ -52,6 +52,20 @@ public class Players implements Iterator<Player> {
     Player getCurrentPlayer() {
         return currentPlayer;
     }
+    
+    /**
+     * Returns the previous player.
+     *
+     * @return
+     */
+    Player getPreviousPlayer() {
+        int i = players.indexOf(currentPlayer) + 1;
+        if (i < players.size()) {
+            return players.get(i);
+        } else {
+            return players.get(0);
+        }
+    }
 
     /**
      * Returns the player with the greatest score.

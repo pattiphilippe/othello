@@ -75,12 +75,12 @@ public class PlayersView extends HBox {
     }
     
     private void updatePlayer(String name) {
-        if (!this.currentPlayer.isPlayer(name)) {
+        while (!this.currentPlayer.isPlayer(name)) {
             nextPlayer();
         }
     }
     
-    private void updateScores(List<g43197.othello.model.Player> scores) {
+    private void updateScores(List<Player> scores) {
         for (int i = 0; i < scores.size(); i++) {
             players.get(i).updateScore(scores.get(i).getScore());
         }
