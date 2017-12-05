@@ -118,6 +118,7 @@ public class BoardView extends GridPane {
      * Updates the view.
      */
     public void update() {
+        System.out.println("update board");
         updateAccessibles();
 
         Color prevPlayer = game.getCurrentPlayer().getColor() == Color.BLACK ? Color.WHITE : Color.BLACK;

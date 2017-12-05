@@ -21,7 +21,7 @@ public class Othello {
      * @param args
      */
     public static void main(String[] args) {
-        Facade game = new Game();
+        Facade game = new Game(false, true);
         Display.startGame();
         Command command;
         while (true) {
@@ -40,7 +40,7 @@ public class Othello {
                     }
                     break;
                 case SCORE:
-                    Display.scores(game.getScores());
+                    Display.scores(game.getPlayers());
                     break;
                 case REPLAY:
                     Display.startGame();

@@ -54,7 +54,7 @@ public class Window extends BorderPane implements Observer {
         this.setLeft(left);
 
         // Right side
-        List<Player> playersList = game.getScores();
+        List<Player> playersList = game.getPlayers();
         players = new PlayersView(10, playersList.toArray(new Player[playersList.size()]));
         historic = new HistoricView(game.getHistoric());
 
@@ -75,6 +75,7 @@ public class Window extends BorderPane implements Observer {
         if (!(o instanceof Facade)) {
             throw new IllegalArgumentException("Unknown type of observable!");
         }
+        System.out.println("update window");
         Facade game = (Facade) o;
         if (game.isFinished()) {
             Player winner = game.getWinner();
@@ -85,7 +86,7 @@ public class Window extends BorderPane implements Observer {
         if (!game.abandonned()) {
             //TODO check if other stuff to update : wallscpt
             graphicHelps.update();
-            players.update(game.getCurrentPlayer().getName(), game.getScores());
+            players.update(game.getCurrentPlayer().getName(), game.getPlayers());
             board.update();
         }
     }

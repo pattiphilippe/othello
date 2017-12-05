@@ -39,7 +39,7 @@ public class Display {
     public static void scores(List<Player> players) {
         System.out.println("Scores:");
         players.forEach((p) -> {
-            System.out.println(p.getColor() + ": " + p.getScore());
+            System.out.println(p.getName() + ": " + p.getScore());
         });
     }
 

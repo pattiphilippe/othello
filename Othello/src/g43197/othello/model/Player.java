@@ -11,7 +11,7 @@ public class Player {
 
     private final Color COLOR;
     private int score;
-    private final String name;
+    String name;
 
     /**
      * Creates a player. The color is set to the given color.

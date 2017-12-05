@@ -25,7 +25,11 @@ public class Game extends Facade {
      * Creates a new game.
      */
     public Game() {
-        players = new Players();
+        this(false, false);
+    }
+
+    public Game(boolean ia1, boolean ia2) {
+        players = new Players(ia1, ia2);
         accessibles = new ArrayList<>();
         historic = new Historic();
         initGame();
@@ -73,7 +77,7 @@ public class Game extends Facade {
     }
 
     @Override
-    public List<Player> getScores() {
+    public List<Player> getPlayers() {
         return Collections.unmodifiableList(players.getScores());
     }
 
@@ -139,10 +143,9 @@ public class Game extends Facade {
         rack.removePiece();
         players.modifyScore(points + 1);
         historic.add(players.getCurrentPlayer().getName(), MoveAction.PIECE, pos, points);
-        nextPlayer();
-        players.modifyScore(-points);
+        System.out.println("update put piece");
         setChanged();
-        notifyObservers();
+        nextPlayer();
     }
 
     @Override
@@ -154,6 +157,7 @@ public class Game extends Facade {
         rack.addWall();
         historic.add(players.getCurrentPlayer().getName(), MoveAction.WALL, pos, 0);
         setChanged();
+        System.out.println("update put wall");
         nextPlayer();
     }
 
@@ -164,6 +168,7 @@ public class Game extends Facade {
         }
         historic.add(players.getCurrentPlayer().getName(), MoveAction.PASS, null, 0);
         setChanged();
+        System.out.println("update pass");
         nextPlayer();
     }
 
@@ -172,6 +177,7 @@ public class Game extends Facade {
         abandonned = true;
         historic.add(players.getCurrentPlayer().getName(), MoveAction.ABANDON, null, 0);
         setChanged();
+        System.out.println("update abandon");
         notifyObservers();
     }
 
@@ -194,6 +200,13 @@ public class Game extends Facade {
         players.next();
         updateAccessibles();
         notifyObservers();
+        if (players.getCurrentPlayer() instanceof Strategy) {
+            System.out.println("player has strategy");
+            Strategy ia = (Strategy) players.getCurrentPlayer();
+            ia.play(this);
+        } else {
+            System.out.println("human player");
+        }
     }
 
     private void updateAccessibles() {

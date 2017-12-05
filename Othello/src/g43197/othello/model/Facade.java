@@ -31,12 +31,13 @@ public abstract class Facade extends Observable {
     public abstract boolean canPlay();
 
     /**
-     * Returns a list with every player and their name and score. This list is
-     * only made of clones.
+     * Returns a list with every player. This lets anyone see the name and
+     * score.
      *
-     * @return
+     * @return an unmodifiableList, which means that every change is directly
+     * seen by anyone who once called this method
      */
-    public abstract List<Player> getScores();
+    public abstract List<Player> getPlayers();
 
     /**
      * Gets the current player.

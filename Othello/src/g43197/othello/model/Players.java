@@ -19,9 +19,17 @@ public class Players implements Iterator<Player> {
      * Creates a new list of players.
      */
     Players() {
+        this(false, false);
+    }
+
+    Players(boolean ia1, boolean ia2) {
         players = new ArrayList<>(2);
         for (int i = 0; i < 2; i++) {
-            players.add(new Player(Color.values()[i]));
+            if ((i == 0 && ia1) || (i == 1 && ia2)) {
+                players.add(new IA(Color.values()[i]));
+            } else {
+                players.add(new Player(Color.values()[i]));
+            }
         }
         currentPlayer = players.get(0);
     }
@@ -64,12 +72,19 @@ public class Players implements Iterator<Player> {
     }
 
     /**
-     * Modifies the score of the current player of delta.
+     * Modifies the score of the current player of delta and of the other
+     * player.
      *
-     * @param delta
+     * @param delta the number of switched pieces
      */
     void modifyScore(int delta) {
-        currentPlayer.modifyScore(delta);
+        currentPlayer.modifyScore(delta + 1);
+        int i = players.indexOf(currentPlayer) + 1;
+        if (i < players.size()) {
+            players.get(i).modifyScore(-delta);
+        } else {
+            players.get(0).modifyScore(-delta);
+        }
     }
 
     List<Player> getScores() {

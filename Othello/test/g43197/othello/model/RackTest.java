@@ -17,6 +17,7 @@ public class RackTest {
         Rack rack = new Rack(8);
         for (int i = 0; i < 60; i++) {
             rack.getPiece(Color.BLACK);
+            rack.removePiece();
         }
     }
 
@@ -28,6 +29,7 @@ public class RackTest {
         Rack rack = new Rack(8);
         for (int i = 0; i < 61; i++) {
             rack.getPiece(Color.BLACK);
+            rack.removePiece();
         }
     }
 
@@ -77,6 +79,7 @@ public class RackTest {
         Piece piece;
         for (int i = 0; i < 10; i++) {
             piece = rack.getPiece(color);
+            rack.removePiece();
             assertEquals(color, piece.getColor());
         }
     }
@@ -92,6 +95,7 @@ public class RackTest {
         int maxPieces = (int) Math.pow(8, 2);
         for (int i = 0; i < maxPieces + 2; i++) {
             piece = rack.getPiece(color);
+            rack.removePiece();
             assertEquals(color, piece.getColor());
         }
     }

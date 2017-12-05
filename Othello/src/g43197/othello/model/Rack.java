@@ -11,6 +11,7 @@ import java.util.List;
  * @author Philippe
  */
 class Rack {
+    //TODO supprimer classe rack, trop peu d'utiliter, méthode remove montre toute son inutilité, on peu prendre autant de pièces que l'on veut
 
     private final List<Piece> pieces;
     private int nbWalls;

@@ -74,7 +74,6 @@ public class Buttons extends HBox {
                 event.consume();
             }
         });
-
         this.getChildren().addAll(pass, abandon, replay);
     }
 

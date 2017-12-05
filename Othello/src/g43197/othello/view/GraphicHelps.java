@@ -29,7 +29,7 @@ public class GraphicHelps extends VBox {
 
     private void updatePieceProgress() {
         double nbBlackPieces = 0, otherPieces = 0;
-        for (Player p : game.getScores()) {
+        for (Player p : game.getPlayers()) {
             if (p.getColor() == Color.BLACK) {
                 nbBlackPieces = p.getScore();
             } else {
