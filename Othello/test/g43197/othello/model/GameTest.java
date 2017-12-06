@@ -2,6 +2,7 @@ package g43197.othello.model;
 
 import g43197.othello.model.util.Coordinates;
 import g43197.othello.model.util.Color;
+import g43197.othello.model.util.GameState;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.Test;
@@ -39,7 +40,7 @@ public class GameTest {
     public void testCanPlayFullBoard() {
         Game game = new Game();
         completeBoard(game);
-        assertEquals(true, game.isFinished());
+        assertEquals(GameState.FINISHED, game.getState());
     }
 
     /**
@@ -101,7 +102,7 @@ public class GameTest {
     @Test
     public void testIsFinishedStarted() {
         Game game = new Game();
-        assertEquals(false, game.isFinished());
+        assertNotEquals(GameState.FINISHED, game.getState());
     }
 
     /**
@@ -111,7 +112,7 @@ public class GameTest {
     public void testIsFinishedFinished() {
         Game game = new Game();
         completeBoard(game);
-        assertEquals(true, game.isFinished());
+        assertEquals(GameState.FINISHED, game.getState());
     }
 
     private void completeBoard(Game game) {

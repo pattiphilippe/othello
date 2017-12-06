@@ -1,6 +1,7 @@
 package g43197.othello.view;
 
 import g43197.othello.model.Facade;
+import g43197.othello.model.util.GameState;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import javafx.scene.layout.HBox;
  */
 class Buttons extends HBox {
 
+    private final Alert gameFinished;
     private final Button pass;
     private final Alert cantPass;
     private final Button replay;
@@ -25,21 +27,29 @@ class Buttons extends HBox {
         super(10);
         this.setAlignment(Pos.CENTER);
 
+        gameFinished = new Alert(Alert.AlertType.ERROR);
+        gameFinished.setTitle("Game finished");
+        gameFinished.setHeaderText("Can't pass or abandon!");
+        gameFinished.setContentText("You can't do anything, "
+                + "the game is ... Finished! Stop trying to find bugs...");
+
         // Pass
         cantPass = new Alert(Alert.AlertType.ERROR);
         cantPass.setTitle("Passing alert");
         cantPass.setHeaderText("Can't pass!");
         cantPass.setContentText("Player can't pass, because he can put a piece. "
-                + "When a player can't put a piece, he can build a wall or pass");
+                + "When a player can't put a piece, he can build a wall or pass. ");
 
         pass = new Button("Pass");
         pass.setOnMouseClicked(event -> {
-            if (!game.canPlay()) {
+            if (game.getState() == GameState.FINISHED) {
+                gameFinished.show();
+            } else if (!game.canPlay()) {
                 game.pass();
             } else {
                 cantPass.show();
-                event.consume();
             }
+            event.consume();
         });
 
         // Abandon
@@ -50,12 +60,15 @@ class Buttons extends HBox {
 
         abandon = new Button("Abandon");
         abandon.setOnMouseClicked(event -> {
-            checkAbandon.showAndWait();
-            if (checkAbandon.getResult() == ButtonType.OK && !game.isFinished()) {
-                game.abandon();
+            if (game.getState() == GameState.FINISHED) {
+                gameFinished.show();
             } else {
-                event.consume();
+                checkAbandon.showAndWait();
+                if (checkAbandon.getResult() == ButtonType.OK) {
+                    game.abandon();
+                }
             }
+            event.consume();
         });
 
         //TODO pas fin de jeu quand ia sait jouer
@@ -71,7 +84,6 @@ class Buttons extends HBox {
             checkReplay.showAndWait();
             if (checkReplay.getResult() == ButtonType.OK) {
                 game.startAgain();
-                board.replay();
                 game.iaStart();
             } else {
                 event.consume();

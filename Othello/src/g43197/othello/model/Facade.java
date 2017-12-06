@@ -1,6 +1,7 @@
 package g43197.othello.model;
 
 import g43197.othello.model.util.Coordinates;
+import g43197.othello.model.util.GameState;
 import g43197.othello.model.util.Observable;
 import java.util.List;
 import javafx.collections.ObservableList;
@@ -17,14 +18,18 @@ public abstract class Facade extends Observable {
      */
     public abstract void startAgain();
 
-    public abstract void iaStart();
-
     /**
-     * Checks if the game is over.
+     * Returns the state of the game.
      *
      * @return
      */
-    public abstract boolean isFinished();
+    public abstract GameState getState();
+
+    /**
+     * If the player is an ai, the methods triggers is turn.
+     */
+    //TODO delete this method, full update anyway
+    public abstract void iaStart();
 
     /**
      * Returns true if the current player can put a piece.
@@ -123,8 +128,7 @@ public abstract class Facade extends Observable {
     public abstract void pass();
 
     /**
-     * Makes the current player abandon the game. The other player is the winner
-     * and the game is finished.
+     * Current player of the game abandons. The victory goes to his opponent.
      */
     public abstract void abandon();
 }

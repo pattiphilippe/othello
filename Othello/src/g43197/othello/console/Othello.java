@@ -3,6 +3,7 @@ package g43197.othello.console;
 import g43197.othello.model.Facade;
 import g43197.othello.model.Game;
 import g43197.othello.model.util.GameException;
+import g43197.othello.model.util.GameState;
 import static g43197.othello.view.console.BoardView.*;
 import g43197.othello.view.console.Display;
 import g43197.othello.view.console.Read;
@@ -36,7 +37,7 @@ public class Othello {
                 case PLAY:
                 case PASS:
                 case WALL:
-                    if (!game.isFinished()) {
+                    if (!(game.getState() == GameState.FINISHED)) {
                         playTurn(game, command);
                     } else {
                         Display.gameIsFinished();

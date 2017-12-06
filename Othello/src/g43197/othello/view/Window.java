@@ -5,6 +5,7 @@ import g43197.othello.model.IA;
 import g43197.othello.model.util.Observable;
 import g43197.othello.model.util.Observer;
 import g43197.othello.model.Player;
+import g43197.othello.model.util.GameState;
 import java.util.List;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Insets;
@@ -89,8 +90,9 @@ class Window extends BorderPane implements Observer {
     private void update() {
         graphicHelps.update();
         players.update(game.getCurrentPlayer().getName(), game.getPlayers());
-        board.update();
-        if (game.isFinished()) {
+        System.out.println("window update");
+        board.update(game.getState() == GameState.JUST_STARTED);
+        if (game.getState() == GameState.FINISHED) {
             Player winner = game.getWinner();
             finishedGame.setContentText("Player " + winner.getName()
                     + " won with " + winner.getScore() + " points.");

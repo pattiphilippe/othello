@@ -5,6 +5,7 @@ import g43197.othello.model.util.Coordinates;
 import g43197.othello.model.Facade;
 import g43197.othello.model.IA;
 import g43197.othello.model.Piece;
+import g43197.othello.model.util.GameState;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
@@ -50,7 +51,7 @@ class BoardView extends GridPane {
 
             @Override
             public void handle(MouseEvent event) {
-                if (game.isFinished() || (game.getCurrentPlayer() instanceof IA)) {
+                if ((game.getState() == GameState.FINISHED) || (game.getCurrentPlayer() instanceof IA)) {
                     event.consume();
                 } else {
                     try {
@@ -111,32 +112,19 @@ class BoardView extends GridPane {
         return tile;
     }
 
-    void replay() {
-        TileView tile;
-        Coordinates pos;
-        for (int row = 0; row < game.getMaxRowsCols(); row++) {
-            for (int col = 0; col < game.getMaxRowsCols(); col++) {
-                tile = getTileByRowCol(row, col);
-                tile.initTile();
-                pos = new Coordinates(row, col);
-                if (game.getPiece(pos) != null) {
-                    tile.addPiece(game.getPiece(pos).getColor());
-                }
-            }
-        }
-        switchedPos = game.getSwitchedPositions();
-    }
-
     /**
      * Updates the view.
+     *
+     * @param fullUpdate if true, full update is done. Can be used for replaying
+     * a game or if 2 ais playing against each other.
      */
-    void update() {
+    void update(boolean fullUpdate) {
         updateAccessibles();
 
-        if (game.getCurrentPlayer() instanceof IA && game.getPreviousPlayer() instanceof IA) {
+        if (fullUpdate || (game.getCurrentPlayer() instanceof IA && game.getPreviousPlayer() instanceof IA)) {
             updateFull();
         } else {
-
+            System.out.println("partial update");
             Color prevPlayer = game.getPreviousPlayer().getColor();
             int row, col;
             if (switchedPos.size() == 1) {
@@ -168,16 +156,19 @@ class BoardView extends GridPane {
     }
 
     private void updateFull() {
+        System.out.println("full update");
         TileView tile;
         Piece piece;
         for (int row = 0; row < game.getMaxRowsCols(); row++) {
             for (int col = 0; col < game.getMaxRowsCols(); col++) {
+                tile = getTileByRowCol(row, col);
+                tile.initTile();
                 piece = game.getPiece(new Coordinates(row, col));
                 if (piece != null) {
-                    tile = getTileByRowCol(row, col);
                     tile.addPiece(piece.getColor());
                 }
             }
         }
+        switchedPos = game.getSwitchedPositions();
     }
 }

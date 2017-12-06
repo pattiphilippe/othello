@@ -4,6 +4,7 @@ import g43197.othello.model.util.Coordinates;
 import g43197.othello.model.util.MoveAction;
 import g43197.othello.model.util.Strategy;
 import g43197.othello.model.util.GameException;
+import g43197.othello.model.util.GameState;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +24,7 @@ public class Game extends Facade {
     private Board board;
     private Rack rack;
     private final Historic historic;
-    private boolean abandonned;
+    private GameState gameState;
 
     /**
      * Creates a new game.
@@ -53,18 +54,10 @@ public class Game extends Facade {
         }
     }
 
+    //TODO check why isFinished popup when ia can't put piece?
     @Override
-    public boolean isFinished() {
-        if (abandonned) {
-            return true;
-        } else if (canPlay()) {
-            return false;
-        } else {
-            players.next();
-            boolean isFinished = !canPlay();
-            players.previous();
-            return isFinished;
-        }
+    public GameState getState() {
+        return gameState;
     }
 
     /**
@@ -111,7 +104,7 @@ public class Game extends Facade {
 
     @Override
     public Player getWinner() {
-        if (isFinished()) {
+        if (gameState == GameState.FINISHED) {
             return new Player(players.getWinner());
         } else {
             return null;
@@ -165,6 +158,7 @@ public class Game extends Facade {
         rack.removePiece();
         players.modifyScore(points);
         historic.add(players.getCurrentPlayer().getName(), MoveAction.PIECE, pos, points);
+        System.out.println("putPiece update");
         setChanged();
         nextPlayer();
     }
@@ -177,6 +171,7 @@ public class Game extends Facade {
         board.putWall(pos);
         rack.addWall();
         historic.add(players.getCurrentPlayer().getName(), MoveAction.WALL, pos, 0);
+        System.out.println("putWall update");
         setChanged();
         nextPlayer();
     }
@@ -187,14 +182,16 @@ public class Game extends Facade {
             throw new GameException("Can't pass, can play a turn.");
         }
         historic.add(players.getCurrentPlayer().getName(), MoveAction.PASS, null, 0);
+        System.out.println("pass update");
         setChanged();
         nextPlayer();
     }
 
     @Override
     public void abandon() {
-        abandonned = true;
         historic.add(players.getCurrentPlayer().getName(), MoveAction.ABANDON, null, 0);
+        gameState = GameState.FINISHED;
+        System.out.println("abandon update");
         setChanged();
         notifyObservers();
     }
@@ -203,7 +200,7 @@ public class Game extends Facade {
     private void initGame() {
         board = new Board(MAX_ROWS_COLS);
         rack = new Rack(MAX_ROWS_COLS);
-        abandonned = false;
+        gameState = GameState.JUST_STARTED;
         players.init();
         historic.add(players.getCurrentPlayer().getName(), MoveAction.NEW_GAME, null, 0);
         updateAccessibles();
@@ -212,11 +209,13 @@ public class Game extends Facade {
     private void nextPlayer() {
         players.next();
         updateAccessibles();
+        updateState();
         notifyObservers();
-        if (!isFinished()) {
+        if (!(gameState == GameState.FINISHED)) {
             iaPlay();
         }
     }
+    //TODO check what happens with 2 ai
 
     private void iaPlay() {
         if (players.getCurrentPlayer() instanceof Strategy) {
@@ -227,5 +226,19 @@ public class Game extends Facade {
 
     private void updateAccessibles() {
         board.updateAccessibles(accessibles, players.getCurrentPlayer().getColor());
+    }
+
+    private void updateState() {
+        if (!canPlay()) {
+            players.next();
+            if (!canPlay()) {
+                gameState = GameState.FINISHED;
+            } else {
+                gameState = GameState.PLAYING;
+            }
+            players.previous();
+        } else {
+            gameState = GameState.PLAYING;
+        }
     }
 }
