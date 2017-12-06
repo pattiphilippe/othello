@@ -54,6 +54,11 @@ public abstract class Facade extends Observable {
      */
     public abstract Player getCurrentPlayer();
 
+    /**
+     * Gets the previous player.
+     *
+     * @return
+     */
     public abstract Player getPreviousPlayer();
 
     /**

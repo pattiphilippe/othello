@@ -3,7 +3,7 @@ package g43197.othello.view;
 import g43197.othello.model.util.Color;
 import g43197.othello.model.util.Coordinates;
 import g43197.othello.model.Facade;
-import g43197.othello.model.IA;
+import g43197.othello.model.AI;
 import g43197.othello.model.Piece;
 import g43197.othello.model.util.GameState;
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ class BoardView extends GridPane {
 
             @Override
             public void handle(MouseEvent event) {
-                if ((game.getState() == GameState.FINISHED) || (game.getCurrentPlayer() instanceof IA)) {
+                if ((game.getState() == GameState.FINISHED) || (game.getCurrentPlayer() instanceof AI)) {
                     event.consume();
                 } else {
                     try {
@@ -121,7 +121,7 @@ class BoardView extends GridPane {
     void update(boolean fullUpdate) {
         updateAccessibles();
 
-        if (fullUpdate || (game.getCurrentPlayer() instanceof IA && game.getPreviousPlayer() instanceof IA)) {
+        if (fullUpdate || (game.getCurrentPlayer() instanceof AI && game.getPreviousPlayer() instanceof AI)) {
             updateFull();
         } else {
             System.out.println("partial update");

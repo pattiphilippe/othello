@@ -1,7 +1,7 @@
 package g43197.othello.view;
 
 import g43197.othello.model.Facade;
-import g43197.othello.model.IA;
+import g43197.othello.model.AI;
 import g43197.othello.model.util.Observable;
 import g43197.othello.model.util.Observer;
 import g43197.othello.model.Player;
@@ -72,13 +72,10 @@ class Window extends BorderPane implements Observer {
         finishedGame = new Alert(Alert.AlertType.INFORMATION);
         finishedGame.setTitle("Finished Game");
         finishedGame.setHeaderText("Congratulations!");
-        pause = new PauseTransition(new Duration(1000));
-        pause.setOnFinished(e -> {
-            game.iaPlay();
-        });
+        pause = new PauseTransition(new Duration(500));
+        pause.setOnFinished(e -> game.iaPlay());
 
-        if (game.getCurrentPlayer() instanceof IA) {
-            System.out.println("pause");
+        if (game.getCurrentPlayer() instanceof AI) {
             pause.play();
         }
     }
@@ -87,15 +84,13 @@ class Window extends BorderPane implements Observer {
     public void update(Observable o, Object arg) {
         graphicHelps.update();
         players.update(game.getCurrentPlayer().getName(), game.getPlayers());
-        System.out.println("window update");
         board.update(game.getState() == GameState.JUST_STARTED);
         if (game.getState() == GameState.FINISHED) {
             Player winner = game.getWinner();
             finishedGame.setContentText("Player " + winner.getName()
                     + " won with " + winner.getScore() + " points.");
             finishedGame.show();
-        } else if (game.getCurrentPlayer() instanceof IA) {
-            System.out.println("pause");
+        } else if (game.getCurrentPlayer() instanceof AI) {
             pause.play();
         }
     }

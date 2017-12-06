@@ -33,8 +33,14 @@ public class Game extends Facade {
         this(false, false);
     }
 
-    public Game(boolean ia1, boolean ia2) {
-        players = new Players(ia1, ia2);
+    /**
+     * Creates a new game.
+     *
+     * @param ai1 true if the first player is an ai.
+     * @param ai2 true if the second player is an ai.
+     */
+    public Game(boolean ai1, boolean ai2) {
+        players = new Players(ai1, ai2);
         accessibles = new ArrayList<>();
         historic = new Historic();
         initGame();
@@ -47,17 +53,11 @@ public class Game extends Facade {
         notifyObservers();
     }
 
-    //TODO check why isFinished popup when ia can't put piece?
     @Override
     public GameState getState() {
         return gameState;
     }
 
-    /**
-     * Returns true if the current player can put a piece to switch others.
-     *
-     * @return true if he can
-     */
     @Override
     public boolean canPlay() {
         return !accessibles.isEmpty();
@@ -80,8 +80,8 @@ public class Game extends Facade {
     @Override
     public Player getCurrentPlayer() {
         Player p = players.getCurrentPlayer();
-        if (p instanceof IA) {
-            return new IA((IA) p);
+        if (p instanceof AI) {
+            return new AI((AI) p);
         }
         return new Player(p);
     }
@@ -89,8 +89,8 @@ public class Game extends Facade {
     @Override
     public Player getPreviousPlayer() {
         Player p = players.getPreviousPlayer();
-        if (p instanceof IA) {
-            return new IA((IA) p);
+        if (p instanceof AI) {
+            return new AI((AI) p);
         }
         return new Player(p);
     }
@@ -151,7 +151,6 @@ public class Game extends Facade {
         rack.removePiece();
         players.modifyScore(points);
         historic.add(players.getCurrentPlayer().getName(), MoveAction.PIECE, pos, points);
-        System.out.println("putPiece update");
         setChanged();
         nextPlayer();
     }
@@ -164,7 +163,6 @@ public class Game extends Facade {
         board.putWall(pos);
         rack.addWall();
         historic.add(players.getCurrentPlayer().getName(), MoveAction.WALL, pos, 0);
-        System.out.println("putWall update");
         setChanged();
         nextPlayer();
     }
@@ -175,7 +173,6 @@ public class Game extends Facade {
             throw new GameException("Can't pass, can play a turn.");
         }
         historic.add(players.getCurrentPlayer().getName(), MoveAction.PASS, null, 0);
-        System.out.println("pass update");
         setChanged();
         nextPlayer();
     }
@@ -192,7 +189,6 @@ public class Game extends Facade {
     public void abandon() {
         historic.add(players.getCurrentPlayer().getName(), MoveAction.ABANDON, null, 0);
         gameState = GameState.FINISHED;
-        System.out.println("abandon update");
         setChanged();
         notifyObservers();
     }
@@ -212,12 +208,7 @@ public class Game extends Facade {
         updateAccessibles();
         updateState();
         notifyObservers();
-//        if (!(gameState == GameState.FINISHED)) {
-//            iaPlay();
-//        }
     }
-    //TODO check what happens with 2 ai
-    //TODO try method in Facade iaPlay() => when guy wants, makes ia play
 
     private void updateAccessibles() {
         board.updateAccessibles(accessibles, players.getCurrentPlayer().getColor());
@@ -226,12 +217,14 @@ public class Game extends Facade {
     private void updateState() {
         if (!canPlay()) {
             players.next();
+            updateAccessibles();
             if (!canPlay()) {
                 gameState = GameState.FINISHED;
             } else {
                 gameState = GameState.PLAYING;
             }
             players.previous();
+            updateAccessibles();
         } else {
             gameState = GameState.PLAYING;
         }

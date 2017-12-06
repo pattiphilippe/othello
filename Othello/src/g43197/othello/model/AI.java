@@ -8,20 +8,20 @@ import g43197.othello.model.util.Color;
  *
  * @author Philippe
  */
-public class IA extends Player implements Strategy {
+public class AI extends Player implements Strategy {
 
     private Strategy strategy;
 
-    public IA(Color color, String name) {
+    public AI(Color color, String name) {
         this(color, name, new StratRandom());
     }
 
-    public IA(Color color, String name, Strategy strategy) {
+    public AI(Color color, String name, Strategy strategy) {
         super(color, name);
         this.strategy = strategy;
     }
 
-    public IA(IA ia) {
+    public AI(AI ia) {
         this(ia.getColor(), ia.getName(), ia.strategy);
     }
 
