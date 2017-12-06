@@ -125,6 +125,7 @@ class BoardView extends GridPane {
     }
 
     private void updateFull() {
+        System.out.println("FULL UPDATE");
         TileView tile;
         Piece piece;
         for (int row = 0; row < game.getMaxRowsCols(); row++) {

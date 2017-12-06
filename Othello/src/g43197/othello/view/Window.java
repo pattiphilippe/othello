@@ -2,11 +2,11 @@ package g43197.othello.view;
 
 import g43197.othello.model.Facade;
 import g43197.othello.model.AI;
-import g43197.othello.model.util.Observable;
-import g43197.othello.model.util.Observer;
 import g43197.othello.model.Player;
 import g43197.othello.model.util.GameState;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;

@@ -2,8 +2,8 @@ package g43197.othello.model;
 
 import g43197.othello.model.util.Coordinates;
 import g43197.othello.model.util.GameState;
-import g43197.othello.model.util.Observable;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * Facade of the model for Othello.
