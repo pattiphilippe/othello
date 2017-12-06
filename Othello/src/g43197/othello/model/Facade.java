@@ -4,7 +4,6 @@ import g43197.othello.model.util.Coordinates;
 import g43197.othello.model.util.GameState;
 import g43197.othello.model.util.Observable;
 import java.util.List;
-import javafx.collections.ObservableList;
 
 /**
  * Facade of the model for Othello.
@@ -26,9 +25,8 @@ public abstract class Facade extends Observable {
     public abstract GameState getState();
 
     /**
-     * If the player is an ai, the methods triggers is turn.
+     * If the player is an ai, the methods triggers his turn.
      */
-    //TODO delete this method, full update anyway
     public abstract void iaPlay();
 
     /**
