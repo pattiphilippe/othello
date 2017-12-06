@@ -74,6 +74,7 @@ class PlayersView extends HBox {
         updateScores(scores);
     }
 
+    //TODO ne pas comparer sur les noms, faire un equals sur la couleur
     void updatePlayer(String name) {
         while (!this.currentPlayer.isPlayer(name)) {
             nextPlayer();

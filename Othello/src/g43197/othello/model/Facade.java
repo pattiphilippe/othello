@@ -29,7 +29,7 @@ public abstract class Facade extends Observable {
      * If the player is an ai, the methods triggers is turn.
      */
     //TODO delete this method, full update anyway
-    public abstract void iaStart();
+    public abstract void iaPlay();
 
     /**
      * Returns true if the current player can put a piece.

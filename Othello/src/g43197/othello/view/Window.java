@@ -73,21 +73,18 @@ class Window extends BorderPane implements Observer {
         finishedGame.setTitle("Finished Game");
         finishedGame.setHeaderText("Congratulations!");
         pause = new PauseTransition(new Duration(1000));
-        pause.setOnFinished(e -> update());
+        pause.setOnFinished(e -> {
+            game.iaPlay();
+        });
 
-        game.iaStart();
+        if (game.getCurrentPlayer() instanceof IA) {
+            System.out.println("pause");
+            pause.play();
+        }
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        if (game.getPreviousPlayer() instanceof IA) {
-            pause.play();
-        } else {
-            update();
-        }
-    }
-
-    private void update() {
         graphicHelps.update();
         players.update(game.getCurrentPlayer().getName(), game.getPlayers());
         System.out.println("window update");
@@ -97,6 +94,9 @@ class Window extends BorderPane implements Observer {
             finishedGame.setContentText("Player " + winner.getName()
                     + " won with " + winner.getScore() + " points.");
             finishedGame.show();
+        } else if (game.getCurrentPlayer() instanceof IA) {
+            System.out.println("pause");
+            pause.play();
         }
     }
 }

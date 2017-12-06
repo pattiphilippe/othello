@@ -38,11 +38,11 @@ public class Observable {
 
     public void notifyObservers(Object arg) {
         if (changed) {
-
+            for (Observer o : obs) {
+                o.update(this, arg);
+            }
         }
-        for (Observer o : obs) {
-            o.update(this, arg);
-        }
+        clearChanged();
     }
 
     public void deleteObservers() {

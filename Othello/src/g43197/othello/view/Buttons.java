@@ -84,7 +84,6 @@ class Buttons extends HBox {
             checkReplay.showAndWait();
             if (checkReplay.getResult() == ButtonType.OK) {
                 game.startAgain();
-                game.iaStart();
             } else {
                 event.consume();
             }

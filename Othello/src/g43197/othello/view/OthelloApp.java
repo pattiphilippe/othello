@@ -47,7 +47,7 @@ public class OthelloApp extends Application {
         primaryStage.setMaxWidth(WIDTH);
         primaryStage.setMaxHeight(HEIGHT);
 
-        Facade game = new Game(false, true);
+        Facade game = new Game(true, true);
         Window root = new Window(game);
 
         Scene scene = new Scene(root);

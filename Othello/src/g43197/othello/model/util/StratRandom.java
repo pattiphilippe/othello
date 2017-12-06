@@ -11,12 +11,12 @@ public class StratRandom implements Strategy {
 
     @Override
     public void play(Facade game) {
-        List<Coordinates> accessibles = game.getAccessibles();
 
-        if (accessibles.isEmpty()) {
+        if (!game.canPlay()) {
+            List<Coordinates> accessibles = game.getAccessibles();
             game.putPiece(accessibles.get(random(accessibles.size())));
         } else {
-            //TODO check no bug when can't pass, and don't put up finished game
+//            TODO check no bug when can't pass, and don't put up finished game
             boolean put = false;
             Coordinates pos;
             while (!put) {

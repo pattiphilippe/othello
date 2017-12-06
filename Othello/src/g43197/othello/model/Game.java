@@ -47,13 +47,6 @@ public class Game extends Facade {
         notifyObservers();
     }
 
-    @Override
-    public void iaStart() {
-        if (players.getCurrentPlayer() instanceof IA) {
-            iaPlay();
-        }
-    }
-
     //TODO check why isFinished popup when ia can't put piece?
     @Override
     public GameState getState() {
@@ -188,6 +181,14 @@ public class Game extends Facade {
     }
 
     @Override
+    public void iaPlay() {
+        if (players.getCurrentPlayer() instanceof Strategy) {
+            Strategy ia = (Strategy) players.getCurrentPlayer();
+            ia.play(this);
+        }
+    }
+
+    @Override
     public void abandon() {
         historic.add(players.getCurrentPlayer().getName(), MoveAction.ABANDON, null, 0);
         gameState = GameState.FINISHED;
@@ -211,18 +212,12 @@ public class Game extends Facade {
         updateAccessibles();
         updateState();
         notifyObservers();
-        if (!(gameState == GameState.FINISHED)) {
-            iaPlay();
-        }
+//        if (!(gameState == GameState.FINISHED)) {
+//            iaPlay();
+//        }
     }
     //TODO check what happens with 2 ai
-
-    private void iaPlay() {
-        if (players.getCurrentPlayer() instanceof Strategy) {
-            Strategy ia = (Strategy) players.getCurrentPlayer();
-            ia.play(this);
-        }
-    }
+    //TODO try method in Facade iaPlay() => when guy wants, makes ia play
 
     private void updateAccessibles() {
         board.updateAccessibles(accessibles, players.getCurrentPlayer().getColor());
