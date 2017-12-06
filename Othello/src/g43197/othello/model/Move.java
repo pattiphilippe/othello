@@ -30,18 +30,38 @@ public class Move {
         this.nbTakes = nbTakes;
     }
 
+    /**
+     * Returns the id.
+     *
+     * @return
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Returns the name.
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns a string describing the action.
+     *
+     * @return
+     */
     public String getActionDescr() {
         return action.toString();
     }
 
+    /**
+     * Returns a string describing the position.
+     *
+     * @return
+     */
     public String getPos() {
         if (pos == null) {
             return "-";
@@ -50,6 +70,11 @@ public class Move {
         }
     }
 
+    /**
+     * Returns the number of takes.
+     *
+     * @return
+     */
     public int getNbTakes() {
         return nbTakes;
     }

@@ -62,10 +62,7 @@ public class Coordinates {
         if (this.ROW != other.ROW) {
             return false;
         }
-        if (this.COL != other.COL) {
-            return false;
-        }
-        return true;
+        return this.COL == other.COL;
     }
 
     @Override

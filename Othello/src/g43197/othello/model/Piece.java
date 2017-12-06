@@ -1,7 +1,6 @@
 package g43197.othello.model;
 
 import g43197.othello.model.util.Color;
-import g43197.othello.model.util.Color;
 import java.util.Objects;
 
 /**
@@ -65,10 +64,7 @@ public class Piece {
             return false;
         }
         final Piece other = (Piece) obj;
-        if (this.color != other.color) {
-            return false;
-        }
-        return true;
+        return this.color == other.color;
     }
 
     @Override

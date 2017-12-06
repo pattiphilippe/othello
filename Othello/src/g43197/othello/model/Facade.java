@@ -78,9 +78,9 @@ public abstract class Facade extends Observable {
     /**
      * Returns the historic of the games played.
      *
-     * @return
+     * @return an unmodifiableList to make changes automatically
      */
-    public abstract ObservableList<Move> getHistoric();
+    public abstract List<Move> getHistoric();
 
     /**
      * Returns the piece on the board in the given position

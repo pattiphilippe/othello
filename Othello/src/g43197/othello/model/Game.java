@@ -8,7 +8,7 @@ import g43197.othello.model.util.GameState;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javafx.collections.ObservableList;
+import java.util.stream.Collectors;
 
 /**
  * Facade of Othello. The methods in this class are mainly around the current
@@ -22,7 +22,6 @@ public class Game extends Facade {
     private final Players players;
     private final List<Coordinates> accessibles;
     private Board board;
-    private Rack rack;
     private final Historic historic;
     private GameState gameState;
 
@@ -106,7 +105,7 @@ public class Game extends Facade {
 
     @Override
     public int getNbWalls() {
-        return rack.getNbWalls();
+        return board.getNbWalls();
     }
 
     @Override
@@ -124,11 +123,9 @@ public class Game extends Facade {
 
     @Override
     public List<Coordinates> getAccessibles() {
-        List<Coordinates> list = new ArrayList<>();
-        for (Coordinates pos : accessibles) {
-            list.add(new Coordinates(pos));
-        }
-        return list;
+        return accessibles.stream()
+                .map(pos -> new Coordinates(pos))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -138,8 +135,8 @@ public class Game extends Facade {
     }
 
     @Override
-    public ObservableList<Move> getHistoric() {
-        return historic.getHistoric();
+    public List<Move> getHistoric() {
+        return Collections.unmodifiableList(historic.getHistoric());
     }
 
     @Override
@@ -147,8 +144,7 @@ public class Game extends Facade {
         if (pos == null) {
             throw new IllegalArgumentException("Pos can't be null!");
         }
-        int points = board.put(rack.getPiece(players.getCurrentPlayer().getColor()), pos);
-        rack.removePiece();
+        int points = board.put(new Piece(players.getCurrentPlayer().getColor()), pos);
         players.modifyScore(points);
         historic.add(players.getCurrentPlayer().getName(), MoveAction.PIECE, pos, points);
         setChanged();
@@ -161,7 +157,6 @@ public class Game extends Facade {
             throw new IllegalArgumentException("Pos can't be null!");
         }
         board.putWall(pos);
-        rack.addWall();
         historic.add(players.getCurrentPlayer().getName(), MoveAction.WALL, pos, 0);
         setChanged();
         nextPlayer();
@@ -179,7 +174,7 @@ public class Game extends Facade {
 
     @Override
     public void iaPlay() {
-        if (players.getCurrentPlayer() instanceof Strategy) {
+        if (gameState != GameState.FINISHED && players.getCurrentPlayer() instanceof Strategy) {
             Strategy ia = (Strategy) players.getCurrentPlayer();
             ia.play(this);
         }
@@ -196,7 +191,6 @@ public class Game extends Facade {
     ///////////////////////////Private//Methods//////////////////////////////
     private void initGame() {
         board = new Board(MAX_ROWS_COLS);
-        rack = new Rack(MAX_ROWS_COLS);
         gameState = GameState.JUST_STARTED;
         players.init();
         historic.add(players.getCurrentPlayer().getName(), MoveAction.NEW_GAME, null, 0);

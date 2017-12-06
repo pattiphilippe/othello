@@ -6,7 +6,27 @@ package g43197.othello.model.util;
  * @author Philippe
  */
 public enum MoveAction {
-    NEW_GAME("New game"), PIECE("Puts a piece"), WALL("Puts a wall"), PASS("Passes"), ABANDON("Abandons");
+
+    /**
+     * Action of creating a new Game.
+     */
+    NEW_GAME("New game"),
+    /**
+     * Action of putting a piece on the board.
+     */
+    PIECE("Puts a piece"),
+    /**
+     * Action of putting a wall on the board.
+     */
+    WALL("Puts a wall"),
+    /**
+     * Action of passing his turn.
+     */
+    PASS("Passes"),
+    /**
+     * Action of forfeiting the game.
+     */
+    ABANDON("Abandons");
 
     private final String descr;
 

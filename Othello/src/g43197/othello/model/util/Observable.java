@@ -10,7 +10,8 @@ import java.util.List;
 public class Observable {
 
     private boolean changed = false;
-    private List<Observer> obs;
+    private final List<Observer> obs;
+    //TODO use java's classes, it now doesn't change a thing that it is synchronized or not
 
     /**
      * Construct an Observable with zero Observers.

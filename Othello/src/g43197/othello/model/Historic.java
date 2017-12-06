@@ -2,8 +2,8 @@ package g43197.othello.model;
 
 import g43197.othello.model.util.Coordinates;
 import g43197.othello.model.util.MoveAction;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -11,10 +11,10 @@ import javafx.collections.ObservableList;
  */
 public class Historic {
 
-    private ObservableList<Move> moves;
+    private final List<Move> moves;
 
     Historic() {
-        this.moves = FXCollections.observableArrayList();
+        this.moves = new ArrayList<>();
     }
 
     void add(String name, MoveAction action, Coordinates pos, int nbTakes) {
@@ -25,7 +25,7 @@ public class Historic {
         moves.clear();
     }
 
-    ObservableList<Move> getHistoric() {
+    List<Move> getHistoric() {
         return moves;
     }
 }

@@ -37,6 +37,11 @@ public class Player {
         }
     }
 
+    /**
+     * Creates a new copy of the given player.
+     *
+     * @param player
+     */
     public Player(Player player) {
         if (player == null) {
             throw new IllegalArgumentException("Player can't be null!");
@@ -105,10 +110,7 @@ public class Player {
             return false;
         }
         final Player other = (Player) obj;
-        if (this.COLOR != other.COLOR) {
-            return false;
-        }
-        return true;
+        return this.COLOR == other.COLOR;
     }
 
     @Override

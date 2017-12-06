@@ -21,6 +21,7 @@ class Board {
     private final int maxRowsCols;
     private final Piece[][] BOARD;
     private final List<Coordinates> switchedPos;
+    private int nbWalls;
 
     /**
      * Creates a new board with Max_rows_cols rows and Max_rows_cols columns.
@@ -35,6 +36,7 @@ class Board {
             throw new GameException("Amount of rows and columns has to be greater or equal to 4!");
         }
         switchedPos = new ArrayList<>();
+        nbWalls = 0;
 
         BOARD = new Piece[maxRowsCols][maxRowsCols];
         initBoardCenter();
@@ -42,6 +44,10 @@ class Board {
 
     List<Coordinates> getSwitchedPositions() {
         return switchedPos;
+    }
+
+    int getNbWalls() {
+        return nbWalls;
     }
 
     /**
@@ -96,6 +102,7 @@ class Board {
         switchedPos.clear();
         switchedPos.add(pos);
         BOARD[pos.getROW()][pos.getCOL()] = new Piece(Color.WALL);
+        nbWalls++;
     }
 
     /**

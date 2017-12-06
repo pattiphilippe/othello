@@ -82,6 +82,7 @@ class Window extends BorderPane implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        historic.update();
         graphicHelps.update();
         players.update(game.getCurrentPlayer().getName(), game.getPlayers());
         board.update(game.getState() == GameState.JUST_STARTED);

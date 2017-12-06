@@ -5,6 +5,7 @@ import g43197.othello.model.util.Coordinates;
 import g43197.othello.model.Facade;
 import g43197.othello.model.AI;
 import g43197.othello.model.Piece;
+import g43197.othello.model.util.GameException;
 import g43197.othello.model.util.GameState;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,38 +39,6 @@ class BoardView extends GridPane {
         this.game = game;
         accessibles = new ArrayList<>();
         switchedPos = game.getSwitchedPositions();
-
-        class ClickedTileHandler implements EventHandler<MouseEvent> {
-
-            private final int row;
-            private final int col;
-
-            public ClickedTileHandler(int row, int col) {
-                this.row = row;
-                this.col = col;
-            }
-
-            @Override
-            public void handle(MouseEvent event) {
-                if ((game.getState() == GameState.FINISHED) || (game.getCurrentPlayer() instanceof AI)) {
-                    event.consume();
-                } else {
-                    try {
-                        switch (event.getButton()) {
-                            case PRIMARY:
-                                game.putPiece(new Coordinates(row, col));
-                                break;
-                            case SECONDARY:
-                                game.putWall(new Coordinates(row, col));
-                                break;
-                        }
-                    } catch (Exception e) {
-                        event.consume();
-                    }
-                    event.consume();
-                }
-            }
-        }
 
         TileView tile;
         int maxRowsCols = game.getMaxRowsCols();
@@ -121,7 +90,7 @@ class BoardView extends GridPane {
     void update(boolean fullUpdate) {
         updateAccessibles();
 
-        if (fullUpdate || (game.getCurrentPlayer() instanceof AI && game.getPreviousPlayer() instanceof AI)) {
+        if (fullUpdate) {
             updateFull();
         } else {
             System.out.println("partial update");
@@ -156,7 +125,6 @@ class BoardView extends GridPane {
     }
 
     private void updateFull() {
-        System.out.println("full update");
         TileView tile;
         Piece piece;
         for (int row = 0; row < game.getMaxRowsCols(); row++) {
@@ -170,5 +138,40 @@ class BoardView extends GridPane {
             }
         }
         switchedPos = game.getSwitchedPositions();
+    }
+
+///////////////////////////Intern//Classes//////////////////////////////
+    private class ClickedTileHandler implements EventHandler<MouseEvent> {
+
+        private final int row;
+        private final int col;
+
+        public ClickedTileHandler(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+
+        @Override
+        public void handle(MouseEvent event) {
+            if ((game.getState() == GameState.FINISHED) || (game.getCurrentPlayer() instanceof AI)) {
+                event.consume();
+            } else {
+                try {
+                    switch (event.getButton()) {
+                        case PRIMARY:
+                            game.putPiece(new Coordinates(row, col));
+                            break;
+                        case SECONDARY:
+                            game.putWall(new Coordinates(row, col));
+                            break;
+                        default:
+                            event.consume();
+                    }
+                } catch (GameException e) {
+                    event.consume();
+                }
+                event.consume();
+            }
+        }
     }
 }

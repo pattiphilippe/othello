@@ -4,6 +4,7 @@ import g43197.othello.model.util.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * This class is a list of players and a few methods for it.
@@ -115,6 +116,9 @@ class Players implements Iterator<Player> {
 
     @Override
     public Player next() {
+        if (!hasNext()) {
+            throw new NoSuchElementException("No next player!");
+        }
         int i = players.indexOf(currentPlayer) + 1;
         if (i < players.size()) {
             currentPlayer = players.get(i);
