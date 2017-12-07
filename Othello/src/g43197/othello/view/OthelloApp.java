@@ -4,6 +4,7 @@ import g43197.othello.model.Facade;
 import g43197.othello.model.Game;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -13,8 +14,6 @@ import javafx.stage.Stage;
  */
 public class OthelloApp extends Application {
 
-    //TODO pas abandon possible si game is finished
-    //TODO ? comment gérer les tailles: définie min max, ou pref? (peut faire fenêtre plus petite)
     //TODO demander première infos
     /**
      * The height of the window.
@@ -43,13 +42,17 @@ public class OthelloApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Othello");
-        //TODO refaire toutes les tailles, et tirer les min size dans OthelloApp
+        primaryStage.getIcons().add(new Image(this.getClass()
+                .getResourceAsStream("/g43197/othello/view/icon.png")));
+
         primaryStage.setMaxWidth(WIDTH);
         primaryStage.setMaxHeight(HEIGHT);
+        //TODO addIcon
 
         Facade game = new Game(true, true);
         Window root = new Window(game);
 
+        //méthode is bot, éviter tout les instanceof AI
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();

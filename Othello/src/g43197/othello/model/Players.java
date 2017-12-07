@@ -1,6 +1,7 @@
 package g43197.othello.model;
 
 import g43197.othello.model.util.Color;
+import g43197.othello.model.util.Strategy;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,10 +28,11 @@ class Players implements Iterator<Player> {
         players = new ArrayList<>(2);
         String name;
         for (int i = 0; i < 2; i++) {
-            name = names.length > i ? names[i] : "";
             if ((i == 0 && ia1) || (i == 1 && ia2)) {
+                name = names.length > i ? names[i] : "AI " + (i + 1);
                 players.add(new AI(Color.values()[i], name));
             } else {
+                name = names.length > i ? names[i] : "";
                 players.add(new Player(Color.values()[i], name));
             }
         }
@@ -43,7 +45,7 @@ class Players implements Iterator<Player> {
     void init() {
         currentPlayer = players.get(0);
         players.forEach((player) -> {
-            player.initScore();
+            player.init();
         });
     }
 
@@ -108,7 +110,6 @@ class Players implements Iterator<Player> {
         return players;
     }
 
-    //TODO employer hasNext ou supprimer implements iterator
     @Override
     public boolean hasNext() {
         return true;
@@ -130,5 +131,9 @@ class Players implements Iterator<Player> {
 
     Player previous() {
         return next();
+    }
+
+    boolean isAi() {
+        return currentPlayer instanceof Strategy;
     }
 }

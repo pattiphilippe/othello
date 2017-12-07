@@ -71,8 +71,6 @@ class Buttons extends HBox {
             event.consume();
         });
 
-        //TODO pas fin de jeu quand ia sait jouer
-        //TODO pas bouton possible avant affichage tour ia
         // Replay
         checkReplay = new Alert(Alert.AlertType.CONFIRMATION);
         checkReplay.setTitle("Replay game");

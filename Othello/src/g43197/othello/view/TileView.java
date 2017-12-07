@@ -30,8 +30,7 @@ class TileView extends StackPane {
     private final Shape wall;
     private static final double SHAPE_SIZE_FACT = 2 / 5.;
     private static final double WALL_SIZE_FACT = 13 / 20.;
-    private final Timeline switchColorPart1;
-    private final Timeline switchColorPart2;
+    private final Timeline switchColor;
 
     /**
      * Creates a new Tile with the given width and height.
@@ -44,10 +43,8 @@ class TileView extends StackPane {
         this.setPrefHeight(height);
         this.setOnMouseEntered(event -> setEffect(new InnerShadow(5, BLACK)));
         this.setOnMouseExited(event -> setEffect(null));
-        //TODO circle ou ellipse
 
-//        piece = new Ellipse(width * SHAPE_SIZE_FACT, height * SHAPE_SIZE_FACT);
-        piece = new Circle(height / 2.4);
+        piece = new Circle(height * SHAPE_SIZE_FACT);
         piece.setFill(BLACK);
 
         wall = new Rectangle(width * WALL_SIZE_FACT, height * WALL_SIZE_FACT);
@@ -57,14 +54,23 @@ class TileView extends StackPane {
         rectangle = new Rectangle(width, height);
 
         rectangle.setStroke(SLATEBLUE);
+
         rectangle.setFill(LIGHTBLUE);
         rectangle.setEffect(null);
         init();
 
         this.getChildren().addAll(rectangle, piece, wall);
 
-        switchColorPart1 = new Timeline(new KeyFrame(new Duration(2000), new KeyValue(piece.radiusProperty(), 100)));
-        switchColorPart2 = new Timeline(new KeyFrame(new Duration(2000), new KeyValue(piece.radiusProperty(), height / 2.4)));
+        //TODO finish timeline
+        switchColor = new Timeline(
+                new KeyFrame(new Duration(100), e -> {
+                    if (BLACK == piece.getFill()) {
+                        piece.setFill(WHITE);
+                    } else {
+                        piece.setFill(BLACK);
+                    }
+                }, new KeyValue(piece.scaleXProperty(), 0)),
+                new KeyFrame(new Duration(200), new KeyValue(piece.scaleXProperty(), 1)));
     }
 
     /**
@@ -103,14 +109,7 @@ class TileView extends StackPane {
         if (piece.isVisible() == false) {
             throw new RuntimeException("No piece added there yet!");
         }
-
-        switchColorPart1.play();
-        if (piece.getFill() == BLACK) {
-            piece.setFill(WHITE);
-        } else {
-            piece.setFill(BLACK);
-        }
-        switchColorPart2.play();
+        switchColor.play();
     }
 
     /**

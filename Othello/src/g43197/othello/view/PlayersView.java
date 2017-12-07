@@ -39,7 +39,7 @@ class PlayersView extends HBox {
         Color color;
         for (Player p : players) {
             color = p.getColor() == g43197.othello.model.util.Color.BLACK ? Color.BLACK : Color.WHITE;
-            this.players.add(new PlayerView(p.getName(), p.getScore(), color));
+            this.players.add(new PlayerView(p.getName(), p.getScore(), color, p.getNbWalls()));
         }
         this.players.forEach(p -> setHgrow(p, Priority.ALWAYS));
 
@@ -67,23 +67,24 @@ class PlayersView extends HBox {
      * Updates the players: currentPlayer and scores.
      *
      * @param name
-     * @param scores
+     * @param players
      */
-    void update(String name, List<Player> scores) {
+    void update(String name, List<Player> players) {
         updatePlayer(name);
-        updateScores(scores);
+        updateScores(players);
     }
 
-    //TODO ne pas comparer sur les noms, faire un equals sur la couleur
     void updatePlayer(String name) {
         while (!this.currentPlayer.isPlayer(name)) {
             nextPlayer();
         }
     }
 
-    private void updateScores(List<Player> scores) {
-        for (int i = 0; i < scores.size(); i++) {
-            players.get(i).updateScore(scores.get(i).getScore());
+    private void updateScores(List<Player> players) {
+        Player p;
+        for (int i = 0; i < players.size(); i++) {
+            p = players.get(i);
+            this.players.get(i).update(p.getScore(), p.getNbWalls());
         }
     }
 }

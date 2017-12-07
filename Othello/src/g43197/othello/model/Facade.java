@@ -30,6 +30,13 @@ public abstract class Facade extends Observable {
     public abstract void iaPlay();
 
     /**
+     * Returns true if the current player is an ai.
+     *
+     * @return
+     */
+    public abstract boolean isAi();
+
+    /**
      * Returns true if the current player can put a piece.
      *
      * @return
@@ -65,13 +72,6 @@ public abstract class Facade extends Observable {
      * @return
      */
     public abstract Player getWinner();
-
-    /**
-     * Returns the number of walls on the board.
-     *
-     * @return the number of walls
-     */
-    public abstract int getNbWalls();
 
     /**
      * Returns the historic of the games played.

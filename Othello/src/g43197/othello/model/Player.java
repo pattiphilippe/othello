@@ -14,6 +14,7 @@ public class Player {
     private final Color COLOR;
     private int score;
     private String name;
+    private int nbWalls;
 
     /**
      * Creates a player. The color is set to the given color.
@@ -28,6 +29,7 @@ public class Player {
 
         this.COLOR = color;
         this.score = 2;
+        this.nbWalls = 0;
         if (name.equals("")) {
             String firstLetter = COLOR.name().charAt(0) + "";
             String rest = COLOR.name().substring(1).toLowerCase();
@@ -49,13 +51,15 @@ public class Player {
         this.COLOR = player.COLOR;
         this.name = player.name;
         this.score = player.score;
+        this.nbWalls = player.nbWalls;
     }
 
     /**
      * Initializes the score of the player to 2. Can be called when new game.
      */
-    public void initScore() {
+    public void init() {
         this.score = 2;
+        this.nbWalls = 0;
     }
 
     /**
@@ -85,6 +89,10 @@ public class Player {
         return score;
     }
 
+    public int getNbWalls() {
+        return nbWalls;
+    }
+
     /**
      * This method adds the number in argument to the current score.
      *
@@ -96,6 +104,10 @@ public class Player {
                     + " the score is negative!");
         }
         score += delta;
+    }
+
+    void addWall() {
+        nbWalls++;
     }
 
     @Override

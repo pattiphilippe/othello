@@ -1,7 +1,6 @@
 package g43197.othello.view;
 
 import g43197.othello.model.Facade;
-import g43197.othello.model.AI;
 import g43197.othello.model.Player;
 import g43197.othello.model.util.GameState;
 import java.util.List;
@@ -20,7 +19,7 @@ import javafx.util.Duration;
  */
 class Window extends BorderPane implements Observer {
 
-    //TODO add a wall cpt view
+    private final GameInfoPanel gameInfoPanel;
     private final Facade game;
     // Top
     private final MenuOthello menu;
@@ -40,6 +39,10 @@ class Window extends BorderPane implements Observer {
         super();
         this.game = game;
         this.game.addObserver(this);
+        
+        gameInfoPanel = new GameInfoPanel();
+        gameInfoPanel.show();
+        
 
         // Top
         menu = new MenuOthello();
@@ -72,10 +75,9 @@ class Window extends BorderPane implements Observer {
         finishedGame = new Alert(Alert.AlertType.INFORMATION);
         finishedGame.setTitle("Finished Game");
         finishedGame.setHeaderText("Congratulations!");
-        pause = new PauseTransition(new Duration(500));
+        pause = new PauseTransition(new Duration(300));
         pause.setOnFinished(e -> game.iaPlay());
-
-        if (game.getCurrentPlayer() instanceof AI) {
+        if (game.isAi()) {
             pause.play();
         }
     }
@@ -91,7 +93,8 @@ class Window extends BorderPane implements Observer {
             finishedGame.setContentText("Player " + winner.getName()
                     + " won with " + winner.getScore() + " points.");
             finishedGame.show();
-        } else if (game.getCurrentPlayer() instanceof AI) {
+        }
+        if (game.isAi()) {
             pause.play();
         }
     }

@@ -23,6 +23,7 @@ class PlayerView extends GridPane {
     private final Label name;
     private final StackPane piece;
     private final Label score;
+    private final Label nbWalls;
 
     /**
      * Creates a new player with the given name.
@@ -31,7 +32,7 @@ class PlayerView extends GridPane {
      * @param score first score of the player
      * @param color color of the piece
      */
-    PlayerView(String name, int score, Color color) {
+    PlayerView(String name, int score, Color color, int nbWalls) {
         super();
         this.setPadding(new Insets(10));
         this.setHgap(10);
@@ -39,7 +40,6 @@ class PlayerView extends GridPane {
         this.setEffect(new DropShadow());
         ColumnConstraints colGrow = new ColumnConstraints();
         colGrow.setHgrow(Priority.ALWAYS);
-        //TODO demander comment faire: 1 constraint pour toutes les colonnes
         this.getColumnConstraints().addAll(colGrow, colGrow, colGrow);
 
         Label nameLbl = new Label("Name");
@@ -57,6 +57,11 @@ class PlayerView extends GridPane {
         scoreLbl.setTextFill(Color.BLUE);
         this.add(scoreLbl, 2, 0);
 
+        Label nbWallsLbl = new Label("Walls");
+        nbWallsLbl.setFont(Font.font(15));
+        nbWallsLbl.setTextFill(Color.BLUE);
+        this.add(nbWallsLbl, 3, 0);
+
         this.name = new Label(name);
         this.add(this.name, 0, 1);
 
@@ -69,6 +74,9 @@ class PlayerView extends GridPane {
         this.score = new Label(score + "");
         this.add(this.score, 2, 1);
 
+        this.nbWalls = new Label(nbWalls + "");
+        this.add(this.nbWalls, 3, 1);
+
         getChildren().forEach((child) -> GridPane.setHalignment(child, HPos.CENTER));
     }
 
@@ -78,6 +86,7 @@ class PlayerView extends GridPane {
      * @param name
      * @return
      */
+    //TODO only accept different names
     boolean isPlayer(String name) {
         return this.name.getText().equalsIgnoreCase(name);
     }
@@ -87,7 +96,8 @@ class PlayerView extends GridPane {
      *
      * @param score
      */
-    void updateScore(Integer score) {
+    void update(int score, int nbWalls) {
         this.score.setText(score + "");
+        this.nbWalls.setText(nbWalls + "");
     }
 }

@@ -10,7 +10,6 @@ import g43197.othello.model.util.GameState;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -70,15 +69,7 @@ class BoardView extends GridPane {
      * @return
      */
     TileView getTileByRowCol(int row, int col) {
-        TileView tile = null;
-        //TODO optimiser méthode avec child(x) : x étant calculé avec row et col
-        for (Node node : getChildren()) {
-            if (getRowIndex(node) == row && getColumnIndex(node) == col) {
-                tile = (TileView) node;
-                break;
-            }
-        }
-        return tile;
+        return (TileView) this.getChildren().get(col + row * 8);
     }
 
     /**
@@ -93,7 +84,6 @@ class BoardView extends GridPane {
         if (fullUpdate) {
             updateFull();
         } else {
-            System.out.println("partial update");
             Color prevPlayer = game.getPreviousPlayer().getColor();
             int row, col;
             if (switchedPos.size() == 1) {
@@ -125,7 +115,6 @@ class BoardView extends GridPane {
     }
 
     private void updateFull() {
-        System.out.println("FULL UPDATE");
         TileView tile;
         Piece piece;
         for (int row = 0; row < game.getMaxRowsCols(); row++) {
@@ -154,7 +143,7 @@ class BoardView extends GridPane {
 
         @Override
         public void handle(MouseEvent event) {
-            if ((game.getState() == GameState.FINISHED) || (game.getCurrentPlayer() instanceof AI)) {
+            if ((game.getState() == GameState.FINISHED) || game.isAi()) {
                 event.consume();
             } else {
                 try {

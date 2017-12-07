@@ -15,7 +15,6 @@ import g43197.othello.view.console.Read;
  */
 public class Othello {
 
-    //TODO ? gérer les exceptions avec Exception et pas runtime Exception
     //TODO ajouter des images pour le wall et en background
     //TODO ajouter musique de fond
     //TODO ? button undo

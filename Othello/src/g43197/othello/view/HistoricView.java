@@ -53,11 +53,16 @@ class HistoricView extends TableView {
         nbTakes.setCellValueFactory(new PropertyValueFactory("nbTakes"));
 
         this.getColumns().addAll(id, name, action, pos, nbTakes);
+        updateMoveItems();
     }
 
-    void update() {
+    private void updateMoveItems() {
         while (moves.size() > moveItems.size()) {
             moveItems.add(new MoveItem(moves.get(moveItems.size())));
         }
+    }
+
+    void update() {
+        updateMoveItems();
     }
 }

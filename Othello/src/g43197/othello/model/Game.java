@@ -104,11 +104,6 @@ public class Game extends Facade {
     }
 
     @Override
-    public int getNbWalls() {
-        return board.getNbWalls();
-    }
-
-    @Override
     public Piece getPiece(Coordinates pos) {
         if (board.getPiece(pos) == null) {
             return null;
@@ -157,6 +152,7 @@ public class Game extends Facade {
             throw new IllegalArgumentException("Pos can't be null!");
         }
         board.putWall(pos);
+        players.getCurrentPlayer().addWall();
         historic.add(players.getCurrentPlayer().getName(), MoveAction.WALL, pos, 0);
         setChanged();
         nextPlayer();
@@ -171,12 +167,17 @@ public class Game extends Facade {
         setChanged();
         nextPlayer();
     }
+    
+    @Override
+    public boolean isAi() {
+        return players.isAi();
+    }
 
     @Override
     public void iaPlay() {
-        if (gameState != GameState.FINISHED && players.getCurrentPlayer() instanceof Strategy) {
-            Strategy ia = (Strategy) players.getCurrentPlayer();
-            ia.play(this);
+        if (isAi() && gameState != GameState.FINISHED) {
+            Strategy ai = (Strategy) players.getCurrentPlayer();
+            ai.play(this);
         }
     }
 
