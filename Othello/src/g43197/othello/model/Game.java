@@ -161,6 +161,7 @@ public class Game extends Facade {
             throw new GameException("Can't pass, can play a turn.");
         }
         historic.add(players.getCurrentPlayer().getName(), MoveAction.PASS, null, 0);
+        board.clearSwitchedPos();
         setChanged();
         nextPlayer();
     }
@@ -172,17 +173,16 @@ public class Game extends Facade {
 
     @Override
     public void iaPlay() {
-//        if (isAi() && gameState != GameState.FINISHED) {
-//            Strategy ai = (Strategy) players.getCurrentPlayer();
-//            ai.play(this);
-//        }
-        players.getCurrentPlayer().play(this);
+        if (gameState != GameState.FINISHED) {
+            players.getCurrentPlayer().play(this);
+        }
     }
 
     @Override
     public void abandon() {
         historic.add(players.getCurrentPlayer().getName(), MoveAction.ABANDON, null, 0);
         gameState = GameState.FINISHED;
+        board.clearSwitchedPos();
         setChanged();
         notifyObservers();
     }

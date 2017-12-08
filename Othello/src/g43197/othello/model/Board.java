@@ -204,4 +204,12 @@ class Board {
         }
         return nbSwitched;
     }
+
+    /**
+     * Clears the switched positions. Should be called only when a game is
+     * abandonned.
+     */
+    void clearSwitchedPos() {
+        switchedPos.clear();
+    }
 }

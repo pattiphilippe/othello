@@ -17,7 +17,6 @@ import javafx.util.Pair;
  */
 public class OthelloApp extends Application {
 
-    //TODO demander première infos
     /**
      * The height of the window.
      */
@@ -27,6 +26,16 @@ public class OthelloApp extends Application {
      * The width of the window.
      */
     public static final int WIDTH = 1000;
+
+    /**
+     * Icon of the game.
+     */
+    public static final Image ICON = new Image("/g43197/othello/view/icon.png");
+
+    /**
+     * Time for one ai turn in milliseconds.
+     */
+    public static final int TURN_TIME = 500;
 
     /**
      * Main method that launches the application with the window display.
@@ -45,19 +54,18 @@ public class OthelloApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Othello");
-        primaryStage.getIcons().add(new Image(this.getClass()
-                .getResourceAsStream("/g43197/othello/view/icon.png")));
+        primaryStage.getIcons().add(ICON);
         primaryStage.setMaxWidth(WIDTH);
         primaryStage.setMaxHeight(HEIGHT);
 
         GameOptions gameOptions = new GameOptions();
-        Optional<Pair<Pair<String, String>, Pair<Strategies, Strategies>>> result;
+        Optional<Pair<Pair<String, Strategies>, Pair<String, Strategies>>> result;
         result = gameOptions.showAndWait();
 
         if (result.isPresent()) {
             String name1 = result.get().getKey().getKey();
-            String name2 = result.get().getKey().getValue();
-            Strategies strat1 = result.get().getValue().getKey();
+            Strategies strat1 = result.get().getKey().getValue();
+            String name2 = result.get().getValue().getKey();
             Strategies strat2 = result.get().getValue().getValue();
 
             Facade game = new Game(name1, strat1, name2, strat2);

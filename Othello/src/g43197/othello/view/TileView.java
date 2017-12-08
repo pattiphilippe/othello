@@ -41,8 +41,8 @@ class TileView extends StackPane {
     TileView(double width, double height) {
         this.setPrefWidth(width);
         this.setPrefHeight(height);
-        this.setOnMouseEntered(event -> setEffect(new InnerShadow(5, BLACK)));
-        this.setOnMouseExited(event -> setEffect(null));
+        this.setOnMouseEntered(e -> setEffect(new InnerShadow(5, BLACK)));
+        this.setOnMouseExited(e -> setEffect(null));
 
         double radiusCircle = height * SHAPE_SIZE_FACT;
         piece = new Circle(radiusCircle);
@@ -53,33 +53,32 @@ class TileView extends StackPane {
 
         // si attribut reçoit nouvelle adresse, pas changement dans children()
         rectangle = new Rectangle(width, height);
-
         rectangle.setStroke(SLATEBLUE);
-
         rectangle.setFill(LIGHTBLUE);
         rectangle.setEffect(null);
-        init();
+        initTile();
 
         this.getChildren().addAll(rectangle, piece, wall);
 
-        //TODO finish timeline
-        switchColor = new Timeline(
-                new KeyFrame(new Duration(250), e -> {
-                    if (BLACK == piece.getFill()) {
-                        piece.setFill(WHITE);
-                    } else {
-                        piece.setFill(BLACK);
-                    }
-                }, new KeyValue(piece.radiusProperty(), 0)),
-                new KeyFrame(new Duration(500), new KeyValue(piece.radiusProperty(), radiusCircle)));
+        //Timeline
+        final KeyFrame switchColorPart1 = new KeyFrame(new Duration(OthelloApp.TURN_TIME / 3), e -> {
+            if (BLACK == piece.getFill()) {
+                piece.setFill(WHITE);
+            } else {
+                piece.setFill(BLACK);
+            }
+        }, new KeyValue(piece.radiusProperty(), 0));
+        final KeyFrame switchColorPart2 = new KeyFrame(new Duration((OthelloApp.TURN_TIME * 2) / 3),
+                new KeyValue(piece.radiusProperty(), radiusCircle));
+        switchColor = new Timeline(switchColorPart1, switchColorPart2);
     }
 
     /**
      * Puts the tile to its init state, with nothing visible in it. Doesn't
      * change its visibility.
      */
-    void initTile() {
-        init();
+    void init() {
+        initTile();
     }
 
     /**
@@ -130,7 +129,7 @@ class TileView extends StackPane {
     }
 
     ///////////////////////////Private//Methods//////////////////////////////
-    private void init() {
+    private void initTile() {
         piece.setVisible(false);
         wall.setVisible(false);
     }

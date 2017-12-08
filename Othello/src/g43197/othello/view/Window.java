@@ -44,23 +44,23 @@ class Window extends BorderPane implements Observer {
         this.setTop(menu);
 
         // Left side
-        double boardSize = OthelloApp.HEIGHT * 4 / 7;
+        final double boardSize = OthelloApp.HEIGHT * 4 / 7;
         board = new BoardView(boardSize, boardSize, game);
         graphicHelps = new GraphicHelps(game);
         buttons = new Buttons(game, board);
 
-        VBox left = new VBox();
+        final VBox left = new VBox();
         left.setPadding(new Insets(25));
         left.setSpacing(25);
         left.getChildren().addAll(board, graphicHelps, buttons);
         this.setLeft(left);
 
         // Right side
-        List<Player> playersList = game.getPlayers();
+        final List<Player> playersList = game.getPlayers();
         players = new PlayersView(10, playersList.toArray(new Player[playersList.size()]));
         historic = new HistoricView(game.getHistoric());
 
-        VBox right = new VBox();
+        final VBox right = new VBox();
         right.setPadding(new Insets(25));
         right.setSpacing(25);
         right.getChildren().addAll(players, historic);
@@ -70,7 +70,7 @@ class Window extends BorderPane implements Observer {
         finishedGame = new Alert(Alert.AlertType.INFORMATION);
         finishedGame.setTitle("Finished Game");
         finishedGame.setHeaderText("Congratulations!");
-        pause = new PauseTransition(new Duration(1000));
+        pause = new PauseTransition(new Duration(OthelloApp.TURN_TIME));
         pause.setOnFinished(e -> game.iaPlay());
         if (game.isAi()) {
             pause.play();
@@ -79,11 +79,12 @@ class Window extends BorderPane implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        final boolean isFinished = game.getState() == GameState.FINISHED;
         historic.update();
         graphicHelps.update();
-        players.update(game.getCurrentPlayer().getName(), game.getPlayers());
+        players.update(game.getCurrentPlayer().getColor(), game.getPlayers(), isFinished);
         board.update(game.getState() == GameState.JUST_STARTED);
-        if (game.getState() == GameState.FINISHED) {
+        if (isFinished) {
             Player winner = game.getWinner();
             finishedGame.setContentText("Player " + winner.getName()
                     + " won with " + winner.getScore() + " points.");

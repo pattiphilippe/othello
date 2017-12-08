@@ -22,6 +22,7 @@ class PlayerView extends GridPane {
 
     private final Label name;
     private final StackPane piece;
+    private final Color color;
     private final Label score;
     private final Label nbWalls;
 
@@ -66,7 +67,8 @@ class PlayerView extends GridPane {
         this.add(this.name, 0, 1);
 
         piece = new StackPane();
-        Circle c = new Circle(8, color);
+        this.color = color;
+        Circle c = new Circle(8, this.color);
         piece.getChildren().add(c);
         StackPane.setAlignment(c, Pos.CENTER);
         this.add(piece, 1, 1);
@@ -86,9 +88,8 @@ class PlayerView extends GridPane {
      * @param name
      * @return
      */
-    //TODO only accept different names
-    boolean isPlayer(String name) {
-        return this.name.getText().equalsIgnoreCase(name);
+    boolean isPlayer(Color color) {
+        return this.color == color;
     }
 
     /**

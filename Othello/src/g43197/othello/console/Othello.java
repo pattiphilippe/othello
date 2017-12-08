@@ -15,9 +15,6 @@ import g43197.othello.view.console.Read;
  */
 public class Othello {
 
-    //TODO ajouter des images pour le wall et en background
-    //TODO ajouter musique de fond
-    //TODO ? button undo
     /**
      * Main method of Othello.
      *

@@ -38,7 +38,7 @@ class PlayersView extends HBox {
 
         Color color;
         for (Player p : players) {
-            color = p.getColor() == g43197.othello.model.util.Color.BLACK ? Color.BLACK : Color.WHITE;
+            color = toFxColor(p.getColor());
             this.players.add(new PlayerView(p.getName(), p.getScore(), color, p.getNbWalls()));
         }
         this.players.forEach(p -> setHgrow(p, Priority.ALWAYS));
@@ -69,13 +69,15 @@ class PlayersView extends HBox {
      * @param name
      * @param players
      */
-    void update(String name, List<Player> players) {
-        updatePlayer(name);
+    void update(g43197.othello.model.util.Color color, List<Player> players, boolean isFinished) {
+        if (!isFinished) {
+            updatePlayer(toFxColor(color));
+        }
         updateScores(players);
     }
 
-    void updatePlayer(String name) {
-        while (!this.currentPlayer.isPlayer(name)) {
+    void updatePlayer(Color color) {
+        while (!this.currentPlayer.isPlayer(color)) {
             nextPlayer();
         }
     }
@@ -86,5 +88,9 @@ class PlayersView extends HBox {
             p = players.get(i);
             this.players.get(i).update(p.getScore(), p.getNbWalls());
         }
+    }
+
+    private Color toFxColor(g43197.othello.model.util.Color color) {
+        return color == g43197.othello.model.util.Color.BLACK ? Color.BLACK : Color.WHITE;
     }
 }

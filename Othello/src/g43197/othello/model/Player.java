@@ -4,6 +4,7 @@ import g43197.othello.model.util.Color;
 import g43197.othello.model.util.GameException;
 import g43197.othello.model.util.Human;
 import g43197.othello.model.util.RandomAI;
+import g43197.othello.model.util.RandomWallsAI;
 import g43197.othello.model.util.Strategies;
 import g43197.othello.model.util.Strategy;
 import java.util.Locale;
@@ -22,6 +23,13 @@ public class Player implements Strategy {
     private int nbWalls;
     private Strategy strategy;
 
+    /**
+     * Creates a new human player. This constructor is mainly there for retro
+     * compatibility, codes before the ai was added.
+     *
+     * @param color
+     * @param name
+     */
     public Player(Color color, String name) {
         this(color, name, Strategies.HUMAN);
     }
@@ -57,7 +65,10 @@ public class Player implements Strategy {
             case HUMAN:
                 this.strategy = new Human();
                 break;
-            case RANDOM:
+            case AI_RANDOM_WALLS:
+                this.strategy = new RandomWallsAI();
+                break;
+            case AI_RANDOM:
             default:
                 this.strategy = new RandomAI();
                 break;
@@ -114,6 +125,11 @@ public class Player implements Strategy {
         return score;
     }
 
+    /**
+     * Returns the number of walls put by this player.
+     *
+     * @return
+     */
     public int getNbWalls() {
         return nbWalls;
     }
@@ -131,6 +147,9 @@ public class Player implements Strategy {
         score += delta;
     }
 
+    /**
+     * Adds a wall to the counter of walls of this player.
+     */
     void addWall() {
         nbWalls++;
     }
@@ -162,11 +181,10 @@ public class Player implements Strategy {
         this.strategy.play(game);
     }
 
+    /**
+     * Returns true if this player has an ai strategy.
+     */
     boolean isAI() {
         return !(strategy instanceof Human);
-    }
-
-    void setStrategy(Strategy strategy) {
-        this.strategy = strategy;
     }
 }
