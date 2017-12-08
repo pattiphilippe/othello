@@ -27,7 +27,6 @@ public class Game extends Facade {
     private final Historic historic;
     private GameState gameState;
 
-    //TODO check using of all methods
     /**
      * Creates a new game.
      */

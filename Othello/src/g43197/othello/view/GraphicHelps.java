@@ -16,7 +16,6 @@ import javafx.scene.control.ProgressIndicator;
  */
 class GraphicHelps extends VBox {
 
-    //TODO ajouter autre progresindicator
     private final Facade game;
     private final ProgressBar pieceProgress;
     private final ProgressIndicator gameProgress;

@@ -31,7 +31,7 @@ import javafx.util.Pair;
  *
  * @author Philippe
  */
-public class GameOptions extends Dialog<Pair<Pair<String, Strategies>, Pair<String, Strategies>>> {
+class GameOptions extends Dialog<Pair<Pair<String, Strategies>, Pair<String, Strategies>>> {
 
     private final GridPane grid;
     private final TextField name1Tfd;
@@ -42,7 +42,7 @@ public class GameOptions extends Dialog<Pair<Pair<String, Strategies>, Pair<Stri
     /**
      * Creates a new Dialog Pane to get the options for the game.
      */
-    public GameOptions() {
+    GameOptions() {
         super();
 
         final Stage stage = (Stage) (this.getDialogPane().getScene().getWindow());
