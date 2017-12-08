@@ -3,6 +3,7 @@ package g43197.othello.view.console;
 import g43197.othello.console.Command;
 import g43197.othello.model.util.Coordinates;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -22,7 +23,7 @@ public class Read {
         String msg;
         while (true) {
             System.out.print("Command : ");
-            msg = CLAVIER.next().toUpperCase();
+            msg = CLAVIER.next().toUpperCase(Locale.ENGLISH);
             try {
                 return Command.valueOf(msg);
             } catch (IllegalArgumentException e) {
@@ -66,7 +67,7 @@ public class Read {
     }
 
     private static int convertToCol(String colChar, int maxRowsCols) {
-        int col = colChar.toUpperCase().charAt(0) - 65;
+        int col = colChar.toUpperCase(Locale.ENGLISH).charAt(0) - 65;
         if (col < 0 || maxRowsCols < col) {
             return -1;
         } else {

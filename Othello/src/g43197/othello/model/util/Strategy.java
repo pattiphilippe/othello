@@ -9,7 +9,10 @@ import java.util.Random;
  */
 public interface Strategy {
 
-    public final Random RANDOM_GENERATOR = new Random();
+    /**
+     * Random generator that can be useful for Strategies.
+     */
+    final Random RANDOM_GENERATOR = new Random();
 
     /**
      * Plays a turn in the game.

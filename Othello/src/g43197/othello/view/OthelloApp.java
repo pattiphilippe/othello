@@ -35,7 +35,7 @@ public class OthelloApp extends Application {
     /**
      * Time for one ai turn in milliseconds.
      */
-    public static final int TURN_TIME = 500;
+    public static final int TURN_TIME = 1000;
 
     /**
      * Main method that launches the application with the window display.

@@ -61,14 +61,14 @@ class TileView extends StackPane {
         this.getChildren().addAll(rectangle, piece, wall);
 
         //Timeline
-        final KeyFrame switchColorPart1 = new KeyFrame(new Duration(OthelloApp.TURN_TIME / 3), e -> {
+        final KeyFrame switchColorPart1 = new KeyFrame(new Duration(OthelloApp.TURN_TIME / 8), e -> {
             if (BLACK == piece.getFill()) {
                 piece.setFill(WHITE);
             } else {
                 piece.setFill(BLACK);
             }
         }, new KeyValue(piece.radiusProperty(), 0));
-        final KeyFrame switchColorPart2 = new KeyFrame(new Duration((OthelloApp.TURN_TIME * 2) / 3),
+        final KeyFrame switchColorPart2 = new KeyFrame(new Duration((OthelloApp.TURN_TIME / 4)),
                 new KeyValue(piece.radiusProperty(), radiusCircle));
         switchColor = new Timeline(switchColorPart1, switchColorPart2);
     }

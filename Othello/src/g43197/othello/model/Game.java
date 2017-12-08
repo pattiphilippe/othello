@@ -4,6 +4,7 @@ import g43197.othello.model.util.Coordinates;
 import g43197.othello.model.util.MoveAction;
 import g43197.othello.model.util.GameException;
 import g43197.othello.model.util.GameState;
+import static g43197.othello.model.util.GameState.*;
 import g43197.othello.model.util.Strategies;
 import static g43197.othello.model.util.Strategies.HUMAN;
 import java.util.ArrayList;
@@ -92,7 +93,7 @@ public class Game extends Facade {
 
     @Override
     public Player getWinner() {
-        if (gameState == GameState.FINISHED) {
+        if (gameState == FINISHED) {
             return new Player(players.getWinner());
         } else {
             return null;
@@ -173,7 +174,7 @@ public class Game extends Facade {
 
     @Override
     public void iaPlay() {
-        if (gameState != GameState.FINISHED) {
+        if (gameState != FINISHED) {
             players.getCurrentPlayer().play(this);
         }
     }
@@ -181,7 +182,7 @@ public class Game extends Facade {
     @Override
     public void abandon() {
         historic.add(players.getCurrentPlayer().getName(), MoveAction.ABANDON, null, 0);
-        gameState = GameState.FINISHED;
+        gameState = FINISHED;
         board.clearSwitchedPos();
         setChanged();
         notifyObservers();
@@ -190,7 +191,7 @@ public class Game extends Facade {
     ///////////////////////////Private//Methods//////////////////////////////
     private void initGame() {
         board = new Board(MAX_ROWS_COLS);
-        gameState = GameState.JUST_STARTED;
+        gameState = JUST_STARTED;
         players.init();
         historic.add(players.getCurrentPlayer().getName(), MoveAction.NEW_GAME, null, 0);
         updateAccessibles();
@@ -212,14 +213,14 @@ public class Game extends Facade {
             players.next();
             updateAccessibles();
             if (!canPlay()) {
-                gameState = GameState.FINISHED;
+                gameState = FINISHED;
             } else {
-                gameState = GameState.PLAYING;
+                gameState = PLAYING;
             }
             players.previous();
             updateAccessibles();
         } else {
-            gameState = GameState.PLAYING;
+            gameState = PLAYING;
         }
     }
 }
