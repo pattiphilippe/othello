@@ -55,7 +55,7 @@ class Buttons extends HBox {
         // Abandon
         checkAbandon = new Alert(Alert.AlertType.CONFIRMATION);
         checkAbandon.setTitle("Abandon game");
-        checkAbandon.setHeaderText("Check abnadon game");
+        checkAbandon.setHeaderText("Check abandon game");
         checkAbandon.setContentText("Are you sure you wannna abandon the game?");
 
         abandon = new Button("Abandon");

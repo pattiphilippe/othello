@@ -2,9 +2,10 @@ package g43197.othello.model;
 
 import g43197.othello.model.util.Coordinates;
 import g43197.othello.model.util.MoveAction;
-import g43197.othello.model.util.Strategy;
 import g43197.othello.model.util.GameException;
 import g43197.othello.model.util.GameState;
+import g43197.othello.model.util.Strategies;
+import static g43197.othello.model.util.Strategies.HUMAN;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,21 +26,24 @@ public class Game extends Facade {
     private final Historic historic;
     private GameState gameState;
 
+    //TODO check using of all methods
     /**
      * Creates a new game.
      */
     public Game() {
-        this(false, false);
+        this("", HUMAN, "", HUMAN);
     }
 
     /**
      * Creates a new game.
      *
-     * @param ai1 true if the first player is an ai.
-     * @param ai2 true if the second player is an ai.
+     * @param name1
+     * @param strat1 the strategy of the first player
+     * @param name2
+     * @param strat2 the strategy of the second player
      */
-    public Game(boolean ai1, boolean ai2) {
-        players = new Players(ai1, ai2);
+    public Game(String name1, Strategies strat1, String name2, Strategies strat2) {
+        players = new Players(name1, strat1, name2, strat2);
         accessibles = new ArrayList<>();
         historic = new Historic();
         initGame();
@@ -78,20 +82,12 @@ public class Game extends Facade {
 
     @Override
     public Player getCurrentPlayer() {
-        Player p = players.getCurrentPlayer();
-        if (p instanceof AI) {
-            return new AI((AI) p);
-        }
-        return new Player(p);
+        return new Player(players.getCurrentPlayer());
     }
 
     @Override
     public Player getPreviousPlayer() {
-        Player p = players.getPreviousPlayer();
-        if (p instanceof AI) {
-            return new AI((AI) p);
-        }
-        return new Player(p);
+        return new Player(players.getPreviousPlayer());
     }
 
     @Override
@@ -131,6 +127,7 @@ public class Game extends Facade {
 
     @Override
     public List<Move> getHistoric() {
+        // Be careful, the next code line links it to the real list, instantly updated
         return Collections.unmodifiableList(historic.getHistoric());
     }
 
@@ -167,7 +164,7 @@ public class Game extends Facade {
         setChanged();
         nextPlayer();
     }
-    
+
     @Override
     public boolean isAi() {
         return players.isAi();
@@ -175,10 +172,11 @@ public class Game extends Facade {
 
     @Override
     public void iaPlay() {
-        if (isAi() && gameState != GameState.FINISHED) {
-            Strategy ai = (Strategy) players.getCurrentPlayer();
-            ai.play(this);
-        }
+//        if (isAi() && gameState != GameState.FINISHED) {
+//            Strategy ai = (Strategy) players.getCurrentPlayer();
+//            ai.play(this);
+//        }
+        players.getCurrentPlayer().play(this);
     }
 
     @Override

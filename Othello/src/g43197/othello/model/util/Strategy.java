@@ -14,4 +14,5 @@ public interface Strategy {
      * @param game
      */
     public void play(Facade game);
+   
 }

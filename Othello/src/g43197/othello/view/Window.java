@@ -19,7 +19,6 @@ import javafx.util.Duration;
  */
 class Window extends BorderPane implements Observer {
 
-    private final GameInfoPanel gameInfoPanel;
     private final Facade game;
     // Top
     private final MenuOthello menu;
@@ -39,10 +38,6 @@ class Window extends BorderPane implements Observer {
         super();
         this.game = game;
         this.game.addObserver(this);
-        
-        gameInfoPanel = new GameInfoPanel();
-        gameInfoPanel.show();
-        
 
         // Top
         menu = new MenuOthello();
@@ -87,8 +82,9 @@ class Window extends BorderPane implements Observer {
         historic.update();
         graphicHelps.update();
         players.update(game.getCurrentPlayer().getName(), game.getPlayers());
-        board.update(game.getState() == GameState.JUST_STARTED);
-        if (game.getState() == GameState.FINISHED) {
+        if (game.getState() != GameState.FINISHED) {
+            board.update(game.getState() == GameState.JUST_STARTED);
+        } else {
             Player winner = game.getWinner();
             finishedGame.setContentText("Player " + winner.getName()
                     + " won with " + winner.getScore() + " points.");

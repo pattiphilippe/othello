@@ -44,7 +44,8 @@ class TileView extends StackPane {
         this.setOnMouseEntered(event -> setEffect(new InnerShadow(5, BLACK)));
         this.setOnMouseExited(event -> setEffect(null));
 
-        piece = new Circle(height * SHAPE_SIZE_FACT);
+        double radiusCircle = height * SHAPE_SIZE_FACT;
+        piece = new Circle(radiusCircle);
         piece.setFill(BLACK);
 
         wall = new Rectangle(width * WALL_SIZE_FACT, height * WALL_SIZE_FACT);
@@ -63,14 +64,14 @@ class TileView extends StackPane {
 
         //TODO finish timeline
         switchColor = new Timeline(
-                new KeyFrame(new Duration(100), e -> {
+                new KeyFrame(new Duration(250), e -> {
                     if (BLACK == piece.getFill()) {
                         piece.setFill(WHITE);
                     } else {
                         piece.setFill(BLACK);
                     }
-                }, new KeyValue(piece.scaleXProperty(), 0)),
-                new KeyFrame(new Duration(200), new KeyValue(piece.scaleXProperty(), 1)));
+                }, new KeyValue(piece.radiusProperty(), 0)),
+                new KeyFrame(new Duration(500), new KeyValue(piece.radiusProperty(), radiusCircle)));
     }
 
     /**

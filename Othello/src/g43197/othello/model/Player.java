@@ -2,6 +2,11 @@ package g43197.othello.model;
 
 import g43197.othello.model.util.Color;
 import g43197.othello.model.util.GameException;
+import g43197.othello.model.util.Human;
+import g43197.othello.model.util.RandomAI;
+import g43197.othello.model.util.Strategies;
+import g43197.othello.model.util.Strategy;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -9,22 +14,28 @@ import java.util.Objects;
  *
  * @author Philippe
  */
-public class Player {
+public class Player implements Strategy {
 
     private final Color COLOR;
     private int score;
     private String name;
     private int nbWalls;
+    private Strategy strategy;
+
+    public Player(Color color, String name) {
+        this(color, name, Strategies.HUMAN);
+    }
 
     /**
      * Creates a player. The color is set to the given color.
      *
      * @param color
      * @param name
+     * @param strategy
      */
-    public Player(Color color, String name) {
-        if (color == null || name == null) {
-            throw new IllegalArgumentException("Color can't be null!");
+    public Player(Color color, String name, Strategies strategy) {
+        if (color == null || name == null || strategy == null) {
+            throw new IllegalArgumentException("Parametres can't be null!");
         }
 
         this.COLOR = color;
@@ -32,10 +43,24 @@ public class Player {
         this.nbWalls = 0;
         if (name.equals("")) {
             String firstLetter = COLOR.name().charAt(0) + "";
-            String rest = COLOR.name().substring(1).toLowerCase();
+            String rest = COLOR.name().substring(1).toLowerCase(Locale.ENGLISH);
             this.name = firstLetter.concat(rest);
+            this.name += strategy != Strategies.HUMAN ? " AI" : "";
         } else {
             this.name = name;
+        }
+        selectStrategy(strategy);
+    }
+
+    private void selectStrategy(Strategies strategy) {
+        switch (strategy) {
+            case HUMAN:
+                this.strategy = new Human();
+                break;
+            case RANDOM:
+            default:
+                this.strategy = new RandomAI();
+                break;
         }
     }
 
@@ -130,5 +155,18 @@ public class Player {
         int hash = 7;
         hash = 97 * hash + Objects.hashCode(this.COLOR);
         return hash;
+    }
+
+    @Override
+    public void play(Facade game) {
+        this.strategy.play(game);
+    }
+
+    boolean isAI() {
+        return !(strategy instanceof Human);
+    }
+
+    void setStrategy(Strategy strategy) {
+        this.strategy = strategy;
     }
 }

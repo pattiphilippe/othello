@@ -24,7 +24,7 @@ public class Othello {
      * @param args
      */
     public static void main(String[] args) {
-        Facade game = new Game(false, true);
+        Facade game = new Game();
         Display.startGame();
         Command command;
         while (true) {

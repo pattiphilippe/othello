@@ -2,10 +2,13 @@ package g43197.othello.view;
 
 import g43197.othello.model.Facade;
 import g43197.othello.model.Game;
+import g43197.othello.model.util.Strategies;
+import java.util.Optional;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 /**
  * This class is the actual javaFX window for the game.
@@ -44,17 +47,25 @@ public class OthelloApp extends Application {
         primaryStage.setTitle("Othello");
         primaryStage.getIcons().add(new Image(this.getClass()
                 .getResourceAsStream("/g43197/othello/view/icon.png")));
-
         primaryStage.setMaxWidth(WIDTH);
         primaryStage.setMaxHeight(HEIGHT);
-        //TODO addIcon
-
-        Facade game = new Game(true, true);
-        Window root = new Window(game);
-
-        //méthode is bot, éviter tout les instanceof AI
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        
+        GameOptions gameOptions = new GameOptions();
+        Optional<Pair<Pair<String, String>, Pair<Strategies, Strategies>>> result;
+        result = gameOptions.showAndWait();
+        
+        if (result.isPresent()) {
+            String name1 = result.get().getKey().getKey();
+            String name2 = result.get().getKey().getValue();
+            Strategies strat1 = result.get().getValue().getKey();
+            Strategies strat2 = result.get().getValue().getValue();
+            
+            Facade game = new Game(name1, strat1, name2, strat2);
+            Window root = new Window(game);
+            
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        }
     }
 }

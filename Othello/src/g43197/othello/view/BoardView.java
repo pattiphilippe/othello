@@ -3,7 +3,6 @@ package g43197.othello.view;
 import g43197.othello.model.util.Color;
 import g43197.othello.model.util.Coordinates;
 import g43197.othello.model.Facade;
-import g43197.othello.model.AI;
 import g43197.othello.model.Piece;
 import g43197.othello.model.util.GameException;
 import g43197.othello.model.util.GameState;

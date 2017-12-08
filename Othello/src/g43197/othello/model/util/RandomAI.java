@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Philippe
  */
-public class StratRandom implements Strategy {
+public class RandomAI implements Strategy {
 
     @Override
     public void play(Facade game) {
