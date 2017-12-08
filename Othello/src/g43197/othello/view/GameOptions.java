@@ -11,6 +11,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -22,6 +23,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 
 /**
@@ -40,6 +42,8 @@ public class GameOptions extends Dialog<Pair<Pair<String, String>, Pair<Strategi
     public GameOptions() {
         super();
 
+        Stage stage = (Stage) (this.getDialogPane().getScene().getWindow());
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/g43197/othello/view/icon.png")));
         this.setTitle("Othello - Options");
 
         ButtonType validateButtonType = new ButtonType("Validate", ButtonData.OK_DONE);
@@ -102,11 +106,15 @@ public class GameOptions extends Dialog<Pair<Pair<String, String>, Pair<Strategi
         this.getDialogPane().setContent(grid);
 
         this.setResultConverter(dialogButton -> {
-            String name1 = name1Tfd.getText();
-            String name2 = name2Tfd.getText();
-            Strategies strat1 = Strategies.valueOf(strat1CB.getValue().toString());
-            Strategies strat2 = Strategies.valueOf(strat2CB.getValue().toString());
-            return new Pair<>(new Pair<>(name1, name2), new Pair<>(strat1, strat2));
+            if (dialogButton == validateButtonType) {
+                String name1 = name1Tfd.getText();
+                String name2 = name2Tfd.getText();
+                Strategies strat1 = Strategies.valueOf(strat1CB.getValue().toString());
+                Strategies strat2 = Strategies.valueOf(strat2CB.getValue().toString());
+                return new Pair<>(new Pair<>(name1, name2), new Pair<>(strat1, strat2));
+            } else {
+                return null;
+            }
         });
     }
 }

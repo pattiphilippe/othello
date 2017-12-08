@@ -80,24 +80,24 @@ class BoardView extends GridPane {
     void update(boolean fullUpdate) {
         updateAccessibles();
 
-        if (fullUpdate) {
-            updateFull();
-        } else {
-            Color prevPlayer = game.getPreviousPlayer().getColor();
-            int row, col;
-            if (switchedPos.size() == 1) {
-                row = switchedPos.get(0).getROW();
-                col = switchedPos.get(0).getCOL();
-                addPiece(row, col, Color.WALL);
-            } else if (switchedPos.size() > 0) {
-                row = switchedPos.get(0).getROW();
-                col = switchedPos.get(0).getCOL();
-                addPiece(row, col, prevPlayer);
-                switchedPos.stream().skip(1).forEach(pos
-                        -> getTileByRowCol(pos.getROW(), pos.getCOL()).switchColor()
-                );
-            }
+//        if (fullUpdate) {
+//            updateFull();
+//        } else {
+        Color prevPlayer = game.getPreviousPlayer().getColor();
+        int row, col;
+        if (switchedPos.size() == 1) {
+            row = switchedPos.get(0).getROW();
+            col = switchedPos.get(0).getCOL();
+            addPiece(row, col, Color.WALL);
+        } else if (switchedPos.size() > 0) {
+            row = switchedPos.get(0).getROW();
+            col = switchedPos.get(0).getCOL();
+            addPiece(row, col, prevPlayer);
+            switchedPos.stream().skip(1).forEach(pos
+                    -> getTileByRowCol(pos.getROW(), pos.getCOL()).switchColor()
+            );
         }
+//        }
     }
 
     ///////////////////////////Private//Methods//////////////////////////////

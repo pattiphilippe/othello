@@ -15,7 +15,7 @@ import javafx.scene.effect.DropShadow;
  */
 class HistoricView extends TableView {
 
-    private List<Move> moves;
+    private final List<Move> moves;
     private final ObservableList<MoveItem> moveItems;
     private final TableColumn<MoveItem, Integer> id;
     private final TableColumn<MoveItem, String> name;

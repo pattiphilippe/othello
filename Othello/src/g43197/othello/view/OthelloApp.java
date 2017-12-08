@@ -49,20 +49,20 @@ public class OthelloApp extends Application {
                 .getResourceAsStream("/g43197/othello/view/icon.png")));
         primaryStage.setMaxWidth(WIDTH);
         primaryStage.setMaxHeight(HEIGHT);
-        
+
         GameOptions gameOptions = new GameOptions();
         Optional<Pair<Pair<String, String>, Pair<Strategies, Strategies>>> result;
         result = gameOptions.showAndWait();
-        
+
         if (result.isPresent()) {
             String name1 = result.get().getKey().getKey();
             String name2 = result.get().getKey().getValue();
             Strategies strat1 = result.get().getValue().getKey();
             Strategies strat2 = result.get().getValue().getValue();
-            
+
             Facade game = new Game(name1, strat1, name2, strat2);
             Window root = new Window(game);
-            
+
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();

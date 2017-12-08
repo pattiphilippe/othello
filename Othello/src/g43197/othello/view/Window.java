@@ -70,7 +70,7 @@ class Window extends BorderPane implements Observer {
         finishedGame = new Alert(Alert.AlertType.INFORMATION);
         finishedGame.setTitle("Finished Game");
         finishedGame.setHeaderText("Congratulations!");
-        pause = new PauseTransition(new Duration(300));
+        pause = new PauseTransition(new Duration(1000));
         pause.setOnFinished(e -> game.iaPlay());
         if (game.isAi()) {
             pause.play();
@@ -82,9 +82,8 @@ class Window extends BorderPane implements Observer {
         historic.update();
         graphicHelps.update();
         players.update(game.getCurrentPlayer().getName(), game.getPlayers());
-        if (game.getState() != GameState.FINISHED) {
-            board.update(game.getState() == GameState.JUST_STARTED);
-        } else {
+        board.update(game.getState() == GameState.JUST_STARTED);
+        if (game.getState() == GameState.FINISHED) {
             Player winner = game.getWinner();
             finishedGame.setContentText("Player " + winner.getName()
                     + " won with " + winner.getScore() + " points.");
