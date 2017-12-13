@@ -6,6 +6,7 @@ import g43197.othello.model.util.Strategies;
 import java.util.Optional;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -58,6 +59,23 @@ public class OthelloApp extends Application {
         primaryStage.setMaxWidth(WIDTH);
         primaryStage.setMaxHeight(HEIGHT);
 
+        Alert editNewGame = new Alert(Alert.AlertType.WARNING);
+        editNewGame.setTitle("Editing new game");
+        editNewGame.setHeaderText("By validating the edits, "
+                + "you will launch a new game! "
+                + "All the info of your games will be lost!");
+
+        MenuOthello menu = new MenuOthello();
+        menu.getMenus().get(0).setOnAction(e -> {
+            editNewGame.showAndWait();
+            newGame(primaryStage, menu);
+        });
+
+        newGame(primaryStage, menu);
+
+    }
+
+    private void newGame(Stage primaryStage, MenuOthello menu) {
         GameOptions gameOptions = new GameOptions();
         Optional<Pair<Pair<String, Strategies>, Pair<String, Strategies>>> result;
         result = gameOptions.showAndWait();
@@ -69,7 +87,8 @@ public class OthelloApp extends Application {
             Strategies strat2 = result.get().getValue().getValue();
 
             Facade game = new Game(name1, strat1, name2, strat2);
-            Window root = new Window(game);
+
+            Window root = new Window(game, menu);
 
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);

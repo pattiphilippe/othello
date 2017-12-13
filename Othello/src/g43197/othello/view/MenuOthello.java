@@ -21,10 +21,10 @@ class MenuOthello extends MenuBar {
         //TODO faire plus d'options dans le menu : help,  change animation?
 
         menuFile = new Menu("_File");
-        
+
         edit = new MenuItem("E_dit");
         edit.setAccelerator(KeyCombination.valueOf("Ctrl+E"));
-        
+
         exit = new MenuItem("E_xit");
         exit.setAccelerator(KeyCombination.valueOf("Ctrl+X"));
         exit.setOnAction(event -> Platform.exit());

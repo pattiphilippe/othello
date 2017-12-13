@@ -61,8 +61,8 @@ class Board {
         }
         return BOARD[pos.getROW()][pos.getCOL()];
     }
-    
-    int getNbWalls(){
+
+    int getNbWalls() {
         return this.nbWalls;
     }
 

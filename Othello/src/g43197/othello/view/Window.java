@@ -20,8 +20,6 @@ import javafx.util.Duration;
 class Window extends BorderPane implements Observer {
 
     private final Facade game;
-    // Top
-    private final MenuOthello menu;
     // Left
     private final BoardView board;
     private final GraphicHelps graphicHelps;
@@ -33,14 +31,12 @@ class Window extends BorderPane implements Observer {
     private final Alert finishedGame;
     private final PauseTransition pause;
 
-    Window(Facade game) {
+    Window(Facade game, MenuOthello menu) {
         //this settings
         super();
         this.game = game;
         this.game.addObserver(this);
 
-        // Top
-        menu = new MenuOthello();
         this.setTop(menu);
 
         // Left side
