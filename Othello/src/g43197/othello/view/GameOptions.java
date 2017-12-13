@@ -10,6 +10,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyEvent;
@@ -38,6 +39,7 @@ class GameOptions extends Dialog<Pair<Pair<String, Strategies>, Pair<String, Str
     private final TextField name2Tfd;
     private final ChoiceBox strat1CB;
     private final ChoiceBox strat2CB;
+    private final RadioButton scoreView;
 
     /**
      * Creates a new Dialog Pane to get the options for the game.
@@ -61,6 +63,7 @@ class GameOptions extends Dialog<Pair<Pair<String, Strategies>, Pair<String, Str
         name2Tfd = new TextField();
         strat1CB = new ChoiceBox(FXCollections.observableArrayList(Strategies.values()));
         strat2CB = new ChoiceBox(FXCollections.observableArrayList(Strategies.values()));
+        scoreView = new RadioButton();
         addGridContent();
 
         this.setResultConverter(dialogButton -> {
@@ -100,6 +103,10 @@ class GameOptions extends Dialog<Pair<Pair<String, Strategies>, Pair<String, Str
         final Label player2 = new Label("Player 2");
         player2.setFont(new Font(15));
         grid.add(player2, 0, 4);
+
+        final Label scoreViewLbl = new Label("Score View : ");
+        scoreViewLbl.setFont(new Font(15));
+        grid.add(scoreViewLbl, 0, 5);
     }
 
     private void addGridContent() {
@@ -113,7 +120,7 @@ class GameOptions extends Dialog<Pair<Pair<String, Strategies>, Pair<String, Str
         grid.add(name1Tfd, 1, 3);
 
         name2Tfd.setPromptText("Name of player 2");
-        name2Tfd.setTooltip(new Tooltip("Name of the player who plays with black pieces."));
+        name2Tfd.setTooltip(new Tooltip("Name of the player who plays with white pieces."));
         name2Tfd.addEventHandler(KeyEvent.KEY_TYPED, e -> {
             if (name2Tfd.getText().length() >= 8) {
                 e.consume();
@@ -126,6 +133,8 @@ class GameOptions extends Dialog<Pair<Pair<String, Strategies>, Pair<String, Str
 
         strat2CB.getSelectionModel().select(1);
         grid.add(strat2CB, 2, 4);
+
+        grid.add(scoreView, 1, 5);
 
         grid.getChildren().forEach((child) -> GridPane.setMargin(child, new Insets(10)));
     }

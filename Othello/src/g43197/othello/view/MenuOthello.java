@@ -14,17 +14,22 @@ class MenuOthello extends MenuBar {
 
     private final Menu menuFile;
     private final MenuItem exit;
+    private final MenuItem edit;
 
     MenuOthello() {
         super();
         //TODO faire plus d'options dans le menu : help,  change animation?
 
         menuFile = new Menu("_File");
-        exit = new MenuItem("_Exit");
+        
+        edit = new MenuItem("E_dit");
+        edit.setAccelerator(KeyCombination.valueOf("Ctrl+E"));
+        
+        exit = new MenuItem("E_xit");
         exit.setAccelerator(KeyCombination.valueOf("Ctrl+X"));
         exit.setOnAction(event -> Platform.exit());
 
-        menuFile.getItems().add(exit);
+        menuFile.getItems().addAll(edit, exit);
         this.getMenus().add(menuFile);
     }
 }
