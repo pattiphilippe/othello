@@ -79,7 +79,8 @@ class Players implements Iterator<Player> {
 
     /**
      * Modifies the score of the current player of delta and of the other
-     * player.
+     * player, and add the number of switched pieces to the counter of the
+     * current player.
      *
      * @param delta the number of switched pieces
      */
@@ -91,6 +92,7 @@ class Players implements Iterator<Player> {
         } else {
             players.get(0).modifyScore(-delta);
         }
+        currentPlayer.addTakes(delta);
     }
 
     List<Player> getScores() {

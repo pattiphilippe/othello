@@ -22,6 +22,7 @@ public class Player implements Strategy {
     private String name;
     private int nbWalls;
     private Strategy strategy;
+    private int nbTakes;
 
     /**
      * Creates a new human player. This constructor is mainly there for retro
@@ -49,6 +50,7 @@ public class Player implements Strategy {
         this.COLOR = color;
         this.score = 2;
         this.nbWalls = 0;
+        this.nbTakes = 0;
         if (name.equals("")) {
             String firstLetter = COLOR.name().charAt(0) + "";
             String rest = COLOR.name().substring(1).toLowerCase(Locale.ENGLISH);
@@ -96,6 +98,9 @@ public class Player implements Strategy {
     public void init() {
         this.score = 2;
         this.nbWalls = 0;
+        //TODO ask what is start of game
+        //TODO corriger bug historique
+        this.nbTakes = 0;
     }
 
     /**
@@ -132,6 +137,16 @@ public class Player implements Strategy {
      */
     public int getNbWalls() {
         return nbWalls;
+    }
+
+    /**
+     * Returns the number of pieces that this player has switched since the
+     * start of the game.
+     *
+     * @return
+     */
+    public int getNbTakes() {
+        return nbTakes;
     }
 
     /**
@@ -186,5 +201,17 @@ public class Player implements Strategy {
      */
     boolean isAI() {
         return !(strategy instanceof Human);
+    }
+
+    /**
+     * Adds an amount of takes to the counter of this player.
+     *
+     * @param delta nb of takes to add
+     */
+    void addTakes(int delta) {
+        if (delta < 0) {
+            throw new IllegalArgumentException("Delta can't be negative!");
+        }
+        this.nbTakes += delta;
     }
 }

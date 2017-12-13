@@ -39,7 +39,7 @@ class PlayersView extends HBox {
         Color color;
         for (Player p : players) {
             color = toFxColor(p.getColor());
-            this.players.add(new PlayerView(p.getName(), p.getScore(), color, p.getNbWalls()));
+            this.players.add(new PlayerView(p.getName(), p.getScore(), color, p.getNbTakes()));
         }
         this.players.forEach(p -> setHgrow(p, Priority.ALWAYS));
 
@@ -86,7 +86,7 @@ class PlayersView extends HBox {
         Player p;
         for (int i = 0; i < players.size(); i++) {
             p = players.get(i);
-            this.players.get(i).update(p.getScore(), p.getNbWalls());
+            this.players.get(i).update(p.getScore(), p.getNbTakes());
         }
     }
 
