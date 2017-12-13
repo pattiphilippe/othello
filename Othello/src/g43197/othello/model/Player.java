@@ -94,7 +94,6 @@ public class Player implements Strategy {
      */
     public void init() {
         this.score = 2;
-        //TODO ask what is start of game
         //TODO corriger bug historique
         this.nbTakes = 0;
     }

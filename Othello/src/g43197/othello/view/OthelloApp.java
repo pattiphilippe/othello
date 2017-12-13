@@ -47,6 +47,10 @@ public class OthelloApp extends Application {
         launch(args);
     }
 
+    private Facade game;
+    private ScoreView scoreView;
+    private Window root;
+
     /**
      * Start method of the application.
      *
@@ -58,6 +62,10 @@ public class OthelloApp extends Application {
         primaryStage.getIcons().add(ICON);
         primaryStage.setMaxWidth(WIDTH);
         primaryStage.setMaxHeight(HEIGHT);
+
+        game = null;
+        scoreView = null;
+        root = null;
 
         Alert editNewGame = new Alert(Alert.AlertType.WARNING);
         editNewGame.setTitle("Editing new game");
@@ -77,18 +85,30 @@ public class OthelloApp extends Application {
 
     private void newGame(Stage primaryStage, MenuOthello menu) {
         GameOptions gameOptions = new GameOptions();
-        Optional<Pair<Pair<String, Strategies>, Pair<String, Strategies>>> result;
-        result = gameOptions.showAndWait();
+        Optional<Boolean> result = gameOptions.showAndWait();
 
         if (result.isPresent()) {
-            String name1 = result.get().getKey().getKey();
-            Strategies strat1 = result.get().getKey().getValue();
-            String name2 = result.get().getValue().getKey();
-            Strategies strat2 = result.get().getValue().getValue();
+            String name1 = gameOptions.getName1();
+            Strategies strat1 = gameOptions.getStrat1();
+            String name2 = gameOptions.getName2();
+            Strategies strat2 = gameOptions.getStrat2();
 
-            Facade game = new Game(name1, strat1, name2, strat2);
+            if (game != null) {
+                game.deleteObservers();
+            }
 
-            Window root = new Window(game, menu);
+            game = new Game(name1, strat1, name2, strat2);
+
+            root = new Window(game, menu);
+
+            if (gameOptions.scoreView()) {
+                if (scoreView != null) {
+                    scoreView.restart(game);
+                } else {
+                    scoreView = new ScoreView(game);
+                    scoreView.show();
+                }
+            } 
 
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);

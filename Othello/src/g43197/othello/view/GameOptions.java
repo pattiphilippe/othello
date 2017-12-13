@@ -32,7 +32,7 @@ import javafx.util.Pair;
  *
  * @author Philippe
  */
-class GameOptions extends Dialog<Pair<Pair<String, Strategies>, Pair<String, Strategies>>> {
+class GameOptions extends Dialog<Boolean> {
 
     private final GridPane grid;
     private final TextField name1Tfd;
@@ -68,11 +68,7 @@ class GameOptions extends Dialog<Pair<Pair<String, Strategies>, Pair<String, Str
 
         this.setResultConverter(dialogButton -> {
             if (dialogButton == playButton) {
-                String name1 = name1Tfd.getText();
-                String name2 = name2Tfd.getText();
-                Strategies strat1 = Strategies.valueOf(strat1CB.getValue().toString());
-                Strategies strat2 = Strategies.valueOf(strat2CB.getValue().toString());
-                return new Pair<>(new Pair<>(name1, strat1), new Pair<>(name2, strat2));
+                return true;
             } else {
                 return null;
             }
@@ -137,5 +133,25 @@ class GameOptions extends Dialog<Pair<Pair<String, Strategies>, Pair<String, Str
         grid.add(scoreView, 1, 5);
 
         grid.getChildren().forEach((child) -> GridPane.setMargin(child, new Insets(10)));
+    }
+
+    String getName1() {
+        return name1Tfd.getText();
+    }
+
+    String getName2() {
+        return name2Tfd.getText();
+    }
+
+    Strategies getStrat1() {
+        return Strategies.valueOf(strat1CB.getValue().toString());
+    }
+
+    Strategies getStrat2() {
+        return Strategies.valueOf(strat2CB.getValue().toString());
+    }
+
+    boolean scoreView() {
+        return scoreView.isSelected();
     }
 }

@@ -104,7 +104,6 @@ class Board {
             nbWalls++;
         } else {
             BOARD[pos.getROW()][pos.getCOL()] = null;
-            //TODO check update pour destroy un mur
             nbWalls--;
         }
         // check isInside ds getPiece()
