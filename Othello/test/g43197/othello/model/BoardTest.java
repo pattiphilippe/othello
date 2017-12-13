@@ -54,15 +54,15 @@ public class BoardTest {
         Board board = new Board(8);
 
         Coordinates pos = new Coordinates(2, 3);
-        board.putWall(pos);
+        board.wall(pos);
         assertEquals(Color.WALL, board.getPiece(pos).getColor());
 
         pos = new Coordinates(0, 0);
-        board.putWall(pos);
+        board.wall(pos);
         assertEquals(Color.WALL, board.getPiece(pos).getColor());
 
         pos = new Coordinates(7, 7);
-        board.putWall(pos);
+        board.wall(pos);
         assertEquals(Color.WALL, board.getPiece(pos).getColor());
     }
 
@@ -73,7 +73,7 @@ public class BoardTest {
     public void testPutWallNotNull() {
         Board board = new Board(8);
         Coordinates pos = new Coordinates(3, 3);
-        board.putWall(pos);
+        board.wall(pos);
     }
 
     /**
@@ -109,7 +109,7 @@ public class BoardTest {
     @Test(expected = GameException.class)
     public void testPutWallPosOutside() {
         Board board = new Board(8);
-        board.putWall(new Coordinates(-1, 0));
+        board.wall(new Coordinates(-1, 0));
     }
 
     /**
@@ -199,7 +199,7 @@ public class BoardTest {
     @Test
     public void testUpdateAccessiblesWall() {
         Board board = new Board(8);
-        board.putWall(new Coordinates(2, 3));
+        board.wall(new Coordinates(2, 3));
         List<Coordinates> accessibles = new LinkedList<>();
         board.updateAccessibles(accessibles, Color.BLACK);
         List<Coordinates> expResult = new LinkedList<>();

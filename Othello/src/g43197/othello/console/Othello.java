@@ -72,7 +72,7 @@ public class Othello {
                         }
                         break;
                     case WALL:
-                        game.putWall(Read.readPos(game.getMaxRowsCols()));
+                        game.wall(Read.readPos(game.getMaxRowsCols()));
                         break;
                     case PASS:
                         if (game.canPlay()) {

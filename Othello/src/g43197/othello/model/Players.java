@@ -95,6 +95,21 @@ class Players implements Iterator<Player> {
         currentPlayer.addTakes(delta);
     }
 
+    /**
+     * If put, adds a wall to the walls counter of the current player. Else,
+     * takes a wall back from the other player.
+     */
+    void wall(boolean put) {
+        if (put) {
+            currentPlayer.addWall();
+        } else {
+            int i = players.indexOf(currentPlayer) + 1;
+            i = i < players.size() ? i : 0;
+            players.get(i).destroyWall();
+            //TODO check method for a common method with modify score maybe
+        }
+    }
+
     List<Player> getScores() {
         return players;
     }

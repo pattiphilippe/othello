@@ -119,11 +119,11 @@ public abstract class Facade extends Observable {
     public abstract void putPiece(Coordinates pos);
 
     /**
-     * Puts a wall on the board.
+     * Puts a wall on the board, or destroys the wall if there was one in the given position.
      *
      * @param pos the given position
      */
-    public abstract void putWall(Coordinates pos);
+    public abstract void wall(Coordinates pos);
 
     /**
      * Pass the turn of the player, only if he can't play a turn.

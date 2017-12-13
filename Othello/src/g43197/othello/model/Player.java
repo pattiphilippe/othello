@@ -214,4 +214,14 @@ public class Player implements Strategy {
         }
         this.nbTakes += delta;
     }
+
+    /**
+     * Destroy a wall of the player.
+     */
+    void destroyWall() {
+        if (nbWalls == 0) {
+            throw new GameException("Number of walls shouldn't be negative!");
+        }
+        nbWalls--;
+    }
 }

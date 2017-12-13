@@ -84,18 +84,29 @@ class Board {
     }
 
     /**
-     * Puts a wall on the board.
+     * Puts a wall on the board, or destroys the current one in the given
+     * position.
      *
      * @param pos
+     * @return true if this method put a wall, false if it destroyed one
      */
-    void putWall(Coordinates pos) {
-        if (getPiece(pos) != null) {
-            throw new GameException("Position occupied!");
+    boolean wall(Coordinates pos) {
+        Piece previous = getPiece(pos);
+        boolean put;
+        if (previous != null && previous.getColor() != Color.WALL) {
+            throw new GameException("Position occupied by a piece!");
+        } else if (previous == null) {
+            BOARD[pos.getROW()][pos.getCOL()] = new Piece(Color.WALL);
+            put = true;
+        } else {
+            BOARD[pos.getROW()][pos.getCOL()] = null;
+            //TODO check update pour destroy un mur
+            put = false;
         }
         // check isInside ds getPiece()
         switchedPos.clear();
         switchedPos.add(pos);
-        BOARD[pos.getROW()][pos.getCOL()] = new Piece(Color.WALL);
+        return put;
     }
 
     /**

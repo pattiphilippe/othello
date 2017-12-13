@@ -16,7 +16,7 @@ public class RandomWallsAI implements Strategy {
             while (!put) {
                 pos = new Coordinates(random(8), random(8));
                 if (game.getPiece(pos) == null) {
-                    game.putWall(pos);
+                    game.wall(pos);
                     put = true;
                 }
             }

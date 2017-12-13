@@ -1,5 +1,6 @@
 package g43197.othello.model;
 
+import g43197.othello.model.util.Color;
 import g43197.othello.model.util.Coordinates;
 import g43197.othello.model.util.MoveAction;
 import g43197.othello.model.util.GameException;
@@ -144,12 +145,12 @@ public class Game extends Facade {
     }
 
     @Override
-    public void putWall(Coordinates pos) {
+    public void wall(Coordinates pos) {
         if (pos == null) {
             throw new IllegalArgumentException("Pos can't be null!");
         }
-        board.putWall(pos);
-        players.getCurrentPlayer().addWall();
+        boolean put = board.wall(pos);
+        players.wall(put);
         historic.add(players.getCurrentPlayer().getName(), MoveAction.WALL, pos, 0);
         setChanged();
         nextPlayer();

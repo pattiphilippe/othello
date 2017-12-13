@@ -183,13 +183,13 @@ public class GameTest {
     }
 
     /**
-     * Test of putWall method, of class Game.
+     * Test of wall method, of class Game.
      */
     @Test
     public void testPutWall() {
         Game game = new Game();
         Coordinates pos = new Coordinates(5, 5);
-        game.putWall(pos);
+        game.wall(pos);
         assertEquals(game.getPiece(pos).getColor(), Color.WALL);
     }
 }

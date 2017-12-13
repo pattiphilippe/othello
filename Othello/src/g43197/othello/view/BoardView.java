@@ -151,7 +151,7 @@ class BoardView extends GridPane {
                             game.putPiece(new Coordinates(row, col));
                             break;
                         case SECONDARY:
-                            game.putWall(new Coordinates(row, col));
+                            game.wall(new Coordinates(row, col));
                             break;
                         default:
                             event.consume();
