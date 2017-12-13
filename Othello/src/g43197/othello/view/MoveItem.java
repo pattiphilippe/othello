@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author Philippe
  */
-class MoveItem {
+public class MoveItem {
 
     private SimpleIntegerProperty id;
     private SimpleStringProperty name;
@@ -16,7 +16,7 @@ class MoveItem {
     private SimpleStringProperty pos;
     private SimpleIntegerProperty nbTakes;
 
-    MoveItem() {
+    public MoveItem() {
         this.id = new SimpleIntegerProperty();
         this.name = new SimpleStringProperty();
         this.action = new SimpleStringProperty();
@@ -24,7 +24,7 @@ class MoveItem {
         this.nbTakes = new SimpleIntegerProperty();
     }
 
-    MoveItem(Move move) {
+    public MoveItem(Move move) {
         if (move == null) {
             throw new IllegalArgumentException("Move can't be null!");
         }
@@ -35,67 +35,142 @@ class MoveItem {
         this.nbTakes = new SimpleIntegerProperty(move.getNbTakes());
     }
 
-    int getId() {
+    /**
+     * Returns the id property value.
+     *
+     * @return
+     */
+    public int getId() {
         return id.get();
     }
 
-    void setId(int id) {
+    /**
+     * Sets the id property value.
+     *
+     * @param id
+     */
+    public void setId(int id) {
         this.id.set(id);
     }
 
-    SimpleIntegerProperty idProperty() {
+    /**
+     * Return the id property.
+     *
+     * @return
+     */
+    public SimpleIntegerProperty idProperty() {
         return id;
     }
 
-    String getName() {
+    /**
+     * Returns the name property value.
+     *
+     * @return
+     */
+    public String getName() {
         return name.get();
     }
 
-    void setName(String name) {
+    /**
+     * Sets the name property value.
+     *
+     * @param name
+     */
+    public void setName(String name) {
         this.name.set(name);
     }
 
-    SimpleStringProperty nameProperty() {
+    /**
+     * Return the name property.
+     *
+     * @return
+     */
+    public SimpleStringProperty nameProperty() {
         return name;
     }
 
-    String getAction() {
+    /**
+     * Returns the action property value.
+     *
+     * @return
+     */
+    public String getAction() {
         return action.get();
     }
 
-    void setAction(String action) {
+    /**
+     * Sets the action property value.
+     *
+     * @param action
+     */
+    public void setAction(String action) {
         this.action.set(action);
     }
 
-    SimpleStringProperty actionProperty() {
+    /**
+     * Return the action property.
+     *
+     * @return
+     */
+    public SimpleStringProperty actionProperty() {
         return action;
     }
 
-    String getPos() {
+    /**
+     * Returns the pos property value.
+     *
+     * @return
+     */
+    public String getPos() {
         return pos.get();
     }
 
-    void setPos(String pos) {
+    /**
+     * Sets the pos property value.
+     *
+     * @param pos
+     */
+    public void setPos(String pos) {
         this.pos.set(pos);
     }
 
-    SimpleStringProperty posProperty() {
+    /**
+     * Return the pos property.
+     *
+     * @return
+     */
+    public SimpleStringProperty posProperty() {
         return pos;
     }
 
-    int getNbTakes() {
+    /**
+     * Returns the nbTakes property value.
+     *
+     * @return
+     */
+    public int getNbTakes() {
         return nbTakes.get();
     }
 
-    void setNbTakes(int nbTakes) {
+    /**
+     * Sets the nbTakes property value.
+     *
+     * @param nbTakes
+     */
+    public void setNbTakes(int nbTakes) {
         this.nbTakes.set(nbTakes);
     }
 
-    SimpleIntegerProperty nbTakesProperty() {
+    /**
+     * Return the nbTakes property.
+     *
+     * @return
+     */
+    public SimpleIntegerProperty nbTakesProperty() {
         return nbTakes;
     }
 
-    void setAll(Move move) {
+    public void setAll(Move move) {
         setId(move.getId());
         setName(move.getName());
         setAction(move.getActionDescr());

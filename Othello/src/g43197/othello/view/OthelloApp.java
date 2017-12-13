@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 /**
  * This class is the actual javaFX window for the game.
@@ -108,7 +107,7 @@ public class OthelloApp extends Application {
                     scoreView = new ScoreView(game);
                     scoreView.show();
                 }
-            } 
+            }
 
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
