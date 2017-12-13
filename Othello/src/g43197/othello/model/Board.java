@@ -21,6 +21,7 @@ class Board {
     private final int maxRowsCols;
     private final Piece[][] BOARD;
     private final List<Coordinates> switchedPos;
+    private int nbWalls;
 
     /**
      * Creates a new board with Max_rows_cols rows and Max_rows_cols columns.
@@ -35,6 +36,7 @@ class Board {
             throw new GameException("Amount of rows and columns has to be greater or equal to 4!");
         }
         switchedPos = new ArrayList<>();
+        nbWalls = 0;
 
         BOARD = new Piece[maxRowsCols][maxRowsCols];
         initBoardCenter();
@@ -58,6 +60,10 @@ class Board {
             throw new GameException("Pos is outside the board");
         }
         return BOARD[pos.getROW()][pos.getCOL()];
+    }
+    
+    int getNbWalls(){
+        return this.nbWalls;
     }
 
     /**
@@ -85,28 +91,25 @@ class Board {
 
     /**
      * Puts a wall on the board, or destroys the current one in the given
-     * position.
+     * position. Also update the walls counter.
      *
      * @param pos
-     * @return true if this method put a wall, false if it destroyed one
      */
-    boolean wall(Coordinates pos) {
+    void wall(Coordinates pos) {
         Piece previous = getPiece(pos);
-        boolean put;
         if (previous != null && previous.getColor() != Color.WALL) {
             throw new GameException("Position occupied by a piece!");
         } else if (previous == null) {
             BOARD[pos.getROW()][pos.getCOL()] = new Piece(Color.WALL);
-            put = true;
+            nbWalls++;
         } else {
             BOARD[pos.getROW()][pos.getCOL()] = null;
             //TODO check update pour destroy un mur
-            put = false;
+            nbWalls--;
         }
         // check isInside ds getPiece()
         switchedPos.clear();
         switchedPos.add(pos);
-        return put;
     }
 
     /**

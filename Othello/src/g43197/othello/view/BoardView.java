@@ -53,7 +53,7 @@ class BoardView extends GridPane {
                 this.add(tile, col, row);
 
                 if (game.getPiece(pos) != null) {
-                    addPiece(row, col, game.getPiece(pos).getColor());
+                    addPiece(row, col, game.getPiece(pos).getColor(), true);
                 }
             }
         }
@@ -86,23 +86,22 @@ class BoardView extends GridPane {
             Color prevPlayer = game.getPreviousPlayer().getColor();
             int row, col;
             if (switchedPos.size() == 1) {
-                row = switchedPos.get(0).getROW();
-                col = switchedPos.get(0).getCOL();
-                addPiece(row, col, Color.WALL);
+                Coordinates pos = switchedPos.get(0);
+                boolean putWall = !(game.getPiece(pos) == null);
+                addPiece(pos.getROW(), pos.getCOL(), Color.WALL, putWall);
             } else if (switchedPos.size() > 0) {
                 row = switchedPos.get(0).getROW();
                 col = switchedPos.get(0).getCOL();
-                addPiece(row, col, prevPlayer);
+                addPiece(row, col, prevPlayer, false);
                 switchedPos.stream().skip(1).forEach(pos
-                        -> getTileByRowCol(pos.getROW(), pos.getCOL()).switchColor()
-                );
+                        -> getTileByRowCol(pos.getROW(), pos.getCOL()).switchColor());
             }
         }
     }
 
     ///////////////////////////Private//Methods//////////////////////////////
-    private void addPiece(int row, int col, Color color) {
-        getTileByRowCol(row, col).addPiece(color);
+    private void addPiece(int row, int col, Color color, boolean putWall) {
+        getTileByRowCol(row, col).addPiece(color, putWall);
     }
 
     private void updateAccessibles() {
@@ -122,7 +121,7 @@ class BoardView extends GridPane {
                 tile.init();
                 piece = game.getPiece(new Coordinates(row, col));
                 if (piece != null) {
-                    tile.addPiece(piece.getColor());
+                    tile.addPiece(piece.getColor(), true);
                 }
             }
         }

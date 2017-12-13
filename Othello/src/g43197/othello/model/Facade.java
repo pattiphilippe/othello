@@ -96,6 +96,13 @@ public abstract class Facade extends Observable {
     public abstract int getMaxRowsCols();
 
     /**
+     * Returns the number of walls on the board.
+     *
+     * @return
+     */
+    public abstract int getNbWalls();
+
+    /**
      * Returns a list of the positions that switched colors. The first position
      * is the position were the piece was put. If the list has only one element,
      * it is the position of a wall just put.
@@ -119,7 +126,8 @@ public abstract class Facade extends Observable {
     public abstract void putPiece(Coordinates pos);
 
     /**
-     * Puts a wall on the board, or destroys the wall if there was one in the given position.
+     * Puts a wall on the board, or destroys the wall if there was one in the
+     * given position.
      *
      * @param pos the given position
      */

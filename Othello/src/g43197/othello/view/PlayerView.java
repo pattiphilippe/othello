@@ -24,7 +24,6 @@ class PlayerView extends GridPane {
     private final StackPane piece;
     private final Color color;
     private final Label score;
-//    private final Label nbWalls;
     private final Label nbTakes;
 
     /**
@@ -60,10 +59,6 @@ class PlayerView extends GridPane {
         scoreLbl.setTextFill(Color.BLUE);
         this.add(scoreLbl, 2, 0);
 
-//        Label nbWallsLbl = new Label("Walls");
-//        nbWallsLbl.setFont(Font.font(15));
-//        nbWallsLbl.setTextFill(Color.BLUE);
-//        this.add(nbWallsLbl, 3, 0);
         Label nbTakesLbl = new Label("Takes");
         nbTakesLbl.setFont(Font.font(15));
         nbTakesLbl.setTextFill(Color.BLUE);
@@ -81,8 +76,6 @@ class PlayerView extends GridPane {
 
         this.score = new Label(score + "");
         this.add(this.score, 2, 1);
-        //        this.nbWalls = new Label(nbWalls + "");
-        //        this.add(this.nbWalls, 3, 1);
 
         this.nbTakes = new Label(nbTakes + "");
         this.add(this.nbTakes, 3, 1);
@@ -108,7 +101,6 @@ class PlayerView extends GridPane {
      */
     void update(int score, int nbTakes) {
         this.score.setText(score + "");
-//        this.nbWalls.setText(nbWalls + "");
         this.nbTakes.setText(nbTakes + "");
     }
 }

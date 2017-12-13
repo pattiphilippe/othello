@@ -86,10 +86,10 @@ class TileView extends StackPane {
      *
      * @param color
      */
-    void addPiece(g43197.othello.model.util.Color color) {
+    void addPiece(g43197.othello.model.util.Color color, boolean putWall) {
         switch (color) {
             case WALL:
-                addWall();
+                wall(putWall);
                 break;
             default:
                 piece.setVisible(true);
@@ -103,6 +103,7 @@ class TileView extends StackPane {
      *
      */
     void switchColor() {
+        //TODO check to delete this error
         if (wall.isVisible() == true) {
             throw new RuntimeException("Can't switch walls color!");
         }
@@ -145,8 +146,8 @@ class TileView extends StackPane {
         }
     }
 
-    private void addWall() {
+    private void wall(boolean put) {
         piece.setVisible(false);
-        wall.setVisible(true);
+        wall.setVisible(put);
     }
 }

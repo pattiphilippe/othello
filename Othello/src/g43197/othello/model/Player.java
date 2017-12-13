@@ -20,7 +20,6 @@ public class Player implements Strategy {
     private final Color COLOR;
     private int score;
     private String name;
-    private int nbWalls;
     private Strategy strategy;
     private int nbTakes;
 
@@ -49,7 +48,6 @@ public class Player implements Strategy {
 
         this.COLOR = color;
         this.score = 2;
-        this.nbWalls = 0;
         this.nbTakes = 0;
         if (name.equals("")) {
             String firstLetter = COLOR.name().charAt(0) + "";
@@ -89,7 +87,6 @@ public class Player implements Strategy {
         this.COLOR = player.COLOR;
         this.name = player.name;
         this.score = player.score;
-        this.nbWalls = player.nbWalls;
     }
 
     /**
@@ -97,7 +94,6 @@ public class Player implements Strategy {
      */
     public void init() {
         this.score = 2;
-        this.nbWalls = 0;
         //TODO ask what is start of game
         //TODO corriger bug historique
         this.nbTakes = 0;
@@ -131,15 +127,6 @@ public class Player implements Strategy {
     }
 
     /**
-     * Returns the number of walls put by this player.
-     *
-     * @return
-     */
-    public int getNbWalls() {
-        return nbWalls;
-    }
-
-    /**
      * Returns the number of pieces that this player has switched since the
      * start of the game.
      *
@@ -160,13 +147,6 @@ public class Player implements Strategy {
                     + " the score is negative!");
         }
         score += delta;
-    }
-
-    /**
-     * Adds a wall to the counter of walls of this player.
-     */
-    void addWall() {
-        nbWalls++;
     }
 
     @Override
@@ -213,15 +193,5 @@ public class Player implements Strategy {
             throw new IllegalArgumentException("Delta can't be negative!");
         }
         this.nbTakes += delta;
-    }
-
-    /**
-     * Destroy a wall of the player.
-     */
-    void destroyWall() {
-        if (nbWalls == 0) {
-            throw new GameException("Number of walls shouldn't be negative!");
-        }
-        nbWalls--;
     }
 }

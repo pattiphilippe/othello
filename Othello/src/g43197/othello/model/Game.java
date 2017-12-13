@@ -114,6 +114,11 @@ public class Game extends Facade {
     }
 
     @Override
+    public int getNbWalls() {
+        return board.getNbWalls();
+    }
+
+    @Override
     public List<Coordinates> getAccessibles() {
         return accessibles.stream()
                 .map(pos -> new Coordinates(pos))
@@ -149,8 +154,7 @@ public class Game extends Facade {
         if (pos == null) {
             throw new IllegalArgumentException("Pos can't be null!");
         }
-        boolean put = board.wall(pos);
-        players.wall(put);
+        board.wall(pos);
         historic.add(players.getCurrentPlayer().getName(), MoveAction.WALL, pos, 0);
         setChanged();
         nextPlayer();
